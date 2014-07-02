@@ -1,0 +1,52 @@
+@charset "utf-8";
+
+#reg-col{
+	margin-top:10%;
+	margin-left:33%;}
+
+.reg-auth{
+    width:420px;
+	border-radius:3px;
+	
+	-webkit-box-shadow: 0px 0px 6px #39F,
+    0 0 0px #39F,
+    0 0 0px #39F;
+
+    -moz-box-shadow: 0px 0px 6px #39F,
+    0 0 0px #39F,
+    0 0 0px #39F;
+ 
+    box-shadow: 0px 0px 6px #39F,
+    0 0 0px #39F,
+    0 0 0px #39F;}
+}
+
+ .reg-form-body{
+ 	padding-left: 20px;
+ }
+
+.form-group{
+	padding:10px;
+	padding-left: 60px;
+}
+
+.form-group #reg-button{
+	margin-left: 120px;
+}
+
+.reg-head{
+	margin:0;
+	border-radius:3px;
+	border-bottom-left-radius:0;
+	border-bottom-right-radius:0;
+	background:#E7E7E7;
+	height:40px;}
+
+.reg-head h1{
+	margin: 0;
+	text-align: center;
+	padding:10px;
+	color:#000;
+	font-size: 22px;
+}
+
