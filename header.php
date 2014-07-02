@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
     
     <link rel="stylesheet" href="hubstyle.css">
+    <link rel="stylesheet" href="signcss.css">
 
 	
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -25,10 +26,10 @@
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
   
-    <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-link"></span>ACGHub</a>
+    <a class="navbar-brand" href="index.php"><span class="glyphicon glyphicon-link"></span>ACGHub</a>
     <form class="navbar-form navbar-left" >
-        <a href="login.php"><button type="button" class="btn btn-default" >注册</button></a>
-        <a href="sign.php"><button type="button" class="btn btn-default">登录</button></a>
+        <a href="login.php"><button type="button" class="btn btn-default" >登录</button></a>
+        <a href="reg.php"><button type="button" class="btn btn-default">注册</button></a>
     </form>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
     <ul class="nav navbar-nav" id="head_left">
