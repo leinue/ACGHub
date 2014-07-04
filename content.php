@@ -6,7 +6,7 @@
 			<a href="/">从这里更好的发布你的创意</a>
 		</h1>
 		<h2 class="blog-desc">
-			<a href="/">ԅ(¯ㅂ¯ԅ) 剧本 分镜 设定 代码 配音<span class="glyphicon glyphicon-send"</span></a>
+			<a href="/">ԅ(¯ㅂ¯ԅ) 剧本 分镜 设定 代码 配音<span class="glyphicon glyphicon-send"></span></a>
 		</h2>
         
 		</div>

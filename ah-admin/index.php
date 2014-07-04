@@ -40,7 +40,7 @@ if($_SESSION['admin-login-id']!=1){
   <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">密码</label>
     <div class="col-sm-10">
-      <input type="password" name="password" class="form-control" id="inputPassword3" placeholder="Password">
+      <input type="password" name="password" maxlength="16"  class="form-control" id="inputPassword3" placeholder="Password">
     </div>
   </div>
   <div class="form-group">

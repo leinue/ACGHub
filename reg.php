@@ -1,4 +1,9 @@
-<?php include('header.php'); ?>
+<?php 
+error_reporting(E_ALL ^ E_NOTICE);
+include('header.php');
+session_start();
+if($_SESSION['user-login-id']!=1){
+?>
 
 <div class="row">
 
@@ -46,5 +51,12 @@
 
 </div>
 </div>
+
+<?php
+}
+else{
+  header("location:index.php");
+}
+?>
 
 <?php include('footer.php'); ?>

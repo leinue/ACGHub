@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL ^ E_WARNING);
 if (!defined('ROOT_DIR')) {
     header("Location:index.php");
 }

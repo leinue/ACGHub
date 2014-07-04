@@ -1,3 +1,6 @@
+<?php 
+error_reporting(E_ALL ^ E_NOTICE);
+?>
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
@@ -30,11 +33,32 @@
   <div class="container">
   
     <a class="navbar-brand" href="index.php"><span class="glyphicon glyphicon-link"></span>ACGHub</a>
-    <form class="navbar-form navbar-left" >
+
+    <?php 
+     //error_reporting(E_ALL ^ E_NOTICE);
+     session_start();
+     if($_SESSION['user-login-id']!=1){
+    ?>
+    <form class="navbar-form navbar-left">
         <a href="login.php"><button type="button" class="btn btn-default" >登录</button></a>
         <a href="reg.php"><button type="button" class="btn btn-default">注册</button></a>
     </form>
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
+
+    <?php
+    }
+    else{
+    ?>
+    <ul class="nav navbar-nav navbar-left" >
+        <li class="logout"><a href="checkout.php"><span class="glyphicon glyphicon-log-out"></span></a></li>
+        <li class="setting"><a href="setting.php"><span class="glyphicon glyphicon-cog"></span></a></li>
+        <li class="create"><a href="create.php"><span class="glyphicon glyphicon-plus"></span></a></li>
+        <li class="user"><a href="user.php"><span class="glyphicon glyphicon-user"> <?php echo $_SESSION['user-account']; ?></span></a></li>
+    </ul>
+    <?php
+    }
+    ?>
+
+   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
     <ul class="nav navbar-nav" id="head_left">
         <li><a href="index.php">Home</a></li>
         <li><a href="works.php">Works</a></li>
