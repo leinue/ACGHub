@@ -1,3 +1,8 @@
+<?php
+if (!defined('ROOT_DIR')) {
+    header("Location:index.php");
+}
+?>
 <footer>
 
 <div class="row" >
