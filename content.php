@@ -1,3 +1,6 @@
+<?php 
+     if($_SESSION['user-login-id']!=1){
+?>
 <main>
 	<div class="row">
 		<div class="col-lg-8 col-lg-push-2">
@@ -43,3 +46,53 @@
     </div>
 
 </main>
+    <?php
+    }
+    else{
+    ?>
+<main>
+<div class="user-per">
+
+<div class="trends">
+
+<ul class="list-group">
+  <li class="list-group-item">Cras justo odio</li>
+  <li class="list-group-item">Dapibus ac facilisis in</li>
+  <li class="list-group-item">Morbi leo risus</li>
+  <li class="list-group-item">Porta ac consectetur ac</li>
+  <li class="list-group-item">Vestibulum at eros</li>
+  <li class="list-group-item">Cras justo odio</li>
+  <li class="list-group-item">Dapibus ac facilisis in</li>
+  <li class="list-group-item">Morbi leo risus</li>
+  <li class="list-group-item">Porta ac consectetur ac</li>
+  <li class="list-group-item">Vestibulum at eros</li>
+  <li class="list-group-item">Cras justo odio</li>
+  <li class="list-group-item">Dapibus ac facilisis in</li>
+  <li class="list-group-item">Morbi leo risus</li>
+  <li class="list-group-item">Porta ac consectetur ac</li>
+  <li class="list-group-item">Vestibulum at eros</li>  
+</ul>
+
+</div>
+
+<div class="res-right">
+
+<div class="panel panel-default">
+  <div class="panel-heading">你的目录</div>
+  <div class="panel-body">
+    <ul class="nav nav-tabs" role="tablist">
+     <li class="active"><a href="#">全部</a></li>
+     <li><a href="#">公共</a></li>
+     <li><a href="#">私有</a></li>
+     <li><a href="#">关注</a></li>
+    </ul>
+  </div>
+</div>
+
+</div>
+
+</div>
+</main>
+    <?php
+    }
+    ?>
