@@ -1,3 +1,9 @@
+<?php
+session_start();
+if($_SESSION['admin-login-id']==1){
+
+?>
+
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
@@ -22,6 +28,7 @@
 </head>
   
 <body>
+
 <header>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -29,7 +36,7 @@
     <a class="navbar-brand" href="index.php"><span class="glyphicon glyphicon-link"></span>ACGHub-管理中心</a>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
     <ul class="nav navbar-nav navbar-left" >
-        <li><a href="login.php">退出登录</a></li>
+        <li class="logout"><a href="logout.php">退出登录</a></li>
     </ul>
     <ul class="nav navbar-nav" id="head_left">
         <li><a href="res.php">资源管理</a></li>
@@ -40,3 +47,11 @@
   </div>
 </nav>
 </header>
+
+<?php
+}
+else{
+    header("Location:index.php");
+    exit;
+}
+?>
