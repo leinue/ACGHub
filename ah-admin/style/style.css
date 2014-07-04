@@ -34,3 +34,7 @@
 #speace{
 	margin-right: 10px;
 }
+
+#user-op a{
+	text-decoration: none;
+}
