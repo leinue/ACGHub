@@ -1,0 +1,36 @@
+#user-body{
+
+}
+
+.user-content{
+    margin: 0px auto;
+    width: 980px;
+    text-align: left;
+    
+	margin-top:60px;
+	margin-left:15%;
+
+}
+
+.user-content-main{
+	
+}
+
+#panel-search-right{
+	float: right
+}
+
+#panel-col-left{
+	float: left;
+	padding-top: 10px;
+	padding-left: 1px;
+	font-size: 16px;
+}
+
+.operation-inline{
+	display: inline;
+}
+
+#speace{
+	margin-right: 10px;
+}
