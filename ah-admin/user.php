@@ -22,6 +22,7 @@
          <select class="form-control input-sm">
               <option value="operate">批量操作</option>
               <option value="delete">删除</option>
+              <option value="forbidden">禁言</option>
          </select>
          <button type="button" class="btn btn-default btn-sm" id="speace">应用</button>
 
@@ -114,6 +115,7 @@
          <select class="form-control input-sm">
               <option value="operate">批量操作</option>
               <option value="delete">删除</option>
+              <option value="forbidden">禁言</option>
          </select>
          <button type="button" class="btn btn-default btn-sm" id="speace">应用</button>
          </div>
