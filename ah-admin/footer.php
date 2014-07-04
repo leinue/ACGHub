@@ -7,7 +7,7 @@
 <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
   <div class="container">
     <p class="navbar-text">
-    © 2014 <a href="index.php">ACGHub</a>, Inc. ivydom</p>
+    © 2014 <a href="../index.php">ACGHub</a>, Inc. ivydom</p>
   </div>
 </nav>
 
