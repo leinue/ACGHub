@@ -159,10 +159,6 @@
 
   </div>
 
-  <script>
-  
-  </script>
-
 </div>
 
 </div>

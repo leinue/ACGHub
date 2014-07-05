@@ -49,10 +49,10 @@ error_reporting(E_ALL ^ E_NOTICE);
     else{
     ?>
     <ul class="nav navbar-nav navbar-left" >
-        <li class="logout"><a href="checkout.php"><span class="glyphicon glyphicon-log-out"></span></a></li>
-        <li class="setting"><a href="setting.php"><span class="glyphicon glyphicon-cog"></span></a></li>
-        <li class="create"><a href="create.php"><span class="glyphicon glyphicon-plus"></span></a></li>
-        <li class="user"><a href="user.php"><span class="glyphicon glyphicon-user"> <?php echo $_SESSION['user-account']; ?></span></a></li>
+        <li class="logout"><a href="checkout.php" title="退出"><span class="glyphicon glyphicon-log-out"></span></a></li>
+        <li class="setting"><a href="setting.php" title="设置"><span class="glyphicon glyphicon-cog"></span></a></li>
+        <li class="create"><a href="create.php" title="新建资源"><span class="glyphicon glyphicon-plus"></span></a></li>
+        <li class="user"><a href="user.php" title="个人面板"><span class="glyphicon glyphicon-user"> <?php echo $_SESSION['user-account']; ?></span></a></li>
     </ul>
     <?php
     }
