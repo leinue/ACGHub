@@ -63,66 +63,245 @@
   <div class="tab-pane fade active in" id="all">
 
   <div class="panel-act">
-  <div class="list-group">
-  <a href="#" class="list-group-item disabled">
-    Cras justo odio
-  </a>
-  <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-  <a href="#" class="list-group-item">Morbi leo risus</a>
-  <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-  <a href="#" class="list-group-item">Vestibulum at eros</a>
-  </div>
+
+  <div class="panel-header">
+   <div class="input-group-left">
+    <div class="input-group">
+      <input type="text" class="form-control">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">搜索</button>
+      </span>
+    </div><!-- /input-group -->
+
+    <div class="res-split-col"></div>
+   </div>
+
+   <div class="input-group-right">
+       <button type="button" class="btn btn-default">创建</button>
+   </div>
+   </div>
+
+    <br>
+     
+     <div class="panel-body">
+
+     <div class="panel-body-item">
+
+     <div class="panel-body-title">
+     <h2><span class="glyphicon glyphicon-list-alt"></span> hhh</h2>
+     </div>
+
+     <div class="panel-body-content">
+     <h4>hhhhhhhhhh Project</h4>
+     </div>
+
+     <div class="panel-body-content">
+     <span class="help-block">最后一次更新:20分钟前</span> 
+     </div>
+
+     </div>
+
+     <div class="panel-body-item">
+
+     <div class="panel-body-title">
+     <h2><span class="glyphicon glyphicon-list-alt"></span> hhh</h2>
+     </div>
+
+     <div class="panel-body-content">
+     <h4>hhhhhhhhhh Project</h4>
+     </div>
+
+     <div class="panel-body-content">
+     <span class="help-block">最后一次更新:20分钟前</span> 
+     </div>
+
+     </div>
+
+     </div>
+
   </div>
 
   </div>
 
   <div class="tab-pane fade" id="public">
-
   <div class="panel-act">
-  <div class="list-group">
-  <a href="#" class="list-group-item">
-    Cras justo odio
-  </a>
-  <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-  <a href="#" class="list-group-item">Morbi leo risus</a>
-  <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-  <a href="#" class="list-group-item">Vestibulum at eros</a>
-  </div>
-  </div>
+     <div class="panel-body">
+
+     <div class="panel-body-item">
+
+     <div class="panel-body-title">
+     <h2><span class="glyphicon glyphicon-list-alt"></span> hhh</h2>
+     </div>
+
+     <div class="panel-body-content">
+     <h4>hhhhhhhhhh Project</h4>
+     </div>
+
+     <div class="panel-body-content">
+     <span class="help-block">最后一次更新:20分钟前</span> 
+     </div>
+
+     </div>
+
+     <div class="panel-body-item">
+
+     <div class="panel-body-title">
+     <h2><span class="glyphicon glyphicon-list-alt"></span> hhh</h2>
+     </div>
+
+     <div class="panel-body-content">
+     <h4>hhhhhhhhhh Project</h4>
+     </div>
+
+     <div class="panel-body-content">
+     <span class="help-block">最后一次更新:20分钟前</span> 
+     </div>
+
+     </div>
+
+     </div>
+
+    </div>
 
   </div>
 
   <div class="tab-pane fade" id="private">
   <div class="panel-act">
-  <div class="list-group">
-  <a href="#" class="list-group-item">
-    Cras justo odio
-  </a>
-  <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-  <a href="#" class="list-group-item">Morbi leo risus</a>
-  <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-  <a href="#" class="list-group-item">Vestibulum at eros</a>
-  </div>
+     <div class="panel-body">
+
+     <div class="panel-body-item">
+
+     <div class="panel-body-title">
+     <h2><span class="glyphicon glyphicon-list-alt"></span> hhh</h2>
+     </div>
+
+     <div class="panel-body-content">
+     <h4>hhhhhhhhhh Project</h4>
+     </div>
+
+     <div class="panel-body-content">
+     <span class="help-block">最后一次更新:20分钟前</span> 
+     </div>
+
+     </div>
+
+     <div class="panel-body-item">
+
+     <div class="panel-body-title">
+     <h2><span class="glyphicon glyphicon-list-alt"></span> hhh</h2>
+     </div>
+
+     <div class="panel-body-content">
+     <h4>hhhhhhhhhh Project</h4>
+     </div>
+
+     <div class="panel-body-content">
+     <span class="help-block">最后一次更新:20分钟前</span> 
+     </div>
+
+     </div>
+
+     </div>
   </div>
   </div>
 
   <div class="tab-pane fade" id="fork">
 
   <div class="panel-act">
-  <div class="list-group">
-  <a href="#" class="list-group-item">
-    Cras justo odio
-  </a>
-  <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-  <a href="#" class="list-group-item">Morbi leo risus</a>
-  <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-  <a href="#" class="list-group-item">Vestibulum at eros</a>
-  </div>
+     <div class="panel-body">
+
+     <div class="panel-body-item">
+
+     <div class="panel-body-title">
+     <h2><span class="glyphicon glyphicon-list-alt"></span> hhh</h2>
+     </div>
+
+     <div class="panel-body-content">
+     <h4>hhhhhhhhhh Project</h4>
+     </div>
+
+     <div class="panel-body-content">
+     <span class="help-block">最后一次更新:20分钟前</span> 
+     </div>
+
+     </div>
+
+     <div class="panel-body-item">
+
+     <div class="panel-body-title">
+     <h2><span class="glyphicon glyphicon-list-alt"></span> hhh</h2>
+     </div>
+
+     <div class="panel-body-content">
+     <h4>hhhhhhhhhh Project</h4>
+     </div>
+
+     <div class="panel-body-content">
+     <span class="help-block">最后一次更新:20分钟前</span> 
+     </div>
+
+     </div>
+
+     </div>
   </div>
 
   </div>
 
   <div class="tab-pane fade" id="activity">
+
+  <div class="act-item">
+  <div class="row">
+  <div class="col-md-6">
+    <div class="act-item-left">
+  <h2><span class="glyphicon glyphicon-refresh"></span></h2>
+  </div>
+
+  <div class="act-item-right">
+
+  <div class="act-time">
+  <span class="help-block">最后一次更新:20分钟前</span> 
+  </div>
+
+  <div class="act-item-title">
+  <p><a href="#">leinue</a> pushed to <a href="#">leinue/ACGHub</a></p>
+  </div>
+
+  <div class="act-item-detail">
+  <p>增加前台资源管理面板及相关CSS/JS </p>
+  </div>
+
+  </div>
+</div>
+</div>
+
+  </div>
+
+    <div class="act-item">
+  <div class="row">
+  <div class="col-md-6">
+    <div class="act-item-left">
+  <h2><span class="glyphicon glyphicon-refresh"></span></h2>
+  </div>
+
+  <div class="act-item-right">
+
+  <div class="act-time">
+  <span class="help-block">最后一次更新:20分钟前</span> 
+  </div>
+
+  <div class="act-item-title">
+  <p><a href="#">leinue</a> pushed to <a href="#">leinue/ACGHub</a></p>
+  </div>
+
+  <div class="act-item-detail">
+  <p>增加前台资源管理面板及相关CSS/JS </p>
+  </div>
+
+  </div>
+</div>
+</div>
+
+  </div>
 
 
   </div>
