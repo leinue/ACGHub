@@ -151,7 +151,75 @@
   <h3 class="panel-title">关注</h3>
   </div>
   <div class="panel-body">
-  	
+
+  	 <div class="f-i-left">
+  	  <div class="panel panel-default">
+     <div class="panel-body">
+
+      <div class="friends-photo">
+<img class="img-thumbnail" src="http://i0.hdslb.com/user/1248/124871/myface_m.jpg" height="50" width="50">
+      </div>
+
+      <div class="friends-detail">
+      <p><a href="#">蛤蛤蛤</a></p>
+      <p><a href="#">私信</a></p>
+      </div>
+
+    </div>
+     </div>
+  	</div>
+
+  	  	 <div class="f-i-left">
+  	  <div class="panel panel-default">
+     <div class="panel-body">
+
+      <div class="friends-photo">
+<img class="img-thumbnail" src="http://i0.hdslb.com/user/1248/124871/myface_m.jpg" height="50" width="50">
+      </div>
+
+      <div class="friends-detail">
+      <p><a href="#">蛤蛤蛤</a></p>
+      <p><a href="#">私信</a></p>
+      </div>
+
+    </div>
+     </div>
+  	</div>
+
+  	  	 <div class="f-i-left">
+  	  <div class="panel panel-default">
+     <div class="panel-body">
+
+      <div class="friends-photo">
+<img class="img-thumbnail" src="http://i0.hdslb.com/user/1248/124871/myface_m.jpg" height="50" width="50">
+      </div>
+
+      <div class="friends-detail">
+      <p><a href="#">蛤蛤蛤</a></p>
+      <p><a href="#">私信</a></p>
+      </div>
+
+    </div>
+     </div>
+  	</div>
+
+  	  	 <div class="f-i-left">
+  	  <div class="panel panel-default">
+     <div class="panel-body">
+
+      <div class="friends-photo">
+<img class="img-thumbnail" src="http://i0.hdslb.com/user/1248/124871/myface_m.jpg" height="50" width="50">
+      </div>
+
+      <div class="friends-detail">
+      <p><a href="#">蛤蛤蛤</a></p>
+      <p><a href="#">私信</a></p>
+      </div>
+
+    </div>
+     </div>
+  	</div>
+
   </div>
   </div>
 
@@ -161,7 +229,7 @@
   </div>
   <div class="panel-body">
   	
-  	<div class="friends-info">
+  	
 
   	<div class="f-i-left">
   	  <div class="panel panel-default">
@@ -180,7 +248,7 @@
      </div>
   	</div>
 
-    <div class="f-i-mid">
+    <div class="f-i-left">
 
   	  <div class="panel panel-default">
      <div class="panel-body">
@@ -199,7 +267,7 @@
 
   	</div>
 
-  	<div class="f-i-right">
+  	<div class="f-i-left">
 
   	  <div class="panel panel-default">
      <div class="panel-body">
@@ -218,7 +286,7 @@
 
   	</div>
 
-  </div>
+ 
   </div>
 
 
