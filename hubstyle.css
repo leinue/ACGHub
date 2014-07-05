@@ -152,7 +152,8 @@
     	margin-right: 20px;
     }
 
-    .act-item-right,.setting-photo,.setting-button-upload,.friends-photo,.friends-detail{float:left;}
+    .act-item-right,.setting-photo,.setting-button-upload,
+    .friends-photo,.friends-detail{float:left;}
 
     .setting-button-upload,.friends-detail{margin-left: 10px;}
 
@@ -164,4 +165,11 @@
 
     .mail-col{border-bottom: 1px solid rgb(238,238,238);}
 
-    .friends-info{width:190px;}
+    .friends-info{
+    	width:190px;
+
+    }
+
+    .friends-detail a{text-decoration: none;}
+
+    .f-i-left,.f-i-mid,.f-i-right{float: left;}
