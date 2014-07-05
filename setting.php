@@ -134,7 +134,7 @@
   </div>
   <div class="panel-body">
 
-  <div class="alert alert-info" role="alert">现在邮箱:admin@admincom</div>
+  <div class="alert alert-info" role="alert">现在的邮箱:admin@admincom</div>
 
   <div class="mail-col">
     <div class="input-group">
