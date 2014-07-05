@@ -134,10 +134,15 @@
   </div>
   <div class="panel-body">
 
+  <div class="alert alert-info" role="alert">现在邮箱:admin@admincom</div>
+
   <div class="mail-col">
-
-  597055914@qq.com
-
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="请输入新邮箱">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">变更邮箱</button>
+      </span>
+    </div><!-- /input-group -->
   </div>
 
   </div>
@@ -296,12 +301,50 @@
 
   <div class="panel panel-default">
   <div class="panel-heading">
-  <h3 class="panel-title">信息中心</h3>
+  <h3 class="panel-title">我的私信</h3>
   </div>
   <div class="panel-body">
-  	
+
+  	<div class="panel panel-default">
+      <div class="panel-body">
+
+     <div class="friends-photo">
+      <a href="#"><img class="img-thumbnail" src="http://i0.hdslb.com/user/1248/124871/myface_m.jpg" height="50" width="50"></a>
+      </div>
+
+      <div class="friends-detail">
+      <p>与 <a href="#">蛤蛤蛤</a> 的最后一次对话</p>
+      <p id="#sys-info-icon"><span class="glyphicon glyphicon-chevron-left"></span>丧心病狂<span class="glyphicon glyphicon-chevron-right"></span></p>
+      </div>
+      </div>
+
+    </div>
+
   </div>
   </div> 	
+
+  <div class="panel panel-default">
+  <div class="panel-heading">
+  <h3 class="panel-title">系统通知</h3>
+  </div>
+  <div class="panel-body">
+  	<div class="panel panel-default">
+      <div class="panel-body"  id="sys-info-icon">
+      <span class="glyphicon glyphicon-warning-sign"></span> [系统通知]
+
+      <p>werewrewrewewerwewerrwrwwerwerrwe</p>
+      <p>2014-01-01</p>
+      </div>
+    </div>
+
+  	<div class="panel panel-default">
+      <div class="panel-body">
+      
+      </div>
+    </div>
+
+  </div>
+  </div> 
 
   </div>
 </div>
