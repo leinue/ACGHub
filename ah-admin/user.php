@@ -9,10 +9,12 @@
          <div class="panel-body">
 
          <form class="navbar-form" role="search" id="panel-search-right">
-         <div class="form-group">
-         <input type="text" class="form-control" placeholder="用户搜索">
-         </div>
-         <button type="submit" class="btn btn-default">搜索</button>
+         <div class="input-group">
+         <input type="text" class="form-control" placeholder="搜索资源">
+         <span class="input-group-btn">
+         <button class="btn btn-default" type="button">搜索</button>
+         </span>
+         </div><!-- /input-group -->
          </form>
 
          <div id="panel-col-left">

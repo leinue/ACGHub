@@ -1,4 +1,5 @@
 <?php include('header.php'); ?>
+
 <div class="user-content" id="user-body">
 
    <div class="user-content-main">
@@ -51,4 +52,5 @@
 </div>
 </div>
 </div>
+
 <?php include('footer.php'); ?>
