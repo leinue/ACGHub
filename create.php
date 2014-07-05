@@ -5,8 +5,12 @@
 ?>
 
 <div class="create-body">
-
-<form class="form-create">
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">新建一个项目</h3>
+  </div>
+  <div class="panel-body">
+    <form class="form-create">
 <input type="text" class="form-control" placeholder="目录名">
 <span class="help-block">不妨起一个简短可记的名字</span>
 
@@ -30,7 +34,8 @@
 
 <button type="button" class="btn btn-success">确认创建</button>
 </form>
-
+  </div>
+</div>
 </div>
 
 <?php

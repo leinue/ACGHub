@@ -171,9 +171,12 @@
 
     #sys-info-icon span{color:rgb(161,161,161);}
 
-    .create-body{width: 1000px;margin-top: 100px;}
+    .create-body{
+        width: 500px;
+        margin:0 auto;
+        margin-top:60px;}
 
     .form-create{
         width: 350px;
-        margin-left: 200px;
+        margin-left: 55px;
     }
