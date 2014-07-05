@@ -152,4 +152,16 @@
     	margin-right: 20px;
     }
 
-    .act-item-right{float:left;}
+    .act-item-right,.setting-photo,.setting-button-upload,.friends-photo,.friends-detail{float:left;}
+
+    .setting-button-upload,.friends-detail{margin-left: 10px;}
+
+    .update-form{margin-left: 10px;}
+
+    .form-group{margin-top:30px;}
+
+    #update-pw{margin-left:16px;}
+
+    .mail-col{border-bottom: 1px solid rgb(238,238,238);}
+
+    .friends-info{width:190px;}

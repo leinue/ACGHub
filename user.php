@@ -1,5 +1,9 @@
 <?php include('header.php'); ?>
 
+<?php 
+     if($_SESSION['user-login-id']==1){
+?>
+
 <div class="user-per">
 
   <div class="user-info">
@@ -314,4 +318,11 @@
 
 </div>
 
+<?php
+}
+else
+{
+  header("location:index.php");
+}
+?>
 <?php include('footer.php'); ?>
