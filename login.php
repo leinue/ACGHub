@@ -1,7 +1,11 @@
 <?php 
 error_reporting(E_ALL ^ E_NOTICE);
+error_reporting(E_ALL ^ E_ALL);//Deprecated
+
 include('header.php');
+
 session_start();
+
 if($_SESSION['admin-login-id']!=1){
 ?>
 

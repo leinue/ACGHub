@@ -1,7 +1,6 @@
 <?php
 session_start();
 if($_SESSION['admin-login-id']==1){
-
 ?>
 
 <!DOCTYPE html>

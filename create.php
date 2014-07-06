@@ -1,7 +1,15 @@
-<?php include('header.php'); ?>
+<?php 
+include('header.php');
+include('fun/mysql.php');
+connect_mysql();
+ ?>
 
 <?php 
+     $sql="SELECT `checked` FROM `acghub_member` WHERE `name`=".$_SESSION['user-account'];
+     $result=mysql_query($sql);
      if($_SESSION['user-login-id']==1){
+        $row=mysql_fetch_row($result);
+        if($row==1){
 ?>
 
 <div class="create-body">
@@ -37,6 +45,24 @@
   </div>
 </div>
 </div>
+<?php
+        }
+        else{
+
+          $sql="SELECT id FROM `acghub_member` WHERE `email`=".$_SESSION['user-account'];
+          $res=mysql_query($sql);
+          $row=mysql_fetch_row($res);
+          $_SESSION['regurl']="http://localhost/emailcheck.php?u=".md5(md5($row[0]));
+
+?>
+      <div class="e-check-body">
+
+      <h2><a href="<?php $_SESSION['regurl']; ?>">请点击进行邮箱验证</a></h2>
+
+      </div>
+<?php
+        }
+?>
 
 <?php
 }

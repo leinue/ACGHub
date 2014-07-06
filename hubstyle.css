@@ -180,3 +180,10 @@
         width: 350px;
         margin-left: 55px;
     }
+
+    .e-check-body{
+        margin:0 auto;
+        width: 500px;
+        height: 50px;
+        margin-top: 60px;
+    }
