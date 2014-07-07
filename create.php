@@ -10,8 +10,7 @@ connect_mysql();
       $result=mysql_query($sql);
       if($result!=false)
         $row=mysql_fetch_row($result);
-        echo $row[0];
-        if($row==1){
+        if($row[0]==1){
 ?>
 
 <div class="create-body">
