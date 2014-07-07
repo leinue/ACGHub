@@ -4,10 +4,11 @@ include('fun/mysql.php');
 
 connect_mysql();
 
+if($_SESSION['user-login-id']==1){
+
 $user_id=trim($_GET['u']);
 $sql = "select *from `acghub_member` where `checked`=0 and `id`='".$user_id."'";
 $result=mysql_query($sql);//id
-echo mysql_error();
 $row = mysql_fetch_array($result); 
 if($row){
 	$sql = "UPDATE `acghub_member` SET `checked`=1 where `id`=$user_id";
@@ -35,6 +36,10 @@ if($row){
 <?php
 
     }
+}
+}
+else{
+	header('location:index.php');
 }
 ?>
 

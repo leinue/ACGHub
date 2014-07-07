@@ -16,10 +16,20 @@ if(trim($username)<>"" and trim($usermail)<>"" and $userpw<>""){
       echo $sql;
       if(mysql_query($sql)){
         echo '注册成功!';
-
+        echo mysql_insert_id();
         $reg_url="http://localhost/emailcheck.php?u=".mysql_insert_id();
-        $content="<a href=\"".$reg_url."\">欢迎注册ACGHub,请点击这里进行注册</a>";
+        $content="<a href=\"".$reg_url."\">欢迎注册ACGHub,请点击这里进行激活帐号</a>";
         mail($usermail,"感谢注册ACGHub",$content);
+
+        $_SESSION['user-login-id']=1;
+        $_SESSION['user-account']=$usermail;
+        $_SESSION['user-pw']=$userpw;
+        $sql="SELECT `name` FROM `acghub_member` WHERE `email`='$usermail' ";//取用户名
+        $res_name=mysql_query($sql);
+        $row_name=mysql_fetch_row($res_name);
+        $_SESSION['user-name']=$row_name[0];
+        //header("Location:index.php");
+        exit;
 ?>
 
 <?php
