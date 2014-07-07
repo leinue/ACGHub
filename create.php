@@ -6,10 +6,9 @@ connect_mysql();
 
 <?php 
      $sql="SELECT `checked` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
-     echo $sql;
-     $result=mysql_query($sql);
      if($_SESSION['user-login-id']==1){
-      if($res!=false)
+      $result=mysql_query($sql);
+      if($result!=false)
         $row=mysql_fetch_row($result);
         echo $row[0];
         if($row==1){

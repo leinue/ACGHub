@@ -5,15 +5,15 @@ include('fun/mysql.php');
 connect_mysql();
 
 $user_id=trim($_GET['u']);
-$sql = "select *from `acghub_member` where `checked`=0 and `id`=\'".$user_id."\'";
+$sql = "select *from `acghub_member` where `checked`=0 and `id`='".$user_id."'";
 $result=mysql_query($sql);//id
-
-if($result!=false)
-    $row = mysql_fetch_array($result); 
-    if($row){
-	$sql = "UPDATE `acghub_member` SET `checked`=1 where `id`=.$user_id.";
+echo mysql_error();
+$row = mysql_fetch_array($result); 
+if($row){
+	$sql = "UPDATE `acghub_member` SET `checked`=1 where `id`=$user_id";
     $result=mysql_query($sql);
     if(mysql_affected_rows()!=-1){
+    	
 
 ?>
     <div class="e-check-body">
@@ -24,7 +24,7 @@ if($result!=false)
 <?php
 
     }
-    else{ die();
+    else{
 ?>
     
     <div class="e-check-body">
