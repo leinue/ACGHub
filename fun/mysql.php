@@ -30,6 +30,10 @@ function create_table(){
   	_date varchar(100) NOT NULL,
   	sta varchar(5) NOT NULL,
   	checked int(1) NOT NULL,
+    sex int(1) NOT NULL,
+    website varchar(100) NOT NULL,
+    age int(3) NOT NULL,
+    location varchar(100) NOT NULL,
   	PRIMARY KEY (id)
   	)";
 

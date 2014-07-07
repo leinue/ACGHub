@@ -1,7 +1,21 @@
-<?php include('header.php'); ?>
+<?php 
+include('header.php'); 
+include('fun/mysql.php');
+?>
 
 <?php 
      if($_SESSION['user-login-id']==1){
+
+      connect_mysql();
+
+      $sql="SELECT `age`, `sex`, `website`,`location` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."' ";
+      $res=mysql_query($sql);
+      if($res!=false)
+        $row=mysql_fetch_row($res);
+        //$row[0]->age
+        //$row[1]->sex 1->boy 2->girl ->3 futa 0->none
+        //$row[2]->website
+        //$row[3]->location
 ?>
 
 <div class="user-per">
@@ -52,26 +66,93 @@
 
   <div class="col-md-8">
 
-<form role="form" class="update-form">
+<form role="form" name"profile" class="update-form" action="setting.php" method="POST">
 
   <div class="form-group">
     <label>姓名</label>
-    <input type="text" class="form-control" placeholder="输入姓名">
-  </div>
-  <div class="form-group">
-    <label>邮箱</label>
-    <input type="email" class="form-control" placeholder="输入邮箱">
+    <input type="text" class="form-control" placeholder="输入姓名" name="username" value="<?php echo $_SESSION['user-name']; ?>">
   </div>
   <div class="form-group">
     <label>网址</label>
-    <input type="text" class="form-control" placeholder="输入网址">
+    <input type="text" class="form-control" placeholder="输入网址" name="website" value="<?php echo $row[2]; ?>">
   </div>
   <div class="form-group">
     <label>地址</label>
-    <input type="text" class="form-control" placeholder="输入地址">
+    <input type="text" class="form-control" placeholder="输入地址" name="location" value="<?php echo $row[3]; ?>">
+  </div>
+  <div class="form-group">
+    <label>年龄</label>
+    <input type="text" class="form-control" placeholder="输入年龄" name="age" value="<?php echo $row[0]; ?>">
   </div>
 
-  <button type="submit" class="btn btn-default">更新信息</button>
+  <?php
+  if($row[1]==1){
+
+  ?>
+  <div class="form-group">
+  <label class="radio-inline">
+  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked="checked"> 可爱的男孩子
+  </label>
+  <label class="radio-inline">
+  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 帅气的女孩子
+  </label>
+  <label class="radio-inline">
+  <input type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4"> 不明生物体
+  </label>
+  </div>
+  <?php
+  }
+  elseif($row[1]==2){
+  ?>
+
+  <div class="form-group">
+  <label class="radio-inline">
+  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 可爱的男孩子
+  </label>
+  <label class="radio-inline">
+  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" checked="checked"> 帅气的女孩子
+  </label>
+  <label class="radio-inline">
+  <input type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4"> 不明生物体
+  </label>
+  </div>
+
+  <?php
+  }
+  elseif($row[1]==3){
+  ?>
+  <div class="form-group">
+  <label class="radio-inline">
+  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 可爱的男孩子
+  </label>
+  <label class="radio-inline">
+  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 帅气的女孩子
+  </label>
+  <label class="radio-inline">
+  <input type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4" checked="checked"> 不明生物体
+  </label>
+  </div>
+  <?php
+  }
+  elseif($row[1]==0){
+  ?>
+  <div class="form-group">
+  <label class="radio-inline">
+  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 可爱的男孩子
+  </label>
+  <label class="radio-inline">
+  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 帅气的女孩子
+  </label>
+  <label class="radio-inline">
+  <input type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4"> 不明生物体
+  </label>
+  </div>  
+  <?php
+  }
+  ?>
+
+
+  <button type="button" class="btn btn-default" name="update">更新信息</button>
 </form>
 
   </div>
@@ -134,7 +215,7 @@
   </div>
   <div class="panel-body">
 
-  <div class="alert alert-info" role="alert">现在的邮箱:admin@admincom</div>
+  <div class="alert alert-info" role="alert">现在的邮箱:<?php echo $_SESSION['user-account']; ?></div>
 
   <div class="mail-col">
     <div class="input-group">
