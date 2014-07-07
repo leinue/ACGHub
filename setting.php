@@ -18,6 +18,41 @@ include('fun/mysql.php');
         //$row[3]->location
 ?>
 
+<script type="text/javascript">
+  function preview(imgfile){
+    doucument.getElementById("pic").src=imgfile.value;
+  }
+  var right_type=new Array(".jpg",".gif",".bmp",".png");
+
+  function checkimgtype(fileURL){
+    var right_typelen=right_type.length;
+    var imgURL=fileURL.tolowercase();
+    var postfixlen=imrURL.length;
+    var len4=imgURL.substring(postfixlen-4,postfixlen);
+    var len5=imgURL.substring(postfixlen-5,postfixlen);
+    for(i=0;i<right_typelen;i++){
+      if((len4==right_type[i])||(len5==right_type[i])){
+        return true;
+      }
+    }
+  }
+
+  function sub(o){
+    if(o.upload_file.value==""){
+      alert("请选择一个图片文件\n");
+      return false;
+    }
+    if(checkimgtype(o.upload_file.value)){
+      perimg(o.upload_file.value);
+      return true;
+    }
+    else{
+      alert("你选择的文件格式不正确\n");
+      o.upload_file.focus();
+      return false;
+    }
+  }
+</script>
 <div class="user-per">
 
 <div class="user-info">
@@ -51,15 +86,18 @@ include('fun/mysql.php');
   <div class="row">
   <div class="col-md-8">
   <h4>修改头像</h4>
-
+  <form enctype="multipart/form-data" action="setting.php" onsubmit="return sub(this)" name="uploadform" method="post">
+  <input type="file" name="upload_photo" onchange="if(checkimgtype(this.value))">
+  <input name="action" type="hidden" value="upload"/>
   <div class="setting-photo">
-  <img alt="ivy" src="https://avatars3.githubusercontent.com/u/2469688?s=140" height="70" width="70">
+  <img id="pic" alt="<?php echo $_SESSION['user-account']; ?>" src="https://avatars3.githubusercontent.com/u/2469688?s=140" height="70" width="70">
   </div>
 
   <div class="setting-button-upload">
-   <button type="button" class="btn btn-default">上传新头像</button>
-   <span class="help-block">请上传具有标志性的头像</span>
+   <button type="submit" class="btn btn-default">上传新头像</button>
+   <span class="help-block">大小最好为为250x250,支持的格式有.jpg|.png|.gif|.bmp</span>
   </div>
+  </form>
   </div>
 </div>
 <div class="row">
