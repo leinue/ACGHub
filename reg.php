@@ -35,16 +35,31 @@ if(trim($username)<>"" and trim($usermail)<>"" and $userpw<>""){
 <?php
       }
       else{
-      die();
-      echo '注册失败';
+      die(mysql_error());
+?>
+
+<div class="reg-form-body">
+  <div class="alert alert-warning alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  <strong>提醒!</strong> 注册失败!请稍后再试! </div>
+</div>
+
+<?php
       }
       }
       else{
-        die();
+        die(mysql_error());
       }
     }
     else{
-      echo '您的邮箱已被注册';
+?>
+
+<div class="reg-form-body">
+  <div class="alert alert-warning alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  <strong>提醒!</strong> 你的邮箱已被注册! </div>
+</div>
+<?php
     }
 }
 
@@ -98,7 +113,7 @@ if($_SESSION['user-login-id']!=1){
   </div>
   <div class="form-group">
     <div class="col-sm-offset-0 col-sm-10">
-      <button type="submit" name="reg" class="btn btn-default" id="reg-button">注册</button>
+      <button type="submit" name="reg" class="btn btn-default" id="reg-button" >注册</button>
     </div>
   </div>
 </form>

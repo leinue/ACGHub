@@ -57,9 +57,20 @@ connect_mysql();
           }
 
 ?>
-      <div class="e-check-body">
+      <div class="create-body">
 
-      <h2><a href="<?php echo $_SESSION['regurl']; ?>">请点击进行邮箱验证</a></h2>
+      <div class="panel panel-default">
+      <div class="panel-heading">
+      <h3 class="panel-title">请进入邮箱进行验证</h3>
+      </div>
+      <div class="panel-body">
+       <div class="alert alert-info" role="alert">
+
+       为了保证您帐号的合法性同时减轻服务器对垃圾信息的过滤，请进入邮箱进行帐号验证。验证之后您可以享受创建项目服务。
+
+       </div>
+      </div>
+      </div>
 
       </div>
 <?php
