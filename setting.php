@@ -4,7 +4,42 @@ include('fun/mysql.php');
 ?>
 
 <?php 
+
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+     connect_mysql();
      if($_SESSION['user-login-id']==1){
+
+      if($_POST['upload']=="upload"){
+        
+      }
+
+      if($_POST['update']=="update"){
+        $age=test_input($_POST['age']);
+        $location=test_input($_POST['location']);
+        $website=test_input($_POST['website']);
+        $sex=test_input($_POST['sex']);
+
+        //UPDATE `acghub_member` SET `age`=[value-8],`sex`=[value-9],`website`=[value-10],`location`=[value-11] WHERE `email`=
+        $sql = "UPDATE `acghub_member` SET `age`=".$age.",`sex`=".$sex.",`website`='".$website."',`location`='".$location."' WHERE `email`='".$_SESSION['user-account']."'";
+        $result=mysql_query($sql);
+        echo mysql_error();
+        if($result!=false){
+          if(mysql_affected_rows()==-1){
+            echo '修改资料失败!';
+          }
+          else{
+            echo '修改资料成功!';
+          }
+
+        }
+
+
+      }
 
       connect_mysql();
 
@@ -94,8 +129,8 @@ include('fun/mysql.php');
   </div>
 
   <div class="setting-button-upload">
-   <button type="submit" class="btn btn-default">上传新头像</button>
-   <span class="help-block">大小最好为为250x250,支持的格式有.jpg|.png|.gif|.bmp</span>
+   <button type="submit" name="upload" value="upload" class="btn btn-default">上传新头像</button>
+   <span class="help-block">大小最好为为250x250,支持的格式有.jpg|.gif</span>
   </div>
   </form>
   </div>
@@ -104,7 +139,7 @@ include('fun/mysql.php');
 
   <div class="col-md-8">
 
-<form role="form" name"profile" class="update-form" action="setting.php" method="POST">
+<form role="form" name="profile" class="update-form" action="setting.php" method="POST">
 
   <div class="form-group">
     <label>姓名</label>
@@ -129,13 +164,13 @@ include('fun/mysql.php');
   ?>
   <div class="form-group">
   <label class="radio-inline">
-  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked="checked"> 可爱的男孩子
+  <input type="radio" name="sex" id="inlineRadio1" value="1" checked="checked"> 可爱的男孩子
   </label>
   <label class="radio-inline">
-  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 帅气的女孩子
+  <input type="radio" name="sex" id="inlineRadio2" value="2"> 帅气的女孩子
   </label>
   <label class="radio-inline">
-  <input type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4"> 不明生物体
+  <input type="radio" name="sex" id="inlineRadio4" value="3"> 不明生物体
   </label>
   </div>
   <?php
@@ -145,13 +180,13 @@ include('fun/mysql.php');
 
   <div class="form-group">
   <label class="radio-inline">
-  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 可爱的男孩子
+  <input type="radio" name="sex" id="inlineRadio1" value="1"> 可爱的男孩子
   </label>
   <label class="radio-inline">
-  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" checked="checked"> 帅气的女孩子
+  <input type="radio" name="sex" id="inlineRadio2" value="2" checked="checked"> 帅气的女孩子
   </label>
   <label class="radio-inline">
-  <input type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4"> 不明生物体
+  <input type="radio" name="sex" id="inlineRadio4" value="0"> 不明生物体
   </label>
   </div>
 
@@ -159,38 +194,26 @@ include('fun/mysql.php');
   }
   elseif($row[1]==3){
   ?>
-  <div class="form-group">
-  <label class="radio-inline">
-  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 可爱的男孩子
-  </label>
-  <label class="radio-inline">
-  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 帅气的女孩子
-  </label>
-  <label class="radio-inline">
-  <input type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4" checked="checked"> 不明生物体
-  </label>
-  </div>
   <?php
   }
   elseif($row[1]==0){
   ?>
   <div class="form-group">
   <label class="radio-inline">
-  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 可爱的男孩子
+  <input type="radio" name="sex" id="inlineRadio1" value="1"> 可爱的男孩子
   </label>
   <label class="radio-inline">
-  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 帅气的女孩子
+  <input type="radio" name="sex" id="inlineRadio2" value="2"> 帅气的女孩子
   </label>
   <label class="radio-inline">
-  <input type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4"> 不明生物体
+  <input type="radio" name="sex" id="inlineRadio4" value="0" checked="checked"> 不明生物体
   </label>
   </div>  
   <?php
   }
   ?>
 
-
-  <button type="button" class="btn btn-default" name="update">更新信息</button>
+  <button type="submit" class="btn btn-default" name="update" value="update">更新信息</button>
 </form>
 
   </div>
@@ -457,7 +480,7 @@ include('fun/mysql.php');
     </div>
 
   	<div class="panel panel-default">
-      <div class="panel-body">
+      <div class="panel-body">m
       
       </div>
     </div>
