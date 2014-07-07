@@ -1,23 +1,41 @@
 <?php
 include('header.php');
 include('fun/mysql.php');
-conncet_mysql();
 
-$sql="select *from acghub_member where checked=0 and md5(md5(id))='".trim($_GET['u']."'");
+connect_mysql();
+
+$user_id=trim($_GET['u']);
+$sql = "select *from `acghub_member` where `checked`=0 and `id`=\'".$user_id."\'";
 $result=mysql_query($sql);//id
-while($row=mysql_fetch_array($result)){
-	/*UPDATE `acghub_member` SET `id`=[value-1],`name`=[value-2],
-	`email`=[value-3],`password`=[value-4],`_date`=[value-5],`sta`=[value-6],`checked`=[value-7] WHERE 1*/
-	$sql="UPDATE `acghub_member` SET `checked`=1 where id=".$row['id'];
-	$result=mysql_query($sql);
-	$email=$row['email'];
-}
+
+if($result!=false)
+    $row = mysql_fetch_array($result); 
+    if($row){
+	$sql = "UPDATE `acghub_member` SET `checked`=1 where `id`=.$user_id.";
+    $result=mysql_query($sql);
+    if(mysql_affected_rows()!=-1){
 
 ?>
-
-<div class="e-check-body">
+    <div class="e-check-body">
     <h2>您已验证成功</h2>
-    <a href="#"><p>点击这里返回主页</p></a>
-</div>
+    <a href="index.php"><p>点击这里返回主页</p></a>
+    </div>
+
+<?php
+
+    }
+    else{ die();
+?>
+    
+    <div class="e-check-body">
+    <h2>验证失败,数据库出错,请稍后再试</h2>
+    <a href="index.php"><p>点击这里返回主页</p></a>
+    </div>
+
+<?php
+
+    }
+}
+?>
 
 <?php include('footer.php'); ?>

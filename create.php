@@ -5,10 +5,13 @@ connect_mysql();
  ?>
 
 <?php 
-     $sql="SELECT `checked` FROM `acghub_member` WHERE `name`=".$_SESSION['user-account'];
+     $sql="SELECT `checked` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
+     echo $sql;
      $result=mysql_query($sql);
      if($_SESSION['user-login-id']==1){
+      if($res!=false)
         $row=mysql_fetch_row($result);
+        echo $row[0];
         if($row==1){
 ?>
 
@@ -48,16 +51,17 @@ connect_mysql();
 <?php
         }
         else{
-
-          $sql="SELECT id FROM `acghub_member` WHERE `email`=".$_SESSION['user-account'];
+          $sql="SELECT * FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
           $res=mysql_query($sql);
-          $row=mysql_fetch_row($res);
-          $_SESSION['regurl']="http://localhost/emailcheck.php?u=".md5(md5($row[0]));
+          if($res!=false){
+            $row=mysql_fetch_row($res);
+            $_SESSION['regurl']="http://localhost/acghub/emailcheck.php?u=".$row[0];
+          }
 
 ?>
       <div class="e-check-body">
 
-      <h2><a href="<?php $_SESSION['regurl']; ?>">请点击进行邮箱验证</a></h2>
+      <h2><a href="<?php echo $_SESSION['regurl']; ?>">请点击进行邮箱验证</a></h2>
 
       </div>
 <?php

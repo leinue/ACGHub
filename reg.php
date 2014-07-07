@@ -17,7 +17,7 @@ if(trim($username)<>"" and trim($usermail)<>"" and $userpw<>""){
       if(mysql_query($sql)){
         echo '注册成功!';
 
-        $reg_url="http://localhost/emailcheck.php?u=".md5(md5(mysql_insert_id()));
+        $reg_url="http://localhost/emailcheck.php?u=".mysql_insert_id();
         $content="<a href=\"".$reg_url."\">欢迎注册ACGHub,请点击这里进行注册</a>";
         mail($usermail,"感谢注册ACGHub",$content);
 ?>
