@@ -108,11 +108,11 @@ connect_mysql();
       }
 
       if($_POST['submit-newemail']=="submit-newemail"){
-        $neweamil=$_POST['newemail'];
+        $neweamil=test_input($_POST['newemail']);
         $sql="SELECT `id` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
         $con_id=mysql_query($sql);
         if($con_id!=false){
-          $alt_url="http://localhost/acghub/emailcheck.php?u=".$con_id[0]."?method=altmail";
+          $alt_url="http://localhost/acghub/emailcheck.php?u=".$con_id[0]."?method=altmail"."?newmail=".$neweamil;
           $alt_content="<a href=\"".$alt_url."\">欢迎注册ACGHub,请点击这里进行激活帐号</a>";
           mail($_SESSION['user-account'],"ACGHub - 变更邮箱",$alt_content);
           echo '邮件已发送到新邮箱';
