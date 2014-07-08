@@ -14,7 +14,7 @@ if($_SESSION['admin-login-id']==1){
     <!-- Bootstrap -->
     <link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
     
-    <link rel="stylesheet" href="../hubstyle.css">
+    <link rel="stylesheet" href="../css/hubstyle.css">
     <link rel="stylesheet" href="style/style.css">
 
 	

@@ -12,11 +12,11 @@ error_reporting(E_ALL ^ E_NOTICE);
     <!-- Bootstrap -->
     <link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
     
-    <link rel="stylesheet" href="hubstyle.css">
-    <link rel="stylesheet" href="signcss.css">
-    <link rel="stylesheet" href="regcss.css">
-    <link rel="stylesheet" href="aboutcss.css">
-    <link rel="stylesheet" href="workscss.css">
+    <link rel="stylesheet" href="css/hubstyle.css">
+    <link rel="stylesheet" href="css/signcss.css">
+    <link rel="stylesheet" href="css/regcss.css">
+    <link rel="stylesheet" href="css/aboutcss.css">
+    <link rel="stylesheet" href="css/workscss.css">
 
 	
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
