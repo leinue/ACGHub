@@ -85,8 +85,8 @@ function test_input($data) {
       }
 
       if($_POST['submit-delete']=="submit-delete"){
-        $con_del=test_input($_POST['confirm-delete']);
-        if(isset($con_del)){
+        $checkbox_con_del=test_input($_POST['confirm-delete']);
+        if($checkbox_con_del==9){
           $sql="DELETE FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
           $res_delete=mysql_query($sql);
           if($res_delete!=false){
@@ -330,7 +330,7 @@ function test_input($data) {
     <button type="submit" name="submit-delete" value="submit-delete" class="btn btn-danger">确认删除帐户</button>  
     <div class="checkbox">
     <label>
-      <input name="confirm-delete" value="confirm-delete" type="checkbox">确认删除请勾选我
+      <input name="confirm-delete" value="9" type="checkbox">确认删除请勾选我
     </label>
   </div>
   </div>
