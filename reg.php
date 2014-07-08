@@ -12,11 +12,8 @@ connect_mysql();
 if(trim($username)<>"" and trim($usermail)<>"" and $userpw<>""){
     if(checkemail($usermail)==false){
       if(connect_mysql()){
-      $sql="INSERT INTO `acghub_member`(`name`,`email`,`password`,`_date`,`sta`,checked) VALUES('".$username."','".$usermail."','".md5($userpw)."','"."2010','user',0)";
-      echo $sql;
+      $sql="INSERT INTO `acghub_member`(`name`,`email`,`password`,`_date`,`sta`,checked,age,sex,`website`,`location`) VALUES('".$username."','".$usermail."','".md5($userpw)."','"."2010','user',0,0,0,'www.acghub.com','tianchao')";
       if(mysql_query($sql)){
-        echo '注册成功!';
-        echo mysql_insert_id();
         $reg_url="http://localhost/emailcheck.php?u=".mysql_insert_id();
         $content="<a href=\"".$reg_url."\">欢迎注册ACGHub,请点击这里进行激活帐号</a>";
         mail($usermail,"感谢注册ACGHub",$content);
@@ -29,8 +26,14 @@ if(trim($username)<>"" and trim($usermail)<>"" and $userpw<>""){
         $row_name=mysql_fetch_row($res_name);
         $_SESSION['user-name']=$row_name[0];
         //header("Location:index.php");
-        exit;
 ?>
+
+     <div class="reg-form-body">
+      <div class="alert alert-warning alert-dismissible" role="alert">
+       <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+       <strong>提醒!</strong> 注册成功!页面即将跳转</div>
+       <script language='javascript'>alert("注册成功");</script>
+     </div>
 
 <?php
       }
