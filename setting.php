@@ -4,7 +4,7 @@ include('fun/mysql.php');
 ?>
 
 <?php 
-
+connect_mysql();
 function test_input($data) {
   $data = trim($data);
   $data = stripslashes($data);
@@ -82,12 +82,27 @@ function test_input($data) {
         else{
           echo '密码不能为空';
         }
-
-        
-
       }
 
-      connect_mysql();
+      if($_POST['submit-delete']=="submit-delete"){
+        $con_del=test_input($_POST['confirm-delete']);
+        if(isset($con_del)){
+          $sql="DELETE FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
+          $res_delete=mysql_query($sql);
+          if($res_delete!=false){
+            if(mysql_affected_rows()==-1){
+            echo '删除失败';
+          }
+          else{
+            echo '删除成功';
+          }
+        }
+        else{echo '数据库出错';}
+        }
+        else{
+          echo '没有选中确认框';
+        }
+      }
 
       $sql="SELECT `age`, `sex`, `website`,`location` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."' ";
       $res=mysql_query($sql);
@@ -298,18 +313,20 @@ function test_input($data) {
   </div>
 
 <div class="panel panel-default">
+ <form method="post" name="delete-account" action="setting.php">
   <div class="panel-heading">
     <h3 class="panel-title">删除帐户</h3>
   </div>
   <div class="panel-body">
     <div class="alert alert-warning" role="alert">您的数据将会被完全删除,无法恢复!</div>
-    <button type="button" class="btn btn-danger">确认删除帐户</button>  
+    <button type="submit" name="submit-delete" value="submit-delete" class="btn btn-danger">确认删除帐户</button>  
     <div class="checkbox">
     <label>
-      <input type="checkbox">确认删除请勾选我
+      <input name="confirm-delete" value="confirm-delete" type="checkbox">确认删除请勾选我
     </label>
   </div>
   </div>
+  </form>
 </div>
 
   </div>
