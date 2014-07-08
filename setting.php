@@ -50,16 +50,16 @@ function test_input($data) {
           $res=mysql_query($sql);
           if($res!=false){
             $row=mysql_fetch_row($res);
-            if($row[0]==$oldpw){
+            if($row[0]==md5($oldpw)){
               if($newpw==$connewpw){
-                $sql="UPDATE `acghub_member` SET `password`='' WHERE `email`='".$_SESSION['user-account']."'";
+                $sql="UPDATE `acghub_member` SET `password`='".md5($newpw)."' WHERE `email`='".$_SESSION['user-account']."'";
                 $res_pw=mysql_query($sql);
                 if($res_pw!=false){
                   if(mysql_affected_rows()==-1){
                     echo '更新失败';
                   }
                   else{
-                    echo '修改资料成功';
+                    echo '修改密码成功';
                   }
                 }
                 else{
