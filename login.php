@@ -25,7 +25,7 @@ if($_SESSION['admin-login-id']!=1){
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">邮箱</label>
     <div class="col-sm-10">
-      <input type="email" name="mail" class="form-control" id="inputEmail3" placeholder="Email">
+      <input type="email" name="mail" class="form-control" id="inputEmail3" placeholder="Email" value="<?php if (isset($_COOKIE['UserMail'])){echo $_COOKIE['UserMail'];} ?>">
     </div>
   </div>
   <div class="form-group">

@@ -1,11 +1,14 @@
 <meta charset="utf-8">
 <?php
+include('header.php');
 include('fun/mysql.php');
 
 connect_mysql();
 
 $user=$_POST['mail'];
 $password=$_POST['password'];
+
+setcookie("UserMail",$user);
 
 $sql="select *from acghub_member where email='".$user."' and password='".md5($password)."'";
 $res=mysql_query($sql);
@@ -25,11 +28,41 @@ if($res!=false){
 	    header("Location:index.php");
 	    exit;
 	}
+	else{
+?>
+
+   <div class="e-check-body">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">登录失败</h3>
+      </div>
+    <div class="panel-body">
+    数据库中查无此帐户.<a href="login.php">点击返回</a>
+    </div>
+    </div>
+   </div>
+
+<?php
+	}
 
 }
 else{
 	die();
-	echo '登录失败';
+?>
+
+ <div class="e-check-body">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">登录失败</h3>
+      </div>
+    <div class="panel-body">
+    帐号或密码错误.<a href="login.php">点击返回</a>
+    </div>
+    </div>
+ </div>
+
+<?php
 }
 
+include('footer.php');
 ?>
