@@ -37,7 +37,7 @@ if($res!=false){
         <h3 class="panel-title">登录失败</h3>
       </div>
     <div class="panel-body">
-    数据库中查无此帐户.<a href="login.php">点击返回</a>
+    帐号不存在或密码错误.<a href="login.php">点击返回</a>
     </div>
     </div>
    </div>
@@ -47,19 +47,7 @@ if($res!=false){
 
 }
 else{
-	die();
 ?>
-
- <div class="e-check-body">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">登录失败</h3>
-      </div>
-    <div class="panel-body">
-    帐号或密码错误.<a href="login.php">点击返回</a>
-    </div>
-    </div>
- </div>
 
 <?php
 }

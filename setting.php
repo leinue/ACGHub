@@ -109,6 +109,7 @@ connect_mysql();
 
       if($_POST['submit-newemail']=="submit-newemail"){
         $neweamil=test_input($_POST['newemail']);
+        if(checkemail($neweamil)!=false){
         $sql="SELECT `id` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
         $con_id=mysql_query($sql);
         if($con_id!=false){
@@ -120,6 +121,10 @@ connect_mysql();
         else{
           echo '数据库出现问题';
         }
+      }
+      else{
+        echo '邮箱帐号重复';
+      }
       }
 
       $sql="SELECT `age`, `sex`, `website`,`location` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."' ";

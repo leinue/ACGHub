@@ -2,6 +2,7 @@
 error_reporting(E_ALL ^ E_NOTICE);
 include('header.php');
 include('fun/mysql.php');
+include('fun/function.php');
 session_start();
 
 $username=$_POST['name'];
@@ -66,15 +67,6 @@ if(trim($username)<>"" and trim($usermail)<>"" and $userpw<>""){
     }
 }
 
-function checkemail($email_checked){
-    $sql = "select count(*) from `acghub_member` where email='".$email_checked."'";
-    $res=mysql_query($sql);
-    if($res!=false){
-      $row=mysql_fetch_row($res);
-      return $row[0];
-    }
-    else{return false;}
-}
 ?>
 
 <?php
