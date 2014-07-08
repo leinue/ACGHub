@@ -38,6 +38,52 @@ function test_input($data) {
 
         }
 
+      }
+
+      if($_POST['update-pw']=="update-pw"){
+        $oldpw=test_input($_POST['oldpw']);
+        $newpw=test_input($_POST['newpw']);
+        $connewpw=test_input($_POST['confirm-newpw']);
+
+        if($oldpw<>"" && $newpw<>"" && $connewpw<>""){
+          $sql = "SELECT `password` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
+          $res=mysql_query($sql);
+          if($res!=false){
+            $row=mysql_fetch_row($res);
+            if($row[0]==$oldpw){
+              if($newpw==$connewpw){
+                $sql="UPDATE `acghub_member` SET `password`='' WHERE `email`='".$_SESSION['user-account']."'";
+                $res_pw=mysql_query($sql);
+                if($res_pw!=false){
+                  if(mysql_affected_rows()==-1){
+                    echo '更新失败';
+                  }
+                  else{
+                    echo '修改资料成功';
+                  }
+                }
+                else{
+                  echo '数据库出错';
+                }
+              }
+              else{
+                echo "新密码确认错误";
+              }
+            }
+            else{
+              echo '旧密码不符合';
+            }
+          }
+          else{
+            echo '数据库出错';
+          }
+
+        }
+        else{
+          echo '密码不能为空';
+        }
+
+        
 
       }
 
@@ -229,24 +275,24 @@ function test_input($data) {
   <h3 class="panel-title">帐户设置</h3>
   </div>
   <div class="panel-body">
-   <form>
+   <form method="post" action="setting.php">
   	<div class="form-group">
     <div class="col-sm-10">
-      <input type="password" class="form-control" id="inputPassword3" placeholder="输入旧密码">
+      <input type="password" class="form-control" name="oldpw" id="inputPassword3" placeholder="输入旧密码">
     </div>
     </div>
     <div class="form-group">
     <div class="col-sm-10">
-      <input type="password" class="form-control" id="inputPassword3" placeholder="输入新密码">
+      <input type="password" class="form-control" name="newpw" id="inputPassword3" placeholder="输入新密码">
     </div>
     </div>
     <div class="form-group">
     <div class="col-sm-10">
-      <input type="password" class="form-control" id="inputPassword3" placeholder="确认新密码">
+      <input type="password" class="form-control" name="confirm-newpw" id="inputPassword3" placeholder="确认新密码">
     </div>
     </div>
     <div class="form-group" id="update-pw">
-    <button type="button" class="btn btn-default">更新密码</button></div>
+    <button type="submit" name="update-pw" value="update-pw" class="btn btn-default">更新密码</button></div>
   </form>
   </div>
   </div>
