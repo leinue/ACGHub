@@ -1,12 +1,16 @@
 <?php
 include('header.php');
 include('fun/mysql.php');
+include('fun/function.php');
 
 connect_mysql();
 
 if($_SESSION['user-login-id']==1){
 
-$user_id=trim($_GET['u']);
+$user_id=test_input(trim($_GET['u']));
+$ver_method=test_input(trim($_GET['method']));
+
+if($ver_method=="reg"){
 $sql = "select *from `acghub_member` where `checked`=0 and `id`='".$user_id."'";
 $result=mysql_query($sql);//id
 $row = mysql_fetch_array($result); 
@@ -50,8 +54,14 @@ if($row){
     }
 }
 }
+   if($ver_method="altmail"){
+      //变更邮箱代码
+   }
+
+}
 else{
 	header('location:index.php');
+}
 }
 ?>
 

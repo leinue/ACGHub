@@ -1,17 +1,12 @@
 <?php 
 include('header.php'); 
 include('fun/mysql.php');
+include('fun/function.php');
 ?>
 
 <?php 
 connect_mysql();
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
-     connect_mysql();
+
      if($_SESSION['user-login-id']==1){
 
       if($_POST['upload']=="upload"){
@@ -109,6 +104,21 @@ function test_input($data) {
         }
         else{
           echo '没有选中确认框';
+        }
+      }
+
+      if($_POST['submit-newemail']=="submit-newemail"){
+        $neweamil=$_POST['newemail'];
+        $sql="SELECT `id` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
+        $con_id=mysql_query($sql);
+        if($con_id!=false){
+          $alt_url="http://localhost/acghub/emailcheck.php?u=".$con_id[0]."?method=altmail";
+          $alt_content="<a href=\"".$alt_url."\">欢迎注册ACGHub,请点击这里进行激活帐号</a>";
+          mail($_SESSION['user-account'],"ACGHub - 变更邮箱",$alt_content);
+          echo '邮件已发送到新邮箱';
+        }
+        else{
+          echo '数据库出现问题';
         }
       }
 
@@ -342,6 +352,8 @@ function test_input($data) {
   <div class="tab-pane" id="mail">
 
   <div class="panel panel-default">
+
+  <form action="setting.php" method="post" name="changemail">
   <div class="panel-heading">
   <h3 class="panel-title">邮箱设置</h3>
   </div>
@@ -351,14 +363,16 @@ function test_input($data) {
 
   <div class="mail-col">
     <div class="input-group">
-      <input type="text" class="form-control" placeholder="请输入新邮箱">
+      <input type="text" name="neweamil" class="form-control" placeholder="请输入新邮箱">
       <span class="input-group-btn">
-        <button class="btn btn-default" type="button">变更邮箱</button>
+        <button class="btn btn-default" name="submit-newemail" value="submit-newemail" type="submit">变更邮箱</button>
       </span>
     </div><!-- /input-group -->
   </div>
 
   </div>
+  </form>
+
   </div>
 
   </div>

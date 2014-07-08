@@ -14,7 +14,7 @@ if(trim($username)<>"" and trim($usermail)<>"" and $userpw<>""){
       if(connect_mysql()){
       $sql="INSERT INTO `acghub_member`(`name`,`email`,`password`,`_date`,`sta`,checked,age,sex,`website`,`location`) VALUES('".$username."','".$usermail."','".md5($userpw)."','"."2010','user',0,0,0,'www.acghub.com','tianchao')";
       if(mysql_query($sql)){
-        $reg_url="http://localhost/emailcheck.php?u=".mysql_insert_id();
+        $reg_url="http://localhost/emailcheck.php?u=".mysql_insert_id()."?method=reg";
         $content="<a href=\"".$reg_url."\">欢迎注册ACGHub,请点击这里进行激活帐号</a>";
         mail($usermail,"感谢注册ACGHub",$content);
 
