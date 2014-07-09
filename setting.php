@@ -529,6 +529,7 @@ connect_mysql();
 
   </div>
   </div>
+
   <div class="tab-pane" id="info">
 
   <div class="panel panel-default">
@@ -540,14 +541,52 @@ connect_mysql();
   	<div class="panel panel-default">
       <div class="panel-body">
 
-     <div class="friends-photo">
-      <a href="#"><img class="img-thumbnail" src="http://i0.hdslb.com/user/1248/124871/myface_m.jpg" height="50" width="50"></a>
-      </div>
+<?php
+      $sql="SELECT `message` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
+      $res=mysql_query($sql);
+      if($res!=false){
+        $row=mysql_fetch_row($res);
+        //$row[0]=%type%=1|&&|%obj%={|hahahaha|}|&&|%content%={|hhhhh+==+23333|}*\-/*%type%=1|&&|%obj%={|sangxinbingkuang|}|&&|%content%={|sdfs+==+123456789|}*\-/*%type%=0|&&|%content%={|dfgfdg+==+789456|}
+        $str_msg=explode("*\-/*", $row[0]);
+        foreach ($str_msg as $key0 => $value0) {
+          //$value[0]=%type%=1|&&|%obj%={|蛤蛤蛤|}|&&|%content%={|hhhhh+==+23333|}
+          //$value[1]=%type%=1|&&|%obj%={|sangxinbingkuang|}|&&|%content%={|sdfs+==+123456789|}
+          //$value[2]=%type%=0|&&|%content%={|dfgfdg+==+789456|}
+          $str_msg_solo=explode("|&&|", $value);
+          foreach ($str_msg_solo as $key1 => $value1) {
+            //$value[0]=%type%=1;$value[1]=%obj%={|蛤蛤蛤|};$value[2]=%content%={|hhhhh+==+23333|}
+            if(substr($value1[0], strlen("%type%="))=="1"){
+              $obj_name=substr($value1[1], strlen("%obj%={|"),strlen($value1[1])-strlen("|}"));
+              $msg_content=substr($value1[2], strlen("%content%={|"),strlen($value1[1])-strlen("|}"));
 
-      <div class="friends-detail">
-      <p>与 <a href="#">蛤蛤蛤</a> 的最后一次对话</p>
-      <p id="#sys-info-icon"><span class="glyphicon glyphicon-chevron-left"></span>丧心病狂<span class="glyphicon glyphicon-chevron-right"></span></p>
-      </div>
+              echo '<div class="friends-photo">
+      <a href="#"><img class="img-thumbnail" src="http://i0.hdslb.com/user/1248/124871/myface_m.jpg" height="50" width="50"></a>
+      </div>';
+              echo '      <div class="friends-detail">
+      <p>与 <a href="#">'.$obj_name.'</a> 的最后一次对话</p>
+      <p id="#sys-info-icon"><span class="glyphicon glyphicon-chevron-left"></span>'.丧心病狂.'<span class="glyphicon glyphicon-chevron-right"></span></p>
+      </div>'
+            }
+            else{
+              echo '系统消息';
+            }
+          }
+        }
+
+?>
+     
+
+
+<?php
+     }
+     else{
+?>
+   
+   <p>数据库出错</p>
+ 
+<?php
+     }
+?>
       </div>
 
     </div>
@@ -568,19 +607,13 @@ connect_mysql();
       <p>2014-01-01</p>
       </div>
     </div>
-
-  	<div class="panel panel-default">
-      <div class="panel-body">m
-      
-      </div>
-    </div>
-
   </div>
   </div> 
 
   </div>
-</div>
 
+
+</div>
 </div>
 
 </div>

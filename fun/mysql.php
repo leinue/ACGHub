@@ -34,11 +34,14 @@ function create_table(){
     website varchar(100) NOT NULL,
     age int(3) NOT NULL,
     location varchar(100) NOT NULL,
+    message TEXT NOT NULL,
+    friends TEXT NOT NULL,
+    photo TEXT NOT NULL,
   	PRIMARY KEY (id)
   	)";
 
   if(mysql_query($sql)){
-  	die('safsafasfas'.mysql_error());
+  	die(mysql_error());
   }
   else {die();}
 }
