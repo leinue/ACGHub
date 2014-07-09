@@ -552,31 +552,30 @@ connect_mysql();
           //$value[0]=%type%=1|&&|%obj%={|蛤蛤蛤|}|&&|%content%={|hhhhh+==+23333|}
           //$value[1]=%type%=1|&&|%obj%={|sangxinbingkuang|}|&&|%content%={|sdfs+==+123456789|}
           //$value[2]=%type%=0|&&|%content%={|dfgfdg+==+789456|}
-          $str_msg_solo=explode("|&&|", $value);
+          $str_msg_solo=explode("|&&|", $value0);
           foreach ($str_msg_solo as $key1 => $value1) {
             //$value[0]=%type%=1;$value[1]=%obj%={|蛤蛤蛤|};$value[2]=%content%={|hhhhh+==+23333|}
-            if(substr($value1[0], strlen("%type%="))=="1"){
-              $obj_name=substr($value1[1], strlen("%obj%={|"),strlen($value1[1])-strlen("|}"));
-              $msg_content=substr($value1[2], strlen("%content%={|"),strlen($value1[1])-strlen("|}"));
+            $msg_type=substr($str_msg_solo[0], strlen("%type%="));
+            if($msg_type=="9"){
+              $obj_name=substr($str_msg_solo[1], strlen("%obj%={|"),strlen($str_msg_solo[1])-strlen("|}"));
+              $obj_name=str_replace('|}', '', $obj_name);
+              $msg_content=substr($str_msg_solo[2], strlen("%content%={|"),strlen($str_msg_solo[1])-strlen("|}"));
+              $msg_content=str_replace('|}', '', $msg_content);
+              $msg_content_solo=explode("+==+", $msg_content);
+              $num_arrary=count($msg_content_solo);
+              $last_msg=$msg_content_solo[$num_arrary-1];
 
-              echo '<div class="friends-photo">
-      <a href="#"><img class="img-thumbnail" src="http://i0.hdslb.com/user/1248/124871/myface_m.jpg" height="50" width="50"></a>
-      </div>';
-              echo '      <div class="friends-detail">
-      <p>与 <a href="#">'.$obj_name.'</a> 的最后一次对话</p>
-      <p id="#sys-info-icon"><span class="glyphicon glyphicon-chevron-left"></span>'.丧心病狂.'<span class="glyphicon glyphicon-chevron-right"></span></p>
-      </div>'
+              
             }
-            else{
+            elseif($msg_type=="8"){
               echo '系统消息';
             }
           }
         }
 
 ?>
-     
-
-
+      
+      </div>
 <?php
      }
      else{
@@ -587,7 +586,7 @@ connect_mysql();
 <?php
      }
 ?>
-      </div>
+     
 
     </div>
 
@@ -608,7 +607,10 @@ connect_mysql();
       </div>
     </div>
   </div>
+
   </div> 
+
+
 
   </div>
 
