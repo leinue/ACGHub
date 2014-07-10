@@ -381,6 +381,7 @@ connect_mysql();
   </div>
 
   </div>
+
   <div class="tab-pane" id="friends">
 
   <div class="panel panel-default">
@@ -389,8 +390,31 @@ connect_mysql();
   </div>
   <div class="panel-body">
 
-  	 <div class="f-i-left">
-  	  <div class="panel panel-default">
+<?php
+
+$sql="SELECT `friends` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
+
+$res=mysql_query($sql);
+if($res!=false){
+  $row=mysql_fetch_row($res);
+  //$row[0]=%fans%={|%uid%=19|$&$|%uid%=15|}|&&|%fork%={|%uid%=15|$&$||};
+  if($row[0]!=""){
+  $ff=explode("|&&|", $row[0]);
+
+  //**********************************关注******************************************
+
+  $fans=substr($ff[0],strlen("%fans%={|"),strlen($ff[0])-strlen("%fans%={|")-1);
+  $fans_ex=explode("|$&$|", $fans);
+
+  foreach ($fans_ex as $key => $value) {
+    $uid=substr($value, strlen("%uid%="),strlen($value)-strlen("%uid%="));
+    $sql="SELECT `name` FROM `acghub_member` WHERE `id`=".$uid;
+    $res=mysql_query($sql);
+    if($res!=false){
+      $row=mysql_fetch_row($res);
+      $send_msg_url="";
+      echo '     <div class="f-i-left">
+      <div class="panel panel-default">
      <div class="panel-body">
 
       <div class="friends-photo">
@@ -398,64 +422,35 @@ connect_mysql();
       </div>
 
       <div class="friends-detail">
-      <p><a href="#">蛤蛤蛤</a></p>
+      <p><a href="#">'.$row[0].'</a></p>
       <p><a href="#">私信</a></p>
       </div>
 
     </div>
      </div>
-  	</div>
+    </div>';
 
-  	  	 <div class="f-i-left">
-  	  <div class="panel panel-default">
-     <div class="panel-body">
+    }
+    else{
+      echo '数据库错误';
+    }
 
-      <div class="friends-photo">
-<img class="img-thumbnail" src="http://i0.hdslb.com/user/1248/124871/myface_m.jpg" height="50" width="50">
-      </div>
+  }
 
-      <div class="friends-detail">
-      <p><a href="#">蛤蛤蛤</a></p>
-      <p><a href="#">私信</a></p>
-      </div>
+  //**********************************粉丝******************************************
 
-    </div>
-     </div>
-  	</div>
+  echo $fans;
+}
+else{
+  echo '无';
+}
+}
+else{
+  echo '数据库出错';
+}
 
-  	  	 <div class="f-i-left">
-  	  <div class="panel panel-default">
-     <div class="panel-body">
 
-      <div class="friends-photo">
-<img class="img-thumbnail" src="http://i0.hdslb.com/user/1248/124871/myface_m.jpg" height="50" width="50">
-      </div>
-
-      <div class="friends-detail">
-      <p><a href="#">蛤蛤蛤</a></p>
-      <p><a href="#">私信</a></p>
-      </div>
-
-    </div>
-     </div>
-  	</div>
-
-  	  	 <div class="f-i-left">
-  	  <div class="panel panel-default">
-     <div class="panel-body">
-
-      <div class="friends-photo">
-<img class="img-thumbnail" src="http://i0.hdslb.com/user/1248/124871/myface_m.jpg" height="50" width="50">
-      </div>
-
-      <div class="friends-detail">
-      <p><a href="#">蛤蛤蛤</a></p>
-      <p><a href="#">私信</a></p>
-      </div>
-
-    </div>
-     </div>
-  	</div>
+?>
 
   </div>
   </div>
@@ -485,45 +480,7 @@ connect_mysql();
      </div>
   	</div>
 
-    <div class="f-i-left">
 
-  	  <div class="panel panel-default">
-     <div class="panel-body">
-
-      <div class="friends-photo">
-<img class="img-thumbnail" src="http://i0.hdslb.com/user/1248/124871/myface_m.jpg" height="50" width="50">
-      </div>
-
-      <div class="friends-detail">
-      <p><a href="#">蛤蛤蛤</a></p>
-      <p><a href="#">私信</a></p>
-      </div>
-
-    </div>
-     </div>
-
-  	</div>
-
-  	<div class="f-i-left">
-
-  	  <div class="panel panel-default">
-     <div class="panel-body">
-
-      <div class="friends-photo">
-<img class="img-thumbnail" src="http://i0.hdslb.com/user/1248/124871/myface_m.jpg" height="50" width="50">
-      </div>
-
-      <div class="friends-detail">
-      <p><a href="#">蛤蛤蛤</a></p>
-      <p><a href="#">私信</a></p>
-      </div>
-
-    </div>
-     </div>
-
-  	</div>
-
- 
   </div>
 
 
