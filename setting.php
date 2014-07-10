@@ -541,6 +541,18 @@ connect_mysql();
   	
 
 <?php
+
+function echo_sys_info($content,$time){
+
+echo '<div class="panel panel-default">
+         <div class="panel-body"  id="sys-info-icon">
+          <span class="glyphicon glyphicon-warning-sign"></span> [系统通知]
+
+           <p><span class="sys-sty">'.$content.'</span></p>
+           <p><span class="sys-sty">'.$time.'</span></p>
+         </div>
+        </div>';
+}
       $sql="SELECT `message` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
       $res=mysql_query($sql);
       if($res!=false){
@@ -550,7 +562,6 @@ connect_mysql();
         foreach ($str_msg as $key0 => $value0) {
           //$value[0]=%type%=1|&&|%obj%={|蛤蛤蛤|}|&&|%content%={|hhhhh+==+23333|}
           //$value[1]=%type%=1|&&|%obj%={|sangxinbingkuang|}|&&|%content%={|sdfs+==+123456789|}
-          //$value[2]=%type%=0|&&|%content%={|dfgfdg+==+789456|}
           $str_msg_solo=explode("|&&|", $value0);
           foreach ($str_msg_solo as $key1 => $value1) {
             //$value[0]=%type%=1;$value[1]=%obj%={|蛤蛤蛤|};$value[2]=%content%={|hhhhh+==+23333|}
@@ -579,7 +590,18 @@ connect_mysql();
            break;
             }
             elseif($msg_type=="8"){
-              //echo '系统消息';
+              //$value[2]=%type%=8|&&|%content%={|system info+==+2011-01-01|}
+              $sys_content=substr($str_msg_solo[1], strlen("%content%={|"),strlen($str_msg_solo[1])-strlen("|}"));
+              $sys_content=str_replace('|}', '', $sys_content);
+              $sys_con_solo=explode("+==+", $sys_content);
+              $count_sys_info=substr_count($row[0],'%type%=8');
+              break;
+              //系统消息
+?>
+          
+
+<?php
+
             }
           }
         }
@@ -589,7 +611,22 @@ connect_mysql();
       
       </div>
       </div> 
-      
+
+      <div class="panel panel-default">
+
+        <div class="panel-heading">
+          <h3 class="panel-title">系统通知</h3>
+        </div>
+
+      <div class="panel-body">
+
+<?php
+for($sys_info_index=0;$sys_info_index<$count_sys_info;$sys_info_index++)
+echo_sys_info($sys_con_solo[0],$sys_con_solo[1]);
+?>
+      </div>
+
+    </div> 
       
 <?php
      }
@@ -603,42 +640,7 @@ connect_mysql();
 ?>
      
 
-    
-
-	
-
-  <div class="panel panel-default">
-  <div class="panel-heading">
-  <h3 class="panel-title">系统通知</h3>
-  </div>
-
-  <div class="panel-body">
-
-  	<div class="panel panel-default">
-      <div class="panel-body"  id="sys-info-icon">
-      <span class="glyphicon glyphicon-warning-sign"></span> [系统通知]
-
-      <p>werewrewrewewerwewerrwrwwerwerrwe</p>
-      <p>2014-01-01</p>
-      </div>
-    </div>
-
-     <div class="panel panel-default">
-      <div class="panel-body"  id="sys-info-icon">
-      <span class="glyphicon glyphicon-warning-sign"></span> [系统通知]
-
-      <p>werewrewrewewerwewerrwrwwerwerrwe</p>
-      <p>2014-01-01</p>
-      </div>
-    </div>
-
-  </div>
-
-  </div> 
-
-
-
-  </div>
+</div>
 
 
 </div>
