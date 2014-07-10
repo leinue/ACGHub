@@ -392,6 +392,25 @@ connect_mysql();
 
 <?php
 
+function echo_fork_list($name,$msg_url){
+  echo '    <div class="f-i-left">
+      <div class="panel panel-default">
+     <div class="panel-body">
+
+      <div class="friends-photo">
+<img class="img-thumbnail" src="http://i0.hdslb.com/user/1248/124871/myface_m.jpg" height="50" width="50">
+      </div>
+
+      <div class="friends-detail">
+      <p><a href="#">'.$name.'</a></p>
+      <p><a href="'.$msg_url.'">私信</a></p>
+      </div>
+
+    </div>
+     </div>
+    </div>';
+}
+
 $sql="SELECT `friends` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
 
 $res=mysql_query($sql);
@@ -412,7 +431,8 @@ if($res!=false){
     $res=mysql_query($sql);
     if($res!=false){
       $row=mysql_fetch_row($res);
-      $send_msg_url="";
+      $send_msg_url="message.php?uid=".$uid;
+
       echo '     <div class="f-i-left">
       <div class="panel panel-default">
      <div class="panel-body">
@@ -423,7 +443,7 @@ if($res!=false){
 
       <div class="friends-detail">
       <p><a href="#">'.$row[0].'</a></p>
-      <p><a href="#">私信</a></p>
+      <p><a href="'.$send_msg_url.'">私信</a></p>
       </div>
 
     </div>
@@ -439,7 +459,10 @@ if($res!=false){
 
   //**********************************粉丝******************************************
 
-  echo $fans;
+  $fork=substr($ff[1],strlen("%fork%={|"),strlen($ff[0])-strlen("%fork%={|")-1);
+  $fork_ex=explode("|$&$|", $fork);
+
+
 }
 else{
   echo '无';
@@ -461,30 +484,28 @@ else{
   </div>
   <div class="panel-body">
   	
-  	
+<?php
 
-  	<div class="f-i-left">
-  	  <div class="panel panel-default">
-     <div class="panel-body">
-
-      <div class="friends-photo">
-<img class="img-thumbnail" src="http://i0.hdslb.com/user/1248/124871/myface_m.jpg" height="50" width="50">
-      </div>
-
-      <div class="friends-detail">
-      <p><a href="#">蛤蛤蛤</a></p>
-      <p><a href="#">私信</a></p>
-      </div>
-
-    </div>
-     </div>
-  	</div>
-
+  foreach ($fork_ex as $key => $value){
+    $uid=substr($value, strlen("%uid%="),strlen($value)-strlen("%uid%="));
+    $sql="SELECT `name` FROM `acghub_member` WHERE `id`=".$uid;
+    $res=mysql_query($sql);
+    if($res!=false){
+      $row=mysql_fetch_row($res);
+      $send_msg_url="message.php?uid=".$uid;
+      echo_fork_list($row[0],$send_msg_url);
+    }
+    else{
+      echo '数据库错误';
+    }
+}
+?>
 
   </div>
 
 
   </div>
+
   </div>
 
   <div class="tab-pane" id="info">
