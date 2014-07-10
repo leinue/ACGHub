@@ -576,7 +576,7 @@ echo '<div class="panel panel-default">
               $msger_uid=substr($str_msg_solo[3], strlen("%uid%={|"),strlen($str_msg_solo[1])-strlen("|}"));
               $msger_uid=str_replace('|}', '', $msger_uid);
 
-              $msger_url="message.php?uid=".$msger_uid;
+              $msger_url="message.php?uid=".$msger_uid."?content=".$msg_content;
 
               $msg_content_solo=explode("+==+", $msg_content);
               $num_arrary=count($msg_content_solo);

@@ -32,6 +32,15 @@ connect_mysql();
 
  <?php
 $msg_uid=$_GET['uid'];
+$msg_detail=$msg_uid;
+
+$question_mark_pos=strpos($msg_uid, "?");
+$msg_uid=substr($msg_uid, 0,$question_mark_pos);
+
+$msg_detail=substr($msg_detail, $question_mark_pos+9);
+$msg_de_ex=explode(" == ", $msg_detail);
+
+$count_msg=count($msg_de_ex);
 
 $sql="SELECT `name` FROM `acghub_member` WHERE id=".$msg_uid;
 $res=mysql_query($sql);
@@ -47,63 +56,45 @@ else{
     </h3>
   </div>
   <div class="panel-body">
-
+  <form>
   <div class="msg-send">
     <div class="col-lg-20">
     <div class="input-group">
       <textarea class="form-control" rows="3"></textarea>
-      <span class="input-group-btn">
+      <span class="input-group-btn" id="btn-send-msg">
         <button class="btn btn-default" type="submit">发送</button>
       </span>
-    </div><!-- /input-group -->
-  </div><!-- /.col-lg-6 -->
-</div><!-- /.row -->
+    </div>
+  </div>
+</div>
+</form>
 
   <div class="msg-viusal">
 
   <div class="msg-visual-left">
-
-  <div class="u">  
+<?php
+   for($msg_ct_index=0;$msg_ct_index<$count_msg;$msg_ct_index++){
+   	echo '  <div class="u">  
   <div class="row">
   <div class="col-xs-2 col-sm-2">
  <div class="face">
    <img class="img-thumbnail" src="http://i0.hdslb.com/user/1248/124871/myface_m.jpg" height="50" width="50">
   </div>
-
+<span class="glyphicon glyphicon-chevron-left" id="chat-sign"></span>
   </div>
+
   <div class="col-xs-6">
   <div class="panel panel-default" id="msg-detail">
-  <div class="panel-body">
-    Basic panel example
-  </div>
+  <div class="panel-body">'.
+  $msg_de_ex[$msg_ct_index]
+  .'</div>
   </div>
   <span class="help-block">2014-7-10 13:56</span>
   </div>
   </div>
-  </div>
-
- 
-  <div class="u">  
-  <div class="row">
-  <div class="col-xs-2 col-sm-2">
- <div class="face">
-   <img class="img-thumbnail" src="http://i0.hdslb.com/user/1248/124871/myface_m.jpg" height="50" width="50">
-  </div>
-
-  </div>
-  <div class="col-xs-6">
-  <div class="panel panel-default" id="msg-detail">
-  <div class="panel-body">
-    Basic panel example
-  </div>
-  </div>
-  <span class="help-block">2014-7-10 13:56</span>
-  </div>
-  </div>
-  </div>
-
-
-
+  </div>';
+   }
+?>
 
   </div>
 
@@ -123,7 +114,7 @@ else{
   <div class="face">
    <img class="img-thumbnail" src="http://i0.hdslb.com/user/1248/124871/myface_m.jpg" height="50" width="50">
   </div>
-
+<span class="glyphicon glyphicon-chevron-right" id="chat-sign-right"></span>
   </div>
   </div>
   </div>
@@ -142,13 +133,13 @@ else{
   <div class="face">
    <img class="img-thumbnail" src="http://i0.hdslb.com/user/1248/124871/myface_m.jpg" height="50" width="50">
   </div>
-
+<span class="glyphicon glyphicon-chevron-right" id="chat-sign-right"></span>
   </div>
   </div>
   </div>
 
   </div>
-  
+
   </div>
   </div>
   </div>
