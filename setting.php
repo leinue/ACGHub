@@ -560,8 +560,8 @@ echo '<div class="panel panel-default">
         //$row[0]=%type%=1|&&|%obj%={|hahahaha|}|&&|%content%={|hhhhh+==+23333|}*\-/*%type%=1|&&|%obj%={|sangxinbingkuang|}|&&|%content%={|sdfs+==+123456789|}*\-/*%type%=0|&&|%content%={|dfgfdg+==+789456|}
         $str_msg=explode("*\-/*", $row[0]);
         foreach ($str_msg as $key0 => $value0) {
-          //$value[0]=%type%=1|&&|%obj%={|蛤蛤蛤|}|&&|%content%={|hhhhh+==+23333|}
-          //$value[1]=%type%=1|&&|%obj%={|sangxinbingkuang|}|&&|%content%={|sdfs+==+123456789|}
+          //$value[0]=%type%=1|&&|%obj%={|蛤蛤蛤|}|&&|%content%={|hhhhh+==+23333|}|&&|%uid%={|15|}
+          //$value[1]=%type%=1|&&|%obj%={|sangxinbingkuang|}|&&|%content%={|sdfs+==+123456789|}|&&|%uid%={|15|}
           $str_msg_solo=explode("|&&|", $value0);
           foreach ($str_msg_solo as $key1 => $value1) {
             //$value[0]=%type%=1;$value[1]=%obj%={|蛤蛤蛤|};$value[2]=%content%={|hhhhh+==+23333|}
@@ -569,8 +569,15 @@ echo '<div class="panel panel-default">
             if($msg_type=="9"){
               $obj_name=substr($str_msg_solo[1], strlen("%obj%={|"),strlen($str_msg_solo[1])-strlen("|}"));
               $obj_name=str_replace('|}', '', $obj_name);
+
               $msg_content=substr($str_msg_solo[2], strlen("%content%={|"),strlen($str_msg_solo[1])-strlen("|}"));
               $msg_content=str_replace('|}', '', $msg_content);
+
+              $msger_uid=substr($str_msg_solo[3], strlen("%uid%={|"),strlen($str_msg_solo[1])-strlen("|}"));
+              $msger_uid=str_replace('|}', '', $msger_uid);
+
+              $msger_url="message.php?uid=".$msger_uid;
+
               $msg_content_solo=explode("+==+", $msg_content);
               $num_arrary=count($msg_content_solo);
               $last_msg=$msg_content_solo[$num_arrary-1];
@@ -581,7 +588,7 @@ echo '<div class="panel panel-default">
             <a href="#"><img class="img-thumbnail" src="http://i0.hdslb.com/user/1248/124871/myface_m.jpg" height="50" width="50"></a>
         </div>
         <div class="friends-detail">
-            <p>与 <a href="#"><?php echo $obj_name; ?></a> 的最后一次对话</p>
+            <p>与 <a href="<?php echo $msger_url; ?>" target="_blank"><?php echo $obj_name; ?></a> 的最后一次对话</p>
             <p id="#sys-info-icon"><span class="glyphicon glyphicon-chevron-left"></span><?php echo $last_msg; ?><span class="glyphicon glyphicon-chevron-right"></span></p>
         </div>
        </div>
@@ -597,18 +604,12 @@ echo '<div class="panel panel-default">
               $count_sys_info=substr_count($row[0],'%type%=8');
               break;
               //系统消息
-?>
-          
-
-<?php
-
             }
           }
         }
 
 ?>
-      
-      
+
       </div>
       </div> 
 

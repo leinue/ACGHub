@@ -11,7 +11,7 @@
     © 2014 <a href="index.php">ACGHub</a>, Inc. <a href="term.php">团队</a> <a href="security.php">隐私</a> <a href="security.php">安全</a></p>
     
     <p class="navbar-text" id="head_left">
-    <a href="www.ivydom.com">博客</a> <a href="about.php">关于</a></p>
+    <a href="http://ivydom.com" target="_blank">博客</a> <a href="about.php">关于</a></p>
   </div>
 </nav>
 
