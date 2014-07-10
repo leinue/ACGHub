@@ -538,8 +538,7 @@ connect_mysql();
   </div>
   <div class="panel-body">
 
-  	<div class="panel panel-default">
-      <div class="panel-body">
+  	
 
 <?php
       $sql="SELECT `message` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
@@ -564,18 +563,34 @@ connect_mysql();
               $msg_content_solo=explode("+==+", $msg_content);
               $num_arrary=count($msg_content_solo);
               $last_msg=$msg_content_solo[$num_arrary-1];
-
-              
+?>
+      <div class="panel panel-default">
+       <div class="panel-body">     
+        <div class="friends-photo">
+            <a href="#"><img class="img-thumbnail" src="http://i0.hdslb.com/user/1248/124871/myface_m.jpg" height="50" width="50"></a>
+        </div>
+        <div class="friends-detail">
+            <p>与 <a href="#"><?php echo $obj_name; ?></a> 的最后一次对话</p>
+            <p id="#sys-info-icon"><span class="glyphicon glyphicon-chevron-left"></span><?php echo $last_msg; ?><span class="glyphicon glyphicon-chevron-right"></span></p>
+        </div>
+       </div>
+       </div>
+<?php
+           break;
             }
             elseif($msg_type=="8"){
-              echo '系统消息';
+              //echo '系统消息';
             }
           }
         }
 
 ?>
       
+      
       </div>
+      </div> 
+      
+      
 <?php
      }
      else{
@@ -588,16 +603,17 @@ connect_mysql();
 ?>
      
 
-    </div>
+    
 
-  </div>
-  </div> 	
+	
 
   <div class="panel panel-default">
   <div class="panel-heading">
   <h3 class="panel-title">系统通知</h3>
   </div>
+
   <div class="panel-body">
+
   	<div class="panel panel-default">
       <div class="panel-body"  id="sys-info-icon">
       <span class="glyphicon glyphicon-warning-sign"></span> [系统通知]
@@ -606,6 +622,16 @@ connect_mysql();
       <p>2014-01-01</p>
       </div>
     </div>
+
+     <div class="panel panel-default">
+      <div class="panel-body"  id="sys-info-icon">
+      <span class="glyphicon glyphicon-warning-sign"></span> [系统通知]
+
+      <p>werewrewrewewerwewerrwrwwerwerrwe</p>
+      <p>2014-01-01</p>
+      </div>
+    </div>
+
   </div>
 
   </div> 
