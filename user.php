@@ -1,7 +1,25 @@
-<?php include('header.php'); ?>
+<?php 
+include('header.php');
+?>
 
 <?php 
      if($_SESSION['user-login-id']==1){
+      $user_uid=test_input($_GET['uid']);
+
+      $sql_detail="SELECT `name`,`email`, `_date`,`website`, `location` FROM `acghub_member` WHERE `id`=".$user_uid;
+      $res_detail=mysql_query($sql_detail);
+      if($res_detail!=false){
+        $row=mysql_fetch_row($res_detail);
+            /*[0] => ivy
+              [1] => 597055914@qq.com
+              [2] => 2010
+              [3] => www.ivydom.com
+              [4] => tianchao*/
+      }
+      else{
+          echo '数据库出错';
+      }
+      
 ?>
 
 <div class="user-per">
@@ -13,16 +31,16 @@
     </div>
 
     <div class="user-name">
-    <h3>admin</h3>
+    <h3><?php echo $row[0]; ?></h3>
     </div>
 
     <div class="split-col"></div>
 
     <div class="user-detail">
-    <p><span class="glyphicon glyphicon-map-marker" id="user-detail-icon"></span> 地区</p>
-    <p><span class="glyphicon glyphicon-envelope" id="user-detail-icon"></span> 邮箱</p>
-    <p><span class="glyphicon glyphicon-link" id="user-detail-icon"></span> 个人网址</p>
-    <p><span class="glyphicon glyphicon-log-in" id="user-detail-icon"></span> 注册日期</p>
+    <p><span class="glyphicon glyphicon-map-marker" id="user-detail-icon"></span> <?php echo $row[4]; ?></p>
+    <p><span class="glyphicon glyphicon-envelope" id="user-detail-icon"></span> <?php echo $row[1]; ?></p>
+    <p><span class="glyphicon glyphicon-link" id="user-detail-icon"></span> <?php echo $row[3]; ?></p>
+    <p><span class="glyphicon glyphicon-log-in" id="user-detail-icon"></span> <?php echo $row[2]; ?></p>
     </div>
 
     <div class="split-col"></div>
