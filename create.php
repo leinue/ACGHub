@@ -1,7 +1,5 @@
 <?php 
 include('header.php');
-include('fun/mysql.php');
-include('fun/function.php');
 connect_mysql();
  ?>
 
@@ -48,7 +46,7 @@ connect_mysql();
                   fwrite($pro_setting, $txt_setting);
                   fclose($pro_setting);
 
-                  
+
 
                 }
                 else{echo '重复';}

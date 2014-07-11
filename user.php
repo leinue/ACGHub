@@ -99,7 +99,7 @@ include('header.php');
    </div>
 
    <div class="input-group-right">
-       <button type="button" class="btn btn-default">创建</button>
+       <a href="create.php" target="_blank"><button type="button" class="btn btn-default">创建</button></a>
    </div>
    </div>
 
@@ -107,37 +107,115 @@ include('header.php');
      
      <div class="panel-body">
 
-     <div class="panel-body-item">
+     <?php
+      $mulu = scandir("userpro/".$user_uid);
+      $a = count($mulu);
+      if($a>2){
+        for($i = 2;$i<=$a-1;$i++){
+          $filename = "userpro/".$user_uid."/".$mulu[$i]."/readme";
+          $handle = fopen($filename, "r");
+          if($handle!=""){
+            $contents = fread($handle, filesize ($filename));
+            fclose($handle);
+
+            $contents=substr($contents,0,20);
+
+            echo '<div class="panel-body-item">
 
      <div class="panel-body-title">
-     <h2><span class="glyphicon glyphicon-list-alt"></span> hhh</h2>
+     <h2><span class="glyphicon glyphicon-list-alt"></span> '.$mulu[$i].'</h2>
      </div>
 
      <div class="panel-body-content">
-     <h4>hhhhhhhhhh Project</h4>
+     <h4>'.$contents.'</h4>
      </div>
 
      <div class="panel-body-content">
      <span class="help-block">最后一次更新:20分钟前</span> 
      </div>
 
-     </div>
+     </div>';
 
-     <div class="panel-body-item">
+          }else{
+            echo '<div class="panel-body-item">
 
      <div class="panel-body-title">
-     <h2><span class="glyphicon glyphicon-list-alt"></span> hhh</h2>
+     <h2><span class="glyphicon glyphicon-list-alt"></span> '.$mulu[$i].'</h2>
      </div>
 
      <div class="panel-body-content">
-     <h4>hhhhhhhhhh Project</h4>
+     <h4>'.$mulu[$i].' proect</h4>
      </div>
 
      <div class="panel-body-content">
      <span class="help-block">最后一次更新:20分钟前</span> 
      </div>
 
+     </div>';
+          }
+        }
+      }
+      else{echo '暂无数据';}
+      
+      function echopupr($uid,$type){
+      $mulu=scandir("userpro/".$uid);
+      $a=count($mulu);
+      if($a>2){
+      for($i = 2;$i<=$a-1;$i++){
+          $filename = "userpro/".$uid."/".$mulu[$i]."/prosetting.afg";
+          $handle = fopen($filename, "r");
+          $contents = fread($handle, filesize ($filename));
+          fclose($handle);
+          $protype=explode("\r\n", $contents);
+          if($protype[0]==$type){
+            $readme = "userpro/".$uid."/".$mulu[$i]."/readme";
+            $hand = fopen($readme, "r");
+            if($hand!=""){
+            $contents = fread($hand, filesize ($readme));
+            fclose($hand);
+            $contents=substr($contents,0,20);
+            echo '<div class="panel-body-item">
+
+     <div class="panel-body-title">
+     <h2><span class="glyphicon glyphicon-list-alt"></span> '.$mulu[$i].'</h2>
      </div>
+
+     <div class="panel-body-content">
+     <h4>'.$contents.'</h4>
+     </div>
+
+     <div class="panel-body-content">
+     <span class="help-block">最后一次更新:20分钟前</span> 
+     </div>
+
+     </div>';
+          }
+          else{
+            echo '<div class="panel-body-item">
+
+     <div class="panel-body-title">
+     <h2><span class="glyphicon glyphicon-list-alt"></span> '.$mulu[$i].'</h2>
+     </div>
+
+     <div class="panel-body-content">
+     <h4>'.$mulu[$i].' proect</h4>
+     </div>
+
+     <div class="panel-body-content">
+     <span class="help-block">最后一次更新:20分钟前</span> 
+     </div>
+
+     </div>';
+          }
+          }
+          else{
+            echo '暂无数据';
+          }
+      }
+      }
+      else{echo '暂无数据';}
+    }
+     ?>
 
      </div>
 
@@ -148,39 +226,9 @@ include('header.php');
   <div class="tab-pane fade" id="public">
   <div class="panel-act">
      <div class="panel-body">
-
-     <div class="panel-body-item">
-
-     <div class="panel-body-title">
-     <h2><span class="glyphicon glyphicon-list-alt"></span> hhh</h2>
-     </div>
-
-     <div class="panel-body-content">
-     <h4>hhhhhhhhhh Project</h4>
-     </div>
-
-     <div class="panel-body-content">
-     <span class="help-block">最后一次更新:20分钟前</span> 
-     </div>
-
-     </div>
-
-     <div class="panel-body-item">
-
-     <div class="panel-body-title">
-     <h2><span class="glyphicon glyphicon-list-alt"></span> hhh</h2>
-     </div>
-
-     <div class="panel-body-content">
-     <h4>hhhhhhhhhh Project</h4>
-     </div>
-
-     <div class="panel-body-content">
-     <span class="help-block">最后一次更新:20分钟前</span> 
-     </div>
-
-     </div>
-
+<?php
+     echopupr($user_uid,"type=public");
+?>
      </div>
 
     </div>
@@ -191,37 +239,9 @@ include('header.php');
   <div class="panel-act">
      <div class="panel-body">
 
-     <div class="panel-body-item">
-
-     <div class="panel-body-title">
-     <h2><span class="glyphicon glyphicon-list-alt"></span> hhh</h2>
-     </div>
-
-     <div class="panel-body-content">
-     <h4>hhhhhhhhhh Project</h4>
-     </div>
-
-     <div class="panel-body-content">
-     <span class="help-block">最后一次更新:20分钟前</span> 
-     </div>
-
-     </div>
-
-     <div class="panel-body-item">
-
-     <div class="panel-body-title">
-     <h2><span class="glyphicon glyphicon-list-alt"></span> hhh</h2>
-     </div>
-
-     <div class="panel-body-content">
-     <h4>hhhhhhhhhh Project</h4>
-     </div>
-
-     <div class="panel-body-content">
-     <span class="help-block">最后一次更新:20分钟前</span> 
-     </div>
-
-     </div>
+<?php
+     echopupr($user_uid,"type=private");
+?>
 
      </div>
   </div>

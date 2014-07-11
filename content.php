@@ -1,6 +1,4 @@
 <?php 
-include('fun/mysql.php');
-include('fun/function.php');
 connect_mysql();
 
      if($_SESSION['user-login-id']!=1){
@@ -187,7 +185,7 @@ connect_mysql();
   <div class="panel-res">
   <ul class="list-group">
   <?php
-  
+
   ?>
   </ul>
   </div>
