@@ -48,6 +48,8 @@ connect_mysql();
                   fwrite($pro_setting, $txt_setting);
                   fclose($pro_setting);
 
+                  
+
                 }
                 else{echo '重复';}
 

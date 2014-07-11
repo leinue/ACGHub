@@ -211,9 +211,7 @@
 
     #msg-detail{width:270px;}
 
-    #btn-send-msg{
-        padding-top: 46px;
-    }
+    #btn-send-msg{padding-top: 46px;}
 
     #chat-sign{
         color:rgb(221,221,221);
@@ -225,3 +223,5 @@
         margin-left: -30px;
         margin-top: -40px;
     }
+
+    .tab-content ul a{text-decoration: none;}

@@ -15,4 +15,13 @@ function checkemail($email_checked){
     }
     else{return false;}
 }
+
+function getone($sql){
+    $res=mysql_query($sql);
+    if($res!=false){
+      $row=mysql_fetch_row($res);
+      return $row[0];
+    }
+    else {return false;}
+}
 ?>
