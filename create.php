@@ -1,6 +1,7 @@
 <?php 
 include('header.php');
 include('fun/mysql.php');
+include('fun/function.php');
 connect_mysql();
  ?>
 
@@ -11,6 +12,53 @@ connect_mysql();
       if($result!=false)
         $row=mysql_fetch_row($result);
         if($row[0]==1){
+
+          if($_POST['create']=="create"){
+            $pro_name=test_input($_POST['dir']);
+            $pro_cls=test_input($_POST['pro_cls']);
+            $pro_des=test_input($_POST['des']);
+            $pro_type=test_input($_POST['optionsRadios']);
+
+            if($pro_name==""){
+              echo '项目名称不能为空';
+            }
+            else{
+              if (!is_dir('userpro/')){
+                mkdir('userpro/');
+              }
+              $sql="SELECT `id` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
+              $res=mysql_query($sql);
+              if($res!=false){
+                $row=mysql_fetch_row($res);
+                if(!is_dir('userpro/'.$row[0])){
+                  mkdir('userpro/'.$row[0]);
+                }
+
+                if (!is_dir('userpro/'.$row[0].'/'.$pro_name)){
+                  mkdir('userpro/'.$row[0].'/'.$pro_name); 
+
+                  if($pro_des!=""){
+                    file_put_contents('userpro/'.$row[0].'/'.$pro_name.'/readme', $pro_des);
+                  }
+
+                  $pro_setting = fopen("prosetting", "x") or die("Unable to open file!");
+
+                  $txt_setting="type=".$pro_type."\nclass=".$pro_cls;
+
+                  fwrite($pro_setting, $txt_setting);
+                  fclose($pro_setting);
+
+                }
+                else{echo '重复';}
+
+              }
+              else{echo '数据库出错';}
+
+            }
+
+          }
+
+
 ?>
 
 <div class="create-body">
@@ -19,31 +67,47 @@ connect_mysql();
     <h3 class="panel-title">新建一个项目</h3>
   </div>
   <div class="panel-body">
-    <form class="form-create">
-<input type="text" class="form-control" placeholder="目录名">
-<span class="help-block">不妨起一个简短可记的名字</span>
 
-<textarea class="form-control" rows="3" placeholder="描述"></textarea>
-<span class="help-block">可选</span>
+
+<form class="form-create" action="create.php" method="post">
+<input type="text" name="dir" class="form-control" placeholder="目录名">
+<span class="help-block">不妨起一个简短可记的名字,必选</span>
+
+<select class="form-control input-sm" name="pro_cls">
+  <option value="script">脚本</option>
+  <option value="Storyboard">分镜</option>
+  <option value="enactment">设定</option>
+  <option value="code">代码</option>
+  <option value="dubbing">配音</option>
+  <option value="music">音乐</option>
+</select>
+<span class="help-block">选择你的项目类别,必选</span>
+
+
+<textarea class="form-control" rows="3" name="des" placeholder="描述"></textarea>
+<span class="help-block">给你的项目一个简单的描述,将放入目录中作为ReadMe文件,可选</span>
+
 <div class="radio">
   <label>
-    <input type="radio" name="public"value="public" checked>
+    <input type="radio" name="optionsRadios" id="optionsRadios1" value="public" checked>
     <span class="glyphicon glyphicon-retweet"> 公开</span>
-    <span class="help-block">每个人都可以看到这条目录,并且可以关注/修改</span>
   </label>
 </div>
+<span class="help-block">每个人都可以看到这条目录,并且可以关注/修改</span>
 
 <div class="radio">
   <label>
-    <input type="radio" name="private"value="private">
+    <input type="radio" name="optionsRadios" id="optionsRadios2" value="private">
     <span class="glyphicon glyphicon-lock"> 私有</span>
-    <span class="help-block">由你选择谁可以关注/修改这条目录</span>
   </label>
 </div>
+<span class="help-block">由你选择谁可以关注/修改这条目录</span>
 
-<button type="button" class="btn btn-success">确认创建</button>
+<button type="submit" name="create" value="create" class="btn btn-success">确认创建</button>
 </form>
-  </div>
+
+
+</div>
 </div>
 </div>
 <?php
