@@ -2,6 +2,7 @@
 include('fun/mysql.php');
 include('fun/function.php');
 connect_mysql();
+
      if($_SESSION['user-login-id']!=1){
 ?>
 <main>
@@ -128,6 +129,31 @@ connect_mysql();
     }
     else {echo '<li class="list-group-item">数据库错误</li>';}
 
+    function echo_item_pu_pr($res,$type){
+      if($res!=false){
+      $mulu=scandir("userpro/".$res);
+      $a=count($mulu);
+      if($a>2){
+        for($i = 2;$i<=$a-1;$i++){
+          $filename = "userpro/".$res."/".$mulu[$i]."/prosetting.afg";
+          $handle = fopen($filename, "r");
+          $contents = fread($handle, filesize ($filename));
+          fclose($handle);
+
+          $protype=explode("\r\n", $contents);
+          if($protype[0]==$type){
+            echo '<a href="#"><li class="list-group-item">'.$mulu[$i].'</li></a>';
+          }
+          else{echo '<li class="list-group-item">暂无数据</li>';}
+        }
+
+      }
+      else{echo '<li class="list-group-item">暂无数据</li>';}
+
+    }
+    else{echo '<li class="list-group-item">数据库错误</li>';}
+}
+
   ?>
   </ul>
   </div>
@@ -139,30 +165,7 @@ connect_mysql();
   <div class="panel-res">
   <ul class="list-group">
   <?php
-    if($res!=false){
-      $mulu=scandir("userpro/".$res);
-      $a=count($mulu);
-      if($a>2){
-        for($i = 2;$i<=$a-1;$i++){
-          $filename = "userpro/".$res."/".$mulu[$i]."/prosetting.afg";
-          $handle = fopen($filename, "r");
-          $contents = fread($handle, filesize ($filename));
-          fclose($handle);
-
-          $protype=explode("\r\n", $contents);
-          if($protype[0]){
-            echo '<a href="#"><li class="list-group-item">'.$mulu[$i].'</li></a>';
-          }
-          else{echo '<li class="list-group-item">暂无数据</li>';}
-        }
-
-      }
-      else{echo '<li class="list-group-item">暂无数据</li>';}
-
-    }
-    else{echo '<li class="list-group-item">数据库错误</li>';}
-
-    
+  echo_item_pu_pr($res,"type=public");
   ?>
   </ul>
   </div>
@@ -172,11 +175,9 @@ connect_mysql();
   <div class="tab-pane fade" id="private">
   <div class="panel-res">
   <ul class="list-group">
-  <li class="list-group-item">Cras justo odio</li>
-  <li class="list-group-item">Dapibus ac facilisis in</li>
-  <li class="list-group-item">Morbi leo risus</li>
-  <li class="list-group-item">Porta ac consectetur ac</li>
-  <li class="list-group-item">Vestibulum at eros</li>
+  <?php
+  echo_item_pu_pr($res,"type=private");
+  ?>
   </ul>
   </div>
   </div>
