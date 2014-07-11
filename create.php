@@ -41,10 +41,10 @@ connect_mysql();
                     file_put_contents('userpro/'.$row[0].'/'.$pro_name.'/readme', $pro_des);
                   }
 
-                  $pro_setting = fopen("prosetting", "x") or die("Unable to open file!");
-
-                  $txt_setting="type=".$pro_type."\nclass=".$pro_cls;
-
+                  $pro_setting = fopen('userpro/'.$row[0].'/'.$pro_name.'/prosetting.afg', "w") or die("Unable to open file!");
+                  $txt_setting="type=".$pro_type."\r\n";
+                  fwrite($pro_setting, $txt_setting);
+                  $txt_setting="class=".$pro_cls."\r\n";
                   fwrite($pro_setting, $txt_setting);
                   fclose($pro_setting);
 
