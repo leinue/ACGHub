@@ -1,4 +1,5 @@
 <?php 
+error_reporting(E_ALL & ~E_DEPRECATED);
 error_reporting(E_ALL ^ E_NOTICE);
 include('fun/mysql.php');
 include('fun/function.php');

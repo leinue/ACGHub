@@ -1,7 +1,6 @@
 <meta charset="utf-8">
 <?php
 include('header.php');
-include('fun/mysql.php');
 
 connect_mysql();
 

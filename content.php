@@ -1,7 +1,14 @@
 <?php 
+error_reporting(E_ALL & ~E_DEPRECATED);
+error_reporting(E_ALL & ~E_NOTICE);
+
 connect_mysql();
 
+    $sql="SELECT `id` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
+    $res=getone($sql);
+
      if($_SESSION['user-login-id']!=1){
+
 ?>
 <main>
 	<div class="row">
@@ -80,19 +87,22 @@ connect_mysql();
 <div class="res-right">
 
 <div class="panel panel-default">
+
   <div class="panel-heading">
   <div class="row">
   <div class="col-lg-12">
+  <form method="POST" action="search.php" name="search_input">
     <div class="input-group">
-      <input type="text" class="form-control">
+      <input type="text" name="searchform" class="form-control" placehold="请输入资源名称">
       <span class="input-group-btn">
-        <button class="btn btn-default" type="button">搜索资源</button>
+        <button class="btn btn-default" type="submit" name="searchbtn" value="searchbtn">搜索资源</button>
       </span>
     </div><!-- /input-group -->
+    </form>
   </div><!-- /.col-lg-6 -->
 </div><!-- /.row -->
-
   </div>
+
 
   <div class="panel-body">
     <ul class="nav nav-tabs" role="tablist" id="mytab">
@@ -110,9 +120,6 @@ connect_mysql();
   <div class="panel-res">
   <ul class="list-group">
   <?php
-
-    $sql="SELECT `id` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
-    $res=getone($sql);
 
     if($res!=false){
       $mulu = scandir("userpro/".$res);

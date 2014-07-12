@@ -1,7 +1,5 @@
 <?php 
 include('header.php'); 
-include('fun/mysql.php');
-include('fun/function.php');
 
 connect_mysql();
 

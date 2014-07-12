@@ -1,7 +1,5 @@
 <?php 
 include('header.php'); 
-include('fun/mysql.php');
-include('fun/function.php');
 ?>
 
 <?php 
@@ -19,7 +17,6 @@ connect_mysql();
         $website=test_input($_POST['website']);
         $sex=test_input($_POST['sex']);
 
-        //UPDATE `acghub_member` SET `age`=[value-8],`sex`=[value-9],`website`=[value-10],`location`=[value-11] WHERE `email`=
         $sql = "UPDATE `acghub_member` SET `age`=".$age.",`sex`=".$sex.",`website`='".$website."',`location`='".$location."' WHERE `email`='".$_SESSION['user-account']."'";
         $result=mysql_query($sql);
         echo mysql_error();
