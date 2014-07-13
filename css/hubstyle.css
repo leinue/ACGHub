@@ -225,3 +225,10 @@
     }
 
     .tab-content ul a{text-decoration: none;}
+
+    .overitem{
+        margin-left:15%;
+        margin-top:60px;
+    }
+
+    .item-left{}

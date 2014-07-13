@@ -12,8 +12,11 @@ if($res_searched!=""){
     $path="userpro/".$res;
     $dir=@opendir($path);
 
+    $found=false;
+
     while(($file=readdir($dir))!=false){
     	if($file==$res_searched){
+        $found=true;
 ?>
    <div class="e-check-body">
     <div class="panel panel-default">
@@ -29,7 +32,7 @@ if($res_searched!=""){
 <?php
        break;
     	}
-    	else{
+    	elseif(!$found){
 ?>
    <div class="e-check-body">
     <div class="panel panel-default">
