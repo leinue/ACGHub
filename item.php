@@ -2,7 +2,6 @@
 include('header.php');
 
 function GetDes($filename){
-
       //$mulu=scandir($path);
       //$a=count($mulu);
       //if($a>2){
@@ -20,11 +19,15 @@ function GetDes($filename){
 	else{
 		echo false;
 	}
+}
 
-          
-      //}
-  //}
-
+function GetItem($list){
+	$mulu = scandir($list);
+    $count = count($mulu);
+    if($count>2){
+    	return $mulu;
+    }
+    else{return false;}
 }
 
 $itemname=test_input($_GET['name']);
@@ -59,20 +62,36 @@ if(strlen($itemname)!=0 and strlen($uid)!=0){
    
   </div>
 
-   <table class="table">
+   <table class="table" id="table-size">
 
     <tr>
     <th>文件</th>
     <th>详细</th>
     <th>时间</th>
     </tr>
-
-    <tr>
-    <td>a.php</td>
-    <td>文件组织变更</td>
+    
+<?php
+   $conlist=GetItem("userpro/".$uid."/".$itemname);
+   $a=count($conlist);
+   if($conlist!=false){
+   for($i = 2;$i<=$a-1;$i++){
+   	if($conlist[$i]!="prosetting.afg" and $conlist[$i]!="readme"){
+   	   	echo '<tr>
+    <td>'.iconv('gbk','utf-8',$conlist[$i]).'</td>
+    <td>'.$des.'</td>
     <td>1分钟以前</td>
-
-    </tr>
+    </tr>';
+    }
+    else{
+    	continue;
+    }
+   }
+   }
+   else{
+   	echo '';
+   }
+?>
+    
 
   </table>
 
