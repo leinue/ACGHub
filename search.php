@@ -25,7 +25,7 @@ if($res_searched!=""){
         <h3 class="panel-title">寻找成功</h3>
       </div>
     <div class="panel-body">
-    <a href="#"><?php echo $file; ?></a>
+    <a href="#"><?php echo iconv('gbk','utf-8',$file); ?></a>
     </div>
     </div>
    </div>
