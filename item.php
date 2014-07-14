@@ -88,7 +88,9 @@ if(strlen($itemname)!=0 and strlen($uid)!=0){
    }
    }
    else{
-   	echo '';
+   	echo '<tr>
+    <td>暂无数据</td>
+    </tr>';
    }
 ?>
     

@@ -118,12 +118,13 @@ include('header.php');
             $contents = fread($handle, filesize ($filename));
             fclose($handle);
 
-            $contents=substr($contents,0,20);
+            $contents=substr($contents,0);
+            $contents=iconv("GB2312","UTF-8//IGNORE",$contents);
 
             echo '<div class="panel-body-item">
 
      <div class="panel-body-title">
-     <h2><span class="glyphicon glyphicon-list-alt"></span> '.$mulu[$i].'</h2>
+     <h2><span class="glyphicon glyphicon-list-alt"></span> '.iconv('gbk','utf-8',$mulu[$i]).'</h2>
      </div>
 
      <div class="panel-body-content">
@@ -140,11 +141,11 @@ include('header.php');
             echo '<div class="panel-body-item">
 
      <div class="panel-body-title">
-     <h2><span class="glyphicon glyphicon-list-alt"></span> '.$mulu[$i].'</h2>
+     <h2><span class="glyphicon glyphicon-list-alt"></span> '.iconv('gbk','utf-8',$mulu[$i]).'</h2>
      </div>
 
      <div class="panel-body-content">
-     <h4>'.$mulu[$i].' proect</h4>
+     <h4>'.iconv('gbk','utf-8',$mulu[$i]).' proect</h4>
      </div>
 
      <div class="panel-body-content">
