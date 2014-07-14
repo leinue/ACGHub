@@ -126,7 +126,7 @@ connect_mysql();
       $a = count($mulu);
       if($a>2){
         for($i = 2;$i<=$a-1;$i++){
-        echo '<a href="item.php?name='.$mulu[$i].'" target="_blank"><li class="list-group-item">'.$mulu[$i].'</li></a>';
+        echo '<a href="item.php?name='.$mulu[$i].'?uid='.$res.'" target="_blank"><li class="list-group-item">'.$mulu[$i].'</li></a>';
         }
       }
       else{echo '<li class="list-group-item">暂无数据</li>';}
@@ -147,7 +147,7 @@ connect_mysql();
 
           $protype=explode("\r\n", $contents);
           if($protype[0]==$type){
-            echo '<a href="item.php?name='.$mulu[$i].'" target="_blank"><li class="list-group-item">'.$mulu[$i].'</li></a>';
+            echo '<a href="item.php?name='.$mulu[$i].'&uid='.$res.'" target="_blank"><li class="list-group-item">'.$mulu[$i].'</li></a>';
           }
           else{echo '<li class="list-group-item">暂无数据</li>';}
         }

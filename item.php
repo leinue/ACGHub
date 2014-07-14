@@ -1,16 +1,86 @@
 <?php
 include('header.php');
 
-$itemname=test_input($_GET['name']);
-if(strlen($itemname)!=""){
-	
+function GetDes($filename){
+
+      //$mulu=scandir($path);
+      //$a=count($mulu);
+      //if($a>2){
+        //for($i = 2;$i<=$a-1;$i++){
+          //$handle = fopen($filename, "r");
+          //$contents = fread($handle, filesize ($filename));
+          //fclose($handle);
+	if(file_exists($filename)){
+		$opts = array('file' => array('encoding' => 'gb2312'));
+        $ctxt = stream_context_create($opts);
+        $contents=file_get_contents($filename, FILE_TEXT, $ctxt); 
+        $contents = iconv("gb2312", "utf-8//IGNORE",$contents); 
+        return $contents;
+	}
+	else{
+		echo false;
+	}
+
+          
+      //}
+  //}
+
 }
+
+$itemname=test_input($_GET['name']);
+$uid=test_input($_GET['uid']);
+
+if($_SESSION['user-login-id']==1){
 
 ?>
 
 <div class="overitem">
 
 <div class="item-left">
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><?php echo $itemname; ?></h3>
+  </div>
+  <div class="panel-body">
+<?php
+
+if(strlen($itemname)!=0 and strlen($uid)!=0){
+
+	$des=GetDes("userpro/".$uid."/".$itemname."/readme");
+
+	if($des!=false){
+		echo $des;
+	}
+	else{echo $itemname.'project';}
+}
+
+?>
+   
+  </div>
+
+   <table class="table">
+
+    <tr>
+    <th>文件</th>
+    <th>详细</th>
+    <th>时间</th>
+    </tr>
+
+    <tr>
+    <td>a.php</td>
+    <td>文件组织变更</td>
+    <td>1分钟以前</td>
+
+    </tr>
+
+  </table>
+
+</div>
+
+</div>
+
+<div class="item-right">
 
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -23,14 +93,14 @@ if(strlen($itemname)!=""){
 
 </div>
 
-<div class="item-right">
-
-</div>
-
 </div>
 
 <?php
 
+}
+else{
+	header('location:index.php');
+}
 
 include('footer.php');
 ?>

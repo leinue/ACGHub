@@ -229,6 +229,16 @@
     .overitem{
         margin-left:15%;
         margin-top:60px;
+        width: 1000px;
     }
 
-    .item-left{}
+    .item-left{
+        float:left;
+        width: 730px;
+        margin-right: 20px;
+    }
+
+    .item-right{
+        float: left;
+        width:250px;
+    }

@@ -17,6 +17,7 @@ if($res_searched!=""){
     while(($file=readdir($dir))!=false){
     	if($file==$res_searched){
         $found=true;
+        
 ?>
    <div class="e-check-body">
     <div class="panel panel-default">
@@ -30,9 +31,10 @@ if($res_searched!=""){
    </div>
 
 <?php
-       break;
+     
     	}
     	elseif(!$found){
+
 ?>
    <div class="e-check-body">
     <div class="panel panel-default">
@@ -46,7 +48,7 @@ if($res_searched!=""){
    </div>
 
 <?php
-       break;
+     
     	}
     }
 
