@@ -115,11 +115,11 @@ include('header.php');
           $filename = "userpro/".$user_uid."/".$mulu[$i]."/readme";
           $handle = fopen($filename, "r");
           if($handle!=""){
-            $contents = fread($handle, filesize ($filename));
-            fclose($handle);
+            //$contents = fread($handle, filesize ($filename));
+            //fclose($handle);
 
-            $contents=substr($contents,0);
-            $contents=iconv("GB2312","UTF-8//IGNORE",$contents);
+            //$contents=substr($contents,0);
+            //$contents=iconv("GB2312","UTF-8//IGNORE",$contents);
 
             echo '<div class="panel-body-item">
 
@@ -128,7 +128,7 @@ include('header.php');
      </div>
 
      <div class="panel-body-content">
-     <h4>'.$contents.'</h4>
+     <h4></h4>
      </div>
 
      <div class="panel-body-content">
@@ -172,9 +172,11 @@ include('header.php');
             $readme = "userpro/".$uid."/".$mulu[$i]."/readme";
             $hand = fopen($readme, "r");
             if($hand!=""){
-            $contents = fread($hand, filesize ($readme));
-            fclose($hand);
-            $contents=substr($contents,0,20);
+            //$contents = fread($hand, filesize ($readme));
+            //fclose($hand);
+            //$contents=substr($contents,0);
+            //$contents=iconv("GB2312","UTF-8//IGNORE",$contents);
+
             echo '<div class="panel-body-item">
 
      <div class="panel-body-title">
@@ -182,7 +184,7 @@ include('header.php');
      </div>
 
      <div class="panel-body-content">
-     <h4>'.$contents.'</h4>
+     <h4></h4>
      </div>
 
      <div class="panel-body-content">
