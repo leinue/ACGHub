@@ -12,7 +12,7 @@ if($_SESSION['admin-login-id']!=1){
 
 
 <link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
-<link rel="stylesheet" href="../signcss.css">
+<link rel="stylesheet" href="../css/signcss.css">
 
 </head>
 

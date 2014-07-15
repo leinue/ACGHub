@@ -156,7 +156,10 @@ include('header.php');
           }
         }
       }
-      else{echo '暂无数据';}
+      else{
+        echo '暂无数据';
+        break;
+      }
       
       function echopupr($uid,$type){
       $mulu=scandir("userpro/".$uid);
@@ -213,6 +216,7 @@ include('header.php');
           }
           else{
             echo '暂无数据';
+            break;
           }
       }
       }

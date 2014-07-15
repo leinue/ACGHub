@@ -105,10 +105,10 @@ if(strlen($itemname)!=0 and strlen($uid)!=0){
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">Panel title</h3>
+    <h3 class="panel-title">未定栏</h3>
   </div>
   <div class="panel-body">
-    Panel content
+    未定数据
   </div>
 </div>
 
