@@ -129,7 +129,10 @@ connect_mysql();
         echo '<a href="item.php?name='.iconv('gbk','utf-8',$mulu[$i]).'&uid='.$res.'" target="_blank"><li class="list-group-item">'.iconv('gbk','utf-8',$mulu[$i]).'</li></a>';
         }
       }
-      else{echo '<li class="list-group-item">暂无数据</li>';}
+      else{
+        echo '<li class="list-group-item">暂无数据</li>';
+        break;
+      }
       
     }
     else {echo '<li class="list-group-item">数据库错误</li>';}
@@ -149,7 +152,10 @@ connect_mysql();
           if($protype[0]==$type){
             echo '<a href="item.php?name='.iconv('gbk','utf-8',$mulu[$i]).'&uid='.$res.'" target="_blank"><li class="list-group-item">'.iconv('gbk','utf-8',$mulu[$i]).'</li></a>';
           }
-          else{echo '<li class="list-group-item">暂无数据</li>';}
+          else{
+            echo '<li class="list-group-item">暂无数据</li>';
+            break;
+          }
         }
 
       }
