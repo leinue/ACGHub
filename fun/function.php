@@ -62,4 +62,26 @@ $tmp.=chr(SingleHexToDec(substr($str,$i,1))*16+SingleHexToDec(substr($str,$i+1,1
 return $tmp;
 }
 
+function delsvndir($svndir){
+    $dh=opendir($svndir);
+    while($file=readdir($dh)){
+        if($file!="."&&$file!=".."){
+            $fullpath=$svndir."/".$file;
+            if(is_dir($fullpath)){
+                delsvndir($fullpath);
+            }else{
+                unlink($fullpath);
+            }
+        }
+        
+    }
+    closedir($dh);
+    if(rmdir($svndir)){
+        return  true;
+    }else{
+        return false;
+    }
+    
+}
+
 ?>

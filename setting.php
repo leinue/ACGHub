@@ -86,15 +86,22 @@ connect_mysql();
             echo '删除失败';
           }
           else{
-            echo '删除成功';
-            session_start(); 
-            session_destroy();
-            session_unset();
-            setcookie('user-login-id','',time()-3600);
-            setcookie('user-account','',time()-3600);
-            setcookie('user-pw','',time()-3600);
-            header("Location:index.php");
-            exit;
+            $sql_id="SELECT `id` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
+            $res=mysql_query($sql_id);
+            if($res!=false){
+              $row=mysql_fetch_row($res);
+              delsvndir($row[0]);
+              echo '删除成功';
+              session_start(); 
+              session_destroy();
+              session_unset();
+              setcookie('user-login-id','',time()-3600);
+              setcookie('user-account','',time()-3600);
+              setcookie('user-pw','',time()-3600);
+              header("Location:index.php");
+              exit;
+            }
+            else{echo '数据库出错';}
           }
         }
         else{echo '数据库出错';}
