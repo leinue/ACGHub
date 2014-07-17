@@ -224,7 +224,7 @@
         margin-top: -40px;
     }
 
-    .tab-content ul a{text-decoration: none;}
+    .tab-content ul a,.panel-body-item a{text-decoration: none;}
 
     .overitem{
         margin-left:15%;
@@ -239,10 +239,11 @@
     }
 
     .item-right{
+        margin-top: -292px;
         float: left;
         width:250px;
     }
 
     #table-size{font-size: 14px;}
 
-    .panel-body-item a{text-decoration: none;}
+    #deleteallitem{float:right;}
