@@ -142,6 +142,7 @@ connect_mysql();
       $mulu=scandir("userpro/".$res);
       $a=count($mulu);
       if($a>2){
+        $cnt=0;
         for($i = 2;$i<=$a-1;$i++){
           $filename = "userpro/".$res."/".$mulu[$i]."/prosetting.afg";
           $handle = fopen($filename, "r");
@@ -149,12 +150,14 @@ connect_mysql();
           fclose($handle);
 
           $protype=explode("\r\n", $contents);
+
           if($protype[0]==$type){
-            echo '<a href="item.php?name='.iconv('gbk','utf-8',$mulu[$i]).'&uid='.$res.'" target="_blank"><li class="list-group-item">'.iconv('gbk','utf-8',$mulu[$i]).'</li></a>';
+            $cnt+=1;
+              echo '<a href="item.php?name='.iconv('gbk','utf-8',$mulu[$i]).'&uid='.$res.'" target="_blank"><li class="list-group-item">'.iconv('gbk','utf-8',$mulu[$i]).'</li></a>';
           }
           else{
-            echo '<li class="list-group-item">暂无数据</li>';
             break;
+             //echo '<a href="item.php?name='.iconv('gbk','utf-8',$mulu[$i]).'&uid='.$res.'" target="_blank"><li class="list-group-item">'.iconv('gbk','utf-8',$mulu[$i]).'</li></a>';
           }
         }
 

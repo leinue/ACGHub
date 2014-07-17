@@ -124,7 +124,7 @@ include('header.php');
             echo '<div class="panel-body-item">
 
      <div class="panel-body-title">
-     <h2><span class="glyphicon glyphicon-list-alt"></span> '.iconv('gbk','utf-8',$mulu[$i]).'</h2>
+     <a href="item.php?name='.iconv('gbk','utf-8',$mulu[$i]).'&uid='.$user_uid.'" target="_blank"><h2><span class="glyphicon glyphicon-list-alt"></span> '.iconv('gbk','utf-8',$mulu[$i]).'</h2></a>
      </div>
 
      <div class="panel-body-content">
@@ -141,7 +141,7 @@ include('header.php');
             echo '<div class="panel-body-item">
 
      <div class="panel-body-title">
-     <h2><span class="glyphicon glyphicon-list-alt"></span> '.iconv('gbk','utf-8',$mulu[$i]).'</h2>
+     <a href="item.php?name='.iconv('gbk','utf-8',$mulu[$i]).'&uid='.$user_uid.'" target="_blank"><h2><span class="glyphicon glyphicon-list-alt"></span> '.iconv('gbk','utf-8',$mulu[$i]).'</h2></a>
      </div>
 
      <div class="panel-body-content">
@@ -183,7 +183,7 @@ include('header.php');
             echo '<div class="panel-body-item">
 
      <div class="panel-body-title">
-     <h2><span class="glyphicon glyphicon-list-alt"></span> '.$mulu[$i].'</h2>
+     <a href="item.php?name='.iconv('gbk','utf-8',$mulu[$i]).'&uid='.$uid.'" target="_blank"><h2><span class="glyphicon glyphicon-list-alt"></span> '.iconv('gbk','utf-8',$mulu[$i]).'</h2></a>
      </div>
 
      <div class="panel-body-content">
@@ -200,7 +200,7 @@ include('header.php');
             echo '<div class="panel-body-item">
 
      <div class="panel-body-title">
-     <h2><span class="glyphicon glyphicon-list-alt"></span> '.$mulu[$i].'</h2>
+     <a href="item.php?name='.iconv('gbk','utf-8',$mulu[$i]).'&uid='.$uid.'" target="_blank"><h2><span class="glyphicon glyphicon-list-alt"></span> '.iconv('gbk','utf-8',$mulu[$i]).'</h2></a>
      </div>
 
      <div class="panel-body-content">
@@ -215,7 +215,7 @@ include('header.php');
           }
           }
           else{
-            echo '暂无数据';
+            //echo '暂无数据';
             break;
           }
       }
