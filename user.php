@@ -134,7 +134,6 @@ include('header.php');
       $a = count($mulu);
       if($a>2){
         for($i = 2;$i<=$a-1;$i++){
-          if(file_exists("userpro/".$uid."/".$mulu[$i])){
           $filename = "userpro/".$user_uid."/".$mulu[$i]."/readme";
           $handle = fopen($filename, "r");
           if($handle!=""){
@@ -177,10 +176,6 @@ include('header.php');
 
      </div>';
           }
-          }
-          else{
-            die();
-          }
         }
       }
       else{
@@ -202,7 +197,6 @@ include('header.php');
       $a=count($mulu);
       if($a>2){
       for($i = 2;$i<=$a-1;$i++){
-        if(file_exists("userpro/".$uid."/".$mulu[$i])){
           $filename = "userpro/".$uid."/".$mulu[$i]."/prosetting.afg";
           $handle = fopen($filename, "r");
           $contents = fread($handle, filesize ($filename));
@@ -255,10 +249,6 @@ include('header.php');
             //echo '暂无数据';
             break;
           }
-        }
-        else{
-          die();
-        }
 
       }
       }

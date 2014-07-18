@@ -1,4 +1,5 @@
 <?php
+
 function test_input($data) {
   $data = trim($data);
   $data = stripslashes($data);
@@ -84,25 +85,26 @@ function delsvndir($svndir){
     
 }
 
-function WriteDyn($DynamicUser){
+function WriteDyn($DynamicUser,$mail){
 
 $sql_get="SELECT `dynamic` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
 $get=getone($sql_get);
 
 if($get!=false){
 
-  if($get=="0"){
+  if($get=="9"){
   	$get=$DynamicUser;
   }
   else{
   	$get=$get."{|---+---|}".$DynamicUser;
   }
 
-  $sql_up="UPDATE `acghub_member` SET `dynamic`=$get WHERE `email`='".$_SESSION['user-account']."'";
-  $res_up=mysql_query($sql);
+  $sql_up="UPDATE `acghub_member` SET `dynamic`='".$get."' WHERE `email`='".$_SESSION['user-account']."'";
+  $res_up=mysql_query($sql_up);
+  echo mysql_error();
   if($res_up!=false){
   $up=mysql_affected_rows();
-  if($up){
+  if($up!=-1){
     return true;
   }
   else{
