@@ -37,6 +37,7 @@ function create_table(){
     message TEXT NOT NULL,
     friends TEXT NOT NULL,
     photo TEXT NOT NULL,
+    dynamic TEXT NOT NULL,
   	PRIMARY KEY (id)
   	)";
 

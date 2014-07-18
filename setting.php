@@ -90,7 +90,7 @@ connect_mysql();
             $res=mysql_query($sql_id);
             if($res!=false){
               $row=mysql_fetch_row($res);
-              delsvndir($row[0]);
+              delsvndir("userpro/".$row[0]);
               echo '删除成功';
               session_start(); 
               session_destroy();

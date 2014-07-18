@@ -46,7 +46,7 @@ connect_mysql();
                   fwrite($pro_setting, $txt_setting);
                   fclose($pro_setting);
 
-
+                  header("location:user.php");
 
                 }
                 else{echo '重复';}

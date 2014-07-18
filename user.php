@@ -186,6 +186,7 @@ include('header.php');
     else{
       die();
     }
+    
       function echopupr($uid,$type){
       $mulu=scandir("userpro/".$uid);
       $a=count($mulu);
