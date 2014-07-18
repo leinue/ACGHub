@@ -37,7 +37,7 @@ if($_SESSION['user-login-id']==1){
 
 	if($_POST['del-all-item']=="del-all-item"){
 
-		if(delsvndir($uid)){
+		if(delsvndir("userpro/".$uid)){
 
 		}
 		else{

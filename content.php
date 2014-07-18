@@ -122,6 +122,7 @@ connect_mysql();
   <?php
 
     if($res!=false){
+      if(file_exists("userpro/".$res)){
       $mulu = scandir("userpro/".$res);
       $a = count($mulu);
       if($a>2){
@@ -133,12 +134,17 @@ connect_mysql();
         echo '<li class="list-group-item">暂无数据</li>';
         break;
       }
-      
+      }
+      else{
+        die();
+      }
     }
     else {echo '<li class="list-group-item">数据库错误</li>';}
 
     function echo_item_pu_pr($res,$type){
       if($res!=false){
+        echo "userpro/".$res;
+    if(file_exists("userpro/".$res)){
       $mulu=scandir("userpro/".$res);
       $a=count($mulu);
       if($a>2){
@@ -166,6 +172,11 @@ connect_mysql();
         echo '<li class="list-group-item">暂无数据</li>';
         break;
     }
+         }
+         else{
+          die();
+         }
+
 
     }
     else{echo '<li class="list-group-item">数据库错误</li>';}
@@ -183,6 +194,7 @@ connect_mysql();
   <ul class="list-group">
   <?php
   echo_item_pu_pr($res,"type=public");
+
   ?>
   </ul>
   </div>
