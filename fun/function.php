@@ -84,4 +84,37 @@ function delsvndir($svndir){
     
 }
 
+function WriteDyn($DynamicUser){
+
+$sql_get="SELECT `dynamic` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
+$get=getone($sql_get);
+
+if($get!=false){
+
+  if($get=="0"){
+  	$get=$DynamicUser;
+  }
+  else{
+  	$get=$get."{|---+---|}".$DynamicUser;
+  }
+
+  $sql_up="UPDATE `acghub_member` SET `dynamic`=$get WHERE `email`='".$_SESSION['user-account']."'";
+  $res_up=mysql_query($sql);
+  if($res_up!=false){
+  $up=mysql_affected_rows();
+  if($up){
+    return true;
+  }
+  else{
+    return false;
+  }
+ }
+ else{return false;}
+}
+else{
+  return false;
+}
+
+}
+
 ?>
