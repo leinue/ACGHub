@@ -132,7 +132,13 @@ connect_mysql();
       }
       else{
         echo '<li class="list-group-item">暂无数据</li>';
-        break;
+        if($a-1==1){
+
+        }
+        else{
+          break;
+        }
+
       }
       }
       else{
@@ -169,7 +175,12 @@ connect_mysql();
       }
       else{
         echo '<li class="list-group-item">暂无数据</li>';
-        break;
+        if($a-1==1){
+
+        }
+        else{
+          break;
+        }
     }
          }
          else{
