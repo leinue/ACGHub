@@ -6,19 +6,35 @@ include('header.php');
      if($_SESSION['user-login-id']==1){
       $user_uid=test_input($_GET['uid']);
 
-      $sql_detail="SELECT `name`,`email`, `_date`,`website`, `location` FROM `acghub_member` WHERE `id`=".$user_uid;
-      $res_detail=mysql_query($sql_detail);
-      if($res_detail!=false){
-        $row=mysql_fetch_row($res_detail);
+      if(strlen($user_uid)!=0){
+        $sql_detail="SELECT `name`,`email`, `_date`,`website`, `location` FROM `acghub_member` WHERE `id`=".$user_uid;
+        $res_detail=mysql_query($sql_detail);
+        if($res_detail!=false){
+          $row=mysql_fetch_row($res_detail);
             /*[0] => ivy
               [1] => 597055914@qq.com
               [2] => 2010
               [3] => www.ivydom.com
               [4] => tianchao*/
+        }
+        else{
+          echo '数据库出错';
+        }
       }
       else{
-          echo '数据库出错';
+
+        $getid="SELECT `id` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
+        $wuid=getone($getid);
+        if($wuid!=false){
+          header("location:user.php?uid=$wuid");
+        }
+        else{echo '数据库错误';}
       }
+
+
+      //if($_POST['btnsea']=="btnsea"){
+        //echo "alert('111')";
+      //}
       
 ?>
 
@@ -88,12 +104,14 @@ include('header.php');
 
   <div class="panel-header">
    <div class="input-group-left">
+   <form action="user.php" method="POST" name="searchform">
     <div class="input-group">
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" name="seainput" placeholder="请输入搜索内容">
       <span class="input-group-btn">
-        <button class="btn btn-default" type="button">搜索</button>
+        <button class="btn btn-default" name="btnsea" value="btnsea" type="submit">搜索</button>
       </span>
     </div><!-- /input-group -->
+    </form>
 
     <div class="res-split-col"></div>
    </div>
@@ -101,6 +119,7 @@ include('header.php');
    <div class="input-group-right">
        <a href="create.php" target="_blank"><button type="button" class="btn btn-default">创建</button></a>
    </div>
+
    </div>
 
     <br>
@@ -108,6 +127,9 @@ include('header.php');
      <div class="panel-body">
 
      <?php
+
+     if(file_exists("userpro/".$user_uid)){
+
       $mulu = scandir("userpro/".$user_uid);
       $a = count($mulu);
       if($a>2){
@@ -160,7 +182,10 @@ include('header.php');
         echo '暂无数据';
         break;
       }
-      
+    }
+    else{
+      die();
+    }
       function echopupr($uid,$type){
       $mulu=scandir("userpro/".$uid);
       $a=count($mulu);
