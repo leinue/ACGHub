@@ -54,8 +54,8 @@ include('header.php');
 
     <div class="user-detail">
     <p><span class="glyphicon glyphicon-map-marker" id="user-detail-icon"></span> <?php echo $row[4]; ?></p>
-    <p><span class="glyphicon glyphicon-envelope" id="user-detail-icon"></span> <?php echo $row[1]; ?></p>
-    <p><span class="glyphicon glyphicon-link" id="user-detail-icon"></span> <?php echo $row[3]; ?></p>
+    <p><span class="glyphicon glyphicon-envelope" id="user-detail-icon"></span> <a class="email" href="mailto:<?php echo $row[1]; ?>"><?php echo $row[1]; ?></a></p>
+    <p><span class="glyphicon glyphicon-link" id="user-detail-icon"></span> <a href="<?php if(substr($row[3], 0,7)!="http://"){$row[3]="http://".$row[3];echo $row[3];}else{echo $row[3];} ?>"><?php echo $row[3]; ?></a></p>
     <p><span class="glyphicon glyphicon-log-in" id="user-detail-icon"></span> <?php echo $row[2]; ?></p>
     </div>
 
