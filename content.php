@@ -143,7 +143,6 @@ connect_mysql();
 
     function echo_item_pu_pr($res,$type){
       if($res!=false){
-        echo "userpro/".$res;
     if(file_exists("userpro/".$res)){
       $mulu=scandir("userpro/".$res);
       $a=count($mulu);

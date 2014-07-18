@@ -38,7 +38,7 @@ if($_SESSION['user-login-id']==1){
 	if($_POST['del-all-item']=="del-all-item"){
 
 		if(delsvndir("userpro/".$uid)){
-
+			header("location:user.php");
 		}
 		else{
 			echo '删除失败';
