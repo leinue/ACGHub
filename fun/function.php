@@ -85,7 +85,7 @@ function delsvndir($svndir){
     
 }
 
-function WriteDyn($DynamicUser,$mail){
+function WriteDyn($DynamicUser){
 
 $sql_get="SELECT `dynamic` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
 $get=getone($sql_get);
@@ -117,6 +117,17 @@ else{
   return false;
 }
 
+}
+
+function ReadDyn($mail){
+  $sql_read="SELECT `dynamic` FROM `acghub_member` WHERE `email`='".$mail."'";
+  $res_read=mysql_query($sql_read);
+  if($res_read!=false){
+    $row_read=mysql_fetch_row($res_read);
+    $fruit_dyn=explode("{|---+---|}", $row_read[0]);
+    return $fruit_dyn;
+  }
+  else{return false;}
 }
 
 ?>

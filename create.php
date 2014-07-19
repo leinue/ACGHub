@@ -49,13 +49,9 @@ connect_mysql();
                   fwrite($pro_setting, $txt_setting);
                   fclose($pro_setting);
 
-                  date_default_timezone_set("UTC");
+                  $wd=WriteDyn(date("Y-m-d")." Create $pro_name project");
 
-                  $wd=WriteDyn(date("Y-m-d")." Create $pro_name project",$_SESSION['user-account']);
-
-                  echo $wd;
-
-                  //header("location:user.php");
+                  header("location:user.php");
 
                 }
                 else{echo '重复';}
