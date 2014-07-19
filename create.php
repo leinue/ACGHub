@@ -49,7 +49,7 @@ connect_mysql();
                   fwrite($pro_setting, $txt_setting);
                   fclose($pro_setting);
 
-                  $wd=WriteDyn(date("Y-m-d")." Create $pro_name project");
+                  $wd=WriteDyn(date("Y-m-d h:i:s")." Create $pro_name project");
 
                   header("location:user.php");
 
