@@ -30,11 +30,6 @@ include('header.php');
         }
         else{echo '数据库错误';}
       }
-
-
-      //if($_POST['btnsea']=="btnsea"){
-        //echo "alert('111')";
-      //}
       
 ?>
 
@@ -104,9 +99,9 @@ include('header.php');
 
   <div class="panel-header">
    <div class="input-group-left">
-   <form action="user.php" method="POST" name="searchform">
+   <form action="search.php" method="POST" name="searchform">
     <div class="input-group">
-      <input type="text" class="form-control" name="seainput" placeholder="请输入搜索内容">
+      <input type="text" class="form-control" name="searchform" placeholder="请输入搜索内容">
       <span class="input-group-btn">
         <button class="btn btn-default" name="btnsea" value="btnsea" type="submit">搜索</button>
       </span>
