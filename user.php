@@ -143,6 +143,8 @@ include('header.php');
             //$contents=substr($contents,0);
             //$contents=iconv("GB2312","UTF-8//IGNORE",$contents);
 
+            echo GetTimeStamp("2013-7-20 8:26:00");
+
             echo '<div class="panel-body-item">
 
      <div class="panel-body-title">

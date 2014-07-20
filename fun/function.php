@@ -130,26 +130,26 @@ function ReadDyn($mail){
   else{return false;}
 }
 
-function GetTimeStamp($origin){
+function GetTimeStamp($startdate){
   
 date_default_timezone_set('Etc/GMT-8');//设置时区
 
-$one = strtotime($origin);
-$tow = strtotime(date("Y-m-d h:i:s"));
-$cle = $tow - $one; //得出时间戳差值
+$enddate = date("Y-m-d H:i:s");
 
 $date=floor((strtotime($enddate)-strtotime($startdate))/86400);
 $hour=floor((strtotime($enddate)-strtotime($startdate))%86400/3600);
 $minute=floor((strtotime($enddate)-strtotime($startdate))%86400/60);
 $second=floor((strtotime($enddate)-strtotime($startdate))%86400%60);
 
-if ($second<60) {
+echo $second.'s'.$minute.'m'.$hour.'h'.$date.'d'.'<br/>';
+
+if($date==0 and $hour==0 and $minute==0){
   return $second.'s';}
-elseif ($second>=60 and $minute<60) {
+if($date==0 and $hour==0){
   return $minute.'m';}
-elseif ($minute>=60 and $hour<24) {
+if($date==0){
   return $hour.'h';}
-elseif ($hour>=24 and $date<365) {
+if($second!=0 and $minute!=0){
   return $date.'d';}
 
 }
