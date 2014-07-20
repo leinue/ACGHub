@@ -69,8 +69,9 @@ connect_mysql();
 <?php
 
 $tr=ReadDyn($_SESSION['user-account']);
+$tr_re=array_reverse($tr);
 
-foreach ($tr as $key => $value) {
+foreach ($tr_re as $key => $value) {
   $stime=substr($value, 0,19);
   $ts=GetTimeStamp($stime);
 
