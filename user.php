@@ -155,7 +155,7 @@ include('header.php');
      </div>
 
      <div class="panel-body-content">
-     <span class="help-block">最后一次更新:'.WriteTimeStamp($_SESSION['user-account']).'前</span> 
+     <span class="help-block">最后一次更新:'.WriteTimeStamp($_SESSION['user-account'],iconv('gbk','utf-8',$mulu[$i])).'前</span> 
      </div>
 
      </div>';
@@ -172,7 +172,7 @@ include('header.php');
      </div>
 
      <div class="panel-body-content">
-     <span class="help-block">最后一次更新:'.WriteTimeStamp($_SESSION['user-account']).'前</span> 
+     <span class="help-block">最后一次更新:'.WriteTimeStamp($_SESSION['user-account'],iconv('gbk','utf-8',$mulu[$i])).'前</span> 
      </div>
 
      </div>';
@@ -223,7 +223,7 @@ include('header.php');
      </div>
 
      <div class="panel-body-content">
-     <span class="help-block">最后一次更新:'.WriteTimeStamp($_SESSION['user-account']).'前</span> 
+     <span class="help-block">最后一次更新:'.WriteTimeStamp($_SESSION['user-account'],iconv('gbk','utf-8',$mulu[$i])).'前</span> 
      </div>
 
      </div>';
@@ -240,7 +240,7 @@ include('header.php');
      </div>
 
      <div class="panel-body-content">
-     <span class="help-block">最后一次更新:'.WriteTimeStamp($_SESSION['user-account']).'前</span> 
+     <span class="help-block">最后一次更新:'.WriteTimeStamp($_SESSION['user-account'],iconv('gbk','utf-8',$mulu[$i])).'前</span> 
      </div>
 
      </div>';

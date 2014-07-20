@@ -151,14 +151,20 @@ if($second!=0 and $minute!=0){
 
 }
 
-function WriteTimeStamp($email){
-$tr=ReadDyn($email);
+function WriteTimeStamp($email,$itemname){
+  //仅限user.php使用
+  $tr=ReadDyn($email);
+  $re_tr=array_reverse($tr);
 
-foreach ($tr as $key => $value) {
-  $stime=substr($value, 0,19);
-  $ts=GetTimeStamp($stime);
-  return $ts;}
-
+  foreach ($re_tr as $key => $value) {
+    $final=stristr($value,$itemname);
+    if($final!=false){
+      $stime=substr($value, 0,19);
+      $ts=GetTimeStamp($stime);
+      return $ts;
+    }
+    else{return false;}
+  }
 }
 
 function DelTrendsItem($email,$num){
