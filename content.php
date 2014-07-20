@@ -71,7 +71,11 @@ connect_mysql();
 $tr=ReadDyn($_SESSION['user-account']);
 
 foreach ($tr as $key => $value) {
-  echo '<li class="list-group-item">'.$value.'</li>';
+  $stime=substr($value, 0,19);
+  $ts=GetTimeStamp($stime);
+
+  $vasub=substr($value, 19);
+  echo '<li class="list-group-item">'.$ts.' 前'.$vasub.'</li>';
 }
 
 ?>

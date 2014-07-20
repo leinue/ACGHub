@@ -101,7 +101,6 @@ if($get!=false){
 
   $sql_up="UPDATE `acghub_member` SET `dynamic`='".$get."' WHERE `email`='".$_SESSION['user-account']."'";
   $res_up=mysql_query($sql_up);
-  echo mysql_error();
   if($res_up!=false){
   $up=mysql_affected_rows();
   if($up!=-1){
@@ -153,14 +152,33 @@ if($second!=0 and $minute!=0){
 }
 
 function WriteTimeStamp($email){
+$tr=ReadDyn($email);
 
-    $tr=ReadDyn($email);
+foreach ($tr as $key => $value) {
+  $stime=substr($value, 0,19);
+  $ts=GetTimeStamp($stime);
+  return $ts;}
 
-    foreach ($tr as $key => $value) {
-      $stime=substr($value, 0,19);
-      $ts=GetTimeStamp($stime);
-      return $ts;
+}
+
+function DelTrendsItem($email,$num){
+  //$num越大数据越新
+  $tr=ReadDyn($email);
+  $del_tr=array_splice($tr,$num,1);
+
+  if($tr!=false){
+    foreach ($del_tr as $key => $value) {
+      $sql_up="UPDATE `acghub_member` SET `dynamic`='".$value."' WHERE `email`='".$email."'";
+      $res_up=mysql_query($sql_up);
+      if(mysql_affected_rows()!=-1){
+        return true;
+      }
+      else{return false;}
     }
+    
+  }
+  else{return false;}
+
 }
 
 ?>
