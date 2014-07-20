@@ -143,7 +143,6 @@ include('header.php');
             //$contents=substr($contents,0);
             //$contents=iconv("GB2312","UTF-8//IGNORE",$contents);
 
-            echo GetTimeStamp("2013-7-20 8:26:00");
 
             echo '<div class="panel-body-item">
 
@@ -156,7 +155,7 @@ include('header.php');
      </div>
 
      <div class="panel-body-content">
-     <span class="help-block">最后一次更新:20分钟前</span> 
+     <span class="help-block">最后一次更新:'.WriteTimeStamp($_SESSION['user-account']).'前</span> 
      </div>
 
      </div>';
@@ -173,7 +172,7 @@ include('header.php');
      </div>
 
      <div class="panel-body-content">
-     <span class="help-block">最后一次更新:20分钟前</span> 
+     <span class="help-block">最后一次更新:'.WriteTimeStamp($_SESSION['user-account']).'前</span> 
      </div>
 
      </div>';
@@ -224,7 +223,7 @@ include('header.php');
      </div>
 
      <div class="panel-body-content">
-     <span class="help-block">最后一次更新:20分钟前</span> 
+     <span class="help-block">最后一次更新:'.WriteTimeStamp($_SESSION['user-account']).'前</span> 
      </div>
 
      </div>';
@@ -241,7 +240,7 @@ include('header.php');
      </div>
 
      <div class="panel-body-content">
-     <span class="help-block">最后一次更新:20分钟前</span> 
+     <span class="help-block">最后一次更新:'.WriteTimeStamp($_SESSION['user-account']).'前</span> 
      </div>
 
      </div>';

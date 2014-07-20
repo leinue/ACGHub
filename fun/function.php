@@ -141,17 +141,26 @@ $hour=floor((strtotime($enddate)-strtotime($startdate))%86400/3600);
 $minute=floor((strtotime($enddate)-strtotime($startdate))%86400/60);
 $second=floor((strtotime($enddate)-strtotime($startdate))%86400%60);
 
-echo $second.'s'.$minute.'m'.$hour.'h'.$date.'d'.'<br/>';
-
 if($date==0 and $hour==0 and $minute==0){
-  return $second.'s';}
+  return $second.'秒';}
 if($date==0 and $hour==0){
-  return $minute.'m';}
+  return $minute.'分';}
 if($date==0){
-  return $hour.'h';}
+  return $hour.'小时';}
 if($second!=0 and $minute!=0){
-  return $date.'d';}
+  return $date.'天';}
 
+}
+
+function WriteTimeStamp($email){
+
+    $tr=ReadDyn($email);
+
+    foreach ($tr as $key => $value) {
+      $stime=substr($value, 0,19);
+      $ts=GetTimeStamp($stime);
+      return $ts;
+    }
 }
 
 ?>
