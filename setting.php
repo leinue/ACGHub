@@ -8,7 +8,31 @@ connect_mysql();
      if($_SESSION['user-login-id']==1){
 
       if($_POST['upload']=="upload"){
-        
+        $sql_id="SELECT `id` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
+        $userid=getone($sql_id);
+        echo $userid;
+        if($userid!=false){
+          $upic=UploadPic(2000000,"uploadimg/".$userid."/",0,1/2,"upload_photo");
+          switch (upic) {
+            case -1:
+              echo '图片不存在!';
+              break;
+            case -2:
+              echo "文件太大!";
+              break;
+            case -3:
+              echo "文件类型不符!";
+              break;
+            case -4:
+              echo "同名文件已经存在了";
+              break;
+            case -5:
+              echo "移动文件出错";
+              break;
+            default:
+              echo "上传成功";
+          }
+        }else{echo '数据库出错';}
       }
 
       if($_POST['update']=="update"){
@@ -209,9 +233,9 @@ connect_mysql();
   <div class="row">
   <div class="col-md-8">
   <h4>修改头像</h4>
-  <form enctype="multipart/form-data" action="setting.php" onsubmit="return sub(this)" name="uploadform" method="post">
-  <input type="file" name="upload_photo" onchange="if(checkimgtype(this.value))">
-  <input name="action" type="hidden" value="upload"/>
+
+  <form enctype="multipart/form-data" method="post" name="upform" action="setting.php">
+  <input type="file" name="upload_photo">
   <div class="setting-photo">
   <img id="pic" alt="<?php echo $_SESSION['user-account']; ?>" src="https://avatars3.githubusercontent.com/u/2469688?s=140" height="70" width="70">
   </div>
@@ -221,6 +245,7 @@ connect_mysql();
    <span class="help-block">大小最好为为250x250,支持的格式有.jpg|.gif</span>
   </div>
   </form>
+
   </div>
 </div>
 <div class="row">
