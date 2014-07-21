@@ -1,8 +1,6 @@
 <?php 
 error_reporting(E_ALL ^ E_NOTICE);
 include('header.php');
-include('fun/mysql.php');
-include('fun/function.php');
 session_start();
 
 $username=$_POST['name'];

@@ -6,9 +6,11 @@
 	margin-top:60px;
 	margin-left:15%;
 
-	border-radius:3px;
+	border-radius:4px;
+
+	border:1px solid rgb(221,221,221);
 	
-	-webkit-box-shadow: 0px 0px 6px #39F,
+	/*-webkit-box-shadow: 0px 0px 6px #39F,
     0 0 0px #39F,
     0 0 0px #39F;
 
@@ -18,7 +20,7 @@
  
     box-shadow: 0px 0px 6px #39F,
     0 0 0px #39F,
-    0 0 0px #39F;
+    0 0 0px #39F;*/
 }
 
 .about-content{
