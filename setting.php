@@ -436,7 +436,7 @@ connect_mysql();
 
 <?php
 
-function echo_fork_list($name,$msg_url){
+function echo_fork_list($name,$msg_url,$uid){
   echo '    <div class="f-i-left">
       <div class="panel panel-default">
      <div class="panel-body">
@@ -446,7 +446,7 @@ function echo_fork_list($name,$msg_url){
       </div>
 
       <div class="friends-detail">
-      <p><a href="#">'.$name.'</a></p>
+      <p><a href="user.php?uid='.$uid.'" target="_blank">'.$name.'</a></p>
       <p><a href="'.$msg_url.'">私信</a></p>
       </div>
 
@@ -486,7 +486,7 @@ if($res!=false){
       </div>
 
       <div class="friends-detail">
-      <p><a href="#">'.$row[0].'</a></p>
+      <p><a href="user.php?uid='.$uid.'" target="_blank">'.$row[0].'</a></p>
       <p><a href="'.$send_msg_url.'">私信</a></p>
       </div>
 
@@ -537,7 +537,7 @@ else{
     if($res!=false){
       $row=mysql_fetch_row($res);
       $send_msg_url="message.php?uid=".$uid;
-      echo_fork_list($row[0],$send_msg_url);
+      echo_fork_list($row[0],$send_msg_url,$uid);
     }
     else{
       echo '数据库错误';
