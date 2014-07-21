@@ -10,8 +10,8 @@ connect_mysql();
       if($_POST['upload']=="upload"){
         $sql_id="SELECT `id` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
         $userid=getone($sql_id);
-        echo $userid;
         if($userid!=false){
+
           $upic=UploadPic(2000000,"uploadimg/".$userid."/",0,1/2,"upload_photo");
           switch (upic) {
             case -1:
@@ -30,8 +30,17 @@ connect_mysql();
               echo "移动文件出错";
               break;
             default:
-              echo "上传成功";
+              $sql_upic="UPDATE `acghub_member` SET `photo`='".$upic."' WHERE `email`='".$_SESSION['user-account']."'";
+              $res_upic=mysql_query($sql_upic);
+              if($res_upic!=false){
+                if(mysql_affected_rows()){
+                  echo "上传成功";
+                }else{echo "更新失败";}
+              }
+              else{echo '数据库出错';}
+
           }
+
         }else{echo '数据库出错';}
       }
 
@@ -237,12 +246,12 @@ connect_mysql();
   <form enctype="multipart/form-data" method="post" name="upform" action="setting.php">
   <input type="file" name="upload_photo">
   <div class="setting-photo">
-  <img id="pic" alt="<?php echo $_SESSION['user-account']; ?>" src="https://avatars3.githubusercontent.com/u/2469688?s=140" height="70" width="70">
+  <img id="pic" alt="<?php echo $_SESSION['user-account']; ?>" src="<?php echo GetPhoDir($_SESSION['user-account']); ?>" height="70" width="70">
   </div>
 
   <div class="setting-button-upload">
    <button type="submit" name="upload" value="upload" class="btn btn-default">上传新头像</button>
-   <span class="help-block">大小最好为为250x250,支持的格式有.jpg|.gif</span>
+   <span class="help-block">大小最好为为250x250,支持的格式有.jpg|.gif|.png|.bmp</span>
   </div>
   </form>
 

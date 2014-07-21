@@ -38,7 +38,29 @@ include('header.php');
   <div class="user-info">
 
     <div class="user-photo">
-    <img alt="" src="https://avatars2.githubusercontent.com/u/2469688?s=460" width=250 height=250>
+
+    <?php
+
+    $very_sql="SELECT `id` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
+    $very_res=getone($very_sql);
+    if($very_res!=false){
+      if($very_res==$user_uid){
+        $picsrc=GetPhoDir($_SESSION['user-account']);
+        echo '<img alt="" src="'.$picsrc.'" width=250 height=250>';
+      }
+      else{
+        $other_sql="SELECT `email` FROM `acghub_member` WHERE `id`=".$user_uid;
+        $other_res=getone($other_sql);
+        if($other_res!=false){
+          $picsrc=GetPhoDir($other_res);
+          echo '<img alt="" src="'.$picsrc.'" width=250 height=250>';
+        }else{echo '数据库出错';}
+      }
+
+    }else{echo '数据库出错';}
+
+    ?>
+
     </div>
 
     <div class="user-name">

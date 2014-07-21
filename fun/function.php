@@ -26,6 +26,14 @@ function getone($sql){
     else {return false;}
 }
 
+function GetPhoDir($email){
+  $sql="SELECT `photo` FROM `acghub_member` WHERE `email`='$email'";
+  $res=getone($sql);
+  if($res!=false){
+    return $res;
+  }else{return false;}
+}
+
 function SingleDecToHex($dec){
 $tmp="";
 $dec=$dec%16;
@@ -244,13 +252,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $pinfo=pathinfo($destination);
     $fname=$pinfo[basename];
 
-    $final_data=array(
+    /*$final_data=array(
       "dest" => $destination_folder.$fname,
       "width" => $image_size[0],
       "height" => $image_size[1],
-      );
+      );*/
 
-    return $final_data;
+    return $destination_folder.$fname;
     //echo " <font color=red>已经成功上传</font><br>文件名:  <font color=blue>".$destination_folder.$fname."</font><br>";
     //echo " 宽度:".$image_size[0];
     //echo " 长度:".$image_size[1];
