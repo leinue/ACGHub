@@ -274,4 +274,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 }
 
+
+function GetProType($dir){
+  $ProType = array("script","Storyboard","enactment","code","dubbing","music");
+
+  $hand=fopen($dir, "r") or die("Unable to open file!");
+  $rule=fread($myfile,filesize($dir));
+  fclose($hand);
+
+  $ex_rule=explode("\r\n", $rule);
+
+  foreach ($ProType as $key => $value) {
+    if($ex_rule==$value){
+      return $value;
+    }
+  }
+
+ 
+}
 ?>
