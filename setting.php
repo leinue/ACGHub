@@ -30,6 +30,12 @@ connect_mysql();
               echo "移动文件出错";
               break;
             default:
+              $sql_org="SELECT `photo` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
+              $picfile=GetPhoDir($sql_org);
+              if($picfile!=false){
+                @unlink ($picfile);
+              }
+
               $sql_upic="UPDATE `acghub_member` SET `photo`='".$upic."' WHERE `email`='".$_SESSION['user-account']."'";
               $res_upic=mysql_query($sql_upic);
               if($res_upic!=false){
