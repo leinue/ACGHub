@@ -239,9 +239,10 @@
     }
 
     .item-right{
-        margin-top: -148px;
         float: left;
         width:250px;
+        margin-left: 750px;
+        position: fixed;
     }
 
     #table-size{font-size: 14px;}
