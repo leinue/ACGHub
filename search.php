@@ -17,6 +17,7 @@ if($res_searched!=""){
     while(($file=readdir($dir))!=false){
     	if($file===$res_searched){
         $found=true;
+        header("location:item.php?name=".iconv('gbk','utf-8',$file)."&uid=$res");
         
 ?>
    <div class="e-check-body">
@@ -25,7 +26,7 @@ if($res_searched!=""){
         <h3 class="panel-title">寻找成功</h3>
       </div>
     <div class="panel-body">
-    <a href="#"><?php echo iconv('gbk','utf-8',$file); ?></a>
+    <a href="<?php echo 'item.php?name='.iconv('gbk','utf-8',$file).'&uid='.$res; ?>" target="_blank"><?php echo iconv('gbk','utf-8',$file); ?></a>
     </div>
     </div>
    </div>
