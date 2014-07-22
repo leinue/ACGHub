@@ -27,7 +27,8 @@ function getone($sql){
 }
 
 function GetPhoDir($email){
-  $sql="SELECT `photo` FROM `acghub_member` WHERE `email`='$email'";
+  $sql="SELECT `photo` FROM `acghub_member` 
+  WHERE `email`='$email'";
   $res=getone($sql);
   if($res!=false){
     return $res;
@@ -35,7 +36,8 @@ function GetPhoDir($email){
 }
 
 function GetEmail($uid){
-  $sql="SELECT `email` FROM `acghub_member` WHERE `id`=$uid";
+  $sql="SELECT `email` 
+  FROM `acghub_member` WHERE `id`=$uid";
   $res=getone($sql);
   if($res!=false){
     return $res;
@@ -43,7 +45,9 @@ function GetEmail($uid){
 }
 
 function GetName($uid){
-  $sql="SELECT `name` FROM `acghub_member` WHERE `id`=$uid";
+  $sql="SELECT `name` 
+  FROM `acghub_member` 
+  WHERE `id`=$uid";
   $res=getone($sql);
   if($res!=false){
     return $res;
@@ -349,5 +353,37 @@ function GetItem($list){
     else{return false;}
 }
 
+/*****************************关注作品********************************/
+
+function WriteForkWorks($uid,$name,$loginuid){
+  //$uid->作品作者uid;$name->作品名;$loginuid->关注者uid
+  //{|%uid%=19|-&-|%name%=pu_sc|}|+&+|
+  $email=GetEmail($loginuid);
+
+  $sql="SELECT `forkworks` FROM `acghub_member` WHERE `email`='$email'";
+  $res=getone($sql);
+
+  if($res!=false){
+    if($res=="9"){
+      $fw="{|%uid%=$uid|-&-|%name%=$name|}|+&+|";
+    }
+    else{
+      $fw=$fw."{|%uid%=$uid|-&-|%name%=$name|}|+&+|";
+    }
+  }else{return false;}
+
+  $sql="UPDATE `acghub_member` SET `forkworks`='$fw' WHERE `email`='".$email."'";
+  $res=mysql_query($sql);
+  if($res!=false){
+    if(mysql_affected_rows()!=-1){
+      return true;
+    }else{return false;}
+  }
+  else{return false;}
+}
+
+function ReadForkWorks(){
+
+}
 
 ?>

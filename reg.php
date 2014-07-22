@@ -11,8 +11,24 @@ connect_mysql();
 if(trim($username)<>"" and trim($usermail)<>"" and $userpw<>""){
     if(checkemail($usermail)==false){
       if(connect_mysql()){
-      $sql="INSERT INTO `acghub_member`(`name`,`email`,`password`,`_date`,`sta`,checked,age,sex,`website`,`location`,`message`,`friends`,`photo`,`dynamic`)
-       VALUES('".$username."','".$usermail."','".md5($userpw)."','". date("Y/m/d")."','user',0,0,0,'www.acghub.com','tianchao','0','0','https://avatars3.githubusercontent.com/u/2469688?s=140','". date("Y/m/d")." join in ACGHub')";
+        
+      $sql="INSERT INTO `acghub_member`(`name`,`email`,`password`,`_date`,`sta`,checked,age,sex,`website`,`location`,`message`,`friends`,`photo`,`dynamic`,`forworks`)
+       VALUES('".$username."'
+        ,'".$usermail."'
+        ,'".md5($userpw)."'
+        ,'". date("Y/m/d")."'
+        ,'user'
+        ,0
+        ,0
+        ,0
+        ,'www.acghub.com'
+        ,'tianchao'
+        ,'0'
+        ,'0'
+        ,'https://avatars3.githubusercontent.com/u/2469688?s=140'
+        ,'". date("Y/m/d")." join in ACGHub'
+        ,'9')";
+
       if(mysql_query($sql)){
         $reg_url="http://localhost/emailcheck.php?u=".mysql_insert_id()."?method=reg";
         $content="<a href=\"".$reg_url."\">欢迎注册ACGHub,请点击这里进行激活帐号</a>";

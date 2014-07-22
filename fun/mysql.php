@@ -38,6 +38,7 @@ function create_table(){
     friends TEXT NOT NULL,
     photo TEXT NOT NULL,
     dynamic TEXT NOT NULL,
+    forworks TEXT NOT NULL,
   	PRIMARY KEY (id)
   	)";
 

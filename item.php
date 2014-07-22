@@ -18,6 +18,10 @@ if($_SESSION['user-login-id']==1){
 		}
 	}
 
+  if($_POST['fork']=="fork"){
+    WriteForkWorks($uid,$itemname,Getuid($_SESSION['user-account']));
+  }
+
 
 ?>
 
