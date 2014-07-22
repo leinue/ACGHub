@@ -416,6 +416,30 @@ function isFork($uid,$name,$loginuid){
 
 function DelFork($uid,$name,$loginuid){
 
+  $worksForked=ReadForkWorks($loginuid);
+  if($worksForked!=false){
+    foreach ($worksForked as $key => $value){
+
+      $exbrace=substr($value, 2,strlen($value)-4);$exparameter=explode("|-&-|",$exbrace);
+      $prouid=substr($exparameter[0], 6);$proname=substr($exparameter[1], 7);
+
+      if($uid==$prouid and $name==$proname){
+          $wfdel=array_splice($value,$key,1);
+      }
+      else{return false;}
+    }
+
+    foreach ($wfdel as $key => $value) {
+      $sql_up="UPDATE `acghub_member` SET `forkworks`='".$value."' WHERE `email`='".GetEmail($loginuid)."'";
+      $res_up=mysql_query($sql_up);
+      if(mysql_affected_rows()!=-1){
+        return true;
+      }
+      else{return false;}
+    }
+  }
+  else{return false;}
+  
 }
 
 ?>

@@ -22,6 +22,9 @@ if($_SESSION['user-login-id']==1){
     WriteForkWorks($uid,$itemname,Getuid($_SESSION['user-account']));
   }
 
+  if($_POST['unfork']=="unfork"){
+    DelFork(19,"pu",Getuid($_SESSION['user-account']));
+  }
 
 ?>
 
@@ -191,18 +194,17 @@ else
 <div class="btn-group btn-group-justified" id="item-split-menu-space">
   <div class="btn-group">
   <?php
-  if(isFork($uid,$itemname,Getuid($_SESSION['user-account']))){
+  if(!(isFork($uid,$itemname,Getuid($_SESSION['user-account'])))){
   ?>
-
+  <button type="submit" name="fork" value="fork" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span> 关注</button>
   <?php
   }
   else{
   ?>
-  
+   <button type="submit" name="unfork" value="unfork" class="btn btn-default"><span class="glyphicon glyphicon-eye-close"></span> 取关</button>
   <?php
   }
   ?>
-    <button type="submit" name="fork" value="fork" class="btn btn-default"><span class="glyphicon glyphicon-heart-empty"></span> 关注</button>
   </div>
   <div class="btn-group">
     <button type="submit" name="like" value="like" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-up"></span> 碉堡</button>
