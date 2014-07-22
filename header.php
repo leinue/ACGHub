@@ -72,7 +72,7 @@ connect_mysql();
    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
     <ul class="nav navbar-nav" id="head_left">
         <li><a href="index.php">Home</a></li>
-        <li><a href="works.php">Works</a></li>
+        <li><a href="works.php">作品</a></li>
         <li><a href="about.php">关于</a></li>
       </ul>
     </div>

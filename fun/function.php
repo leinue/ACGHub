@@ -325,22 +325,22 @@ function GetProType($dir){
 }
 
 function GetDes($filename){
-      //$mulu=scandir($path);
-      //$a=count($mulu);
-      //if($a>2){
-        //for($i = 2;$i<=$a-1;$i++){
-          //$handle = fopen($filename, "r");
-          //$contents = fread($handle, filesize ($filename));
-          //fclose($handle);
+  //$mulu=scandir($path);
+  //$a=count($mulu);
+  //if($a>2){
+  //for($i = 2;$i<=$a-1;$i++){
+  //$handle = fopen($filename, "r");
+  //$contents = fread($handle, filesize ($filename));
+  //fclose($handle);
   if(file_exists($filename)){
     $opts = array('file' => array('encoding' => 'gb2312'));
-        $ctxt = stream_context_create($opts);
-        $contents=file_get_contents($filename, FILE_TEXT, $ctxt); 
-        $contents = iconv("gb2312", "utf-8//IGNORE",$contents); 
-        return $contents;
+    $ctxt = stream_context_create($opts);
+    $contents=file_get_contents($filename, FILE_TEXT, $ctxt); 
+    $contents = iconv("gb2312", "utf-8//IGNORE",$contents); 
+    return $contents;
   }
   else{
-    echo false;
+    return false;
   }
 }
 
@@ -352,6 +352,18 @@ function GetItem($list){
     }
     else{return false;}
 }
+
+function GetProNum($dir){
+  $files = scandir($dir);
+  if(file_exists("/prosetting.afg") and file_exists("/readme")){
+    return count($files)-4;
+  }
+  else{
+    return count($files)-2;
+  }
+}
+
+function GetProEditor($uid){return GetName($uid);}
 
 /*****************************关注作品********************************/
 
@@ -439,7 +451,8 @@ function DelFork($uid,$name,$loginuid){
     }
   }
   else{return false;}
-  
+
 }
+/*****************************评价作品********************************/
 
 ?>

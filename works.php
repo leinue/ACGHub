@@ -5,10 +5,13 @@
 <div class="acg-script">
 <p id="e-col"><span class="glyphicon glyphicon-book" id="col-icon"></span> 脚本</p>
 
+<?php
+
+?>
 <div class="acg-item">
 
 <div class="item-head">
-     <p id="item-head-title"><a href="#">xxxxxx</a></p>
+     <p id="item-head-title"><a href="">xxxxxx</a></p>
 </div>
 
 <div class="item-body">

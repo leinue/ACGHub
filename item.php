@@ -19,11 +19,17 @@ if($_SESSION['user-login-id']==1){
 	}
 
   if($_POST['fork']=="fork"){
-    WriteForkWorks($uid,$itemname,Getuid($_SESSION['user-account']));
+    if(WriteForkWorks($uid,$itemname,Getuid($_SESSION['user-account']))!=false){
+      echo '关注成功';
+    }
+    else{echo '关注失败';}
   }
 
   if($_POST['unfork']=="unfork"){
-    DelFork(19,"pu",Getuid($_SESSION['user-account']));
+    if(DelFork($uid,$itemname,Getuid($_SESSION['user-account']))!=false){
+      echo '关注成功';
+    }
+    else{echo '关注失败';}
   }
 
 ?>
