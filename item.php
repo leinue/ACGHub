@@ -190,6 +190,18 @@ else
 <form action="item.php?name=<?php echo $itemname."&uid=".$uid; ?>" method="POST" name="forkForm">
 <div class="btn-group btn-group-justified" id="item-split-menu-space">
   <div class="btn-group">
+  <?php
+  if(isFork($uid,$itemname,Getuid($_SESSION['user-account']))){
+  ?>
+
+  <?php
+  }
+  else{
+  ?>
+  
+  <?php
+  }
+  ?>
     <button type="submit" name="fork" value="fork" class="btn btn-default"><span class="glyphicon glyphicon-heart-empty"></span> 关注</button>
   </div>
   <div class="btn-group">

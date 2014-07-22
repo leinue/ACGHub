@@ -357,7 +357,6 @@ function GetItem($list){
 
 function WriteForkWorks($uid,$name,$loginuid){
   //$uid->作品作者uid;$name->作品名;$loginuid->关注者uid
-  //{|%uid%=19|-&-|%name%=pu_sc|}|+&+|
   $email=GetEmail($loginuid);
 
   $sql="SELECT `forkworks` FROM `acghub_member` WHERE `email`='$email'";
@@ -382,7 +381,40 @@ function WriteForkWorks($uid,$name,$loginuid){
   else{return false;}
 }
 
-function ReadForkWorks(){
+function ReadForkWorks($loginuid){
+  $email=GetEmail($loginuid);
+  $sql="SELECT `forkworks` FROM `acghub_member` WHERE `email`='$email'";
+  $res=getone($sql);
+  if($res!=false){
+    $exworks=explode("|+&+|",$res);
+    return $exworks;
+  }else{return false;}
+}
+
+function isFork($uid,$name,$loginuid){
+  $worksForked=ReadForkWorks($loginuid);
+  if($worksForked!=false){
+    foreach ($worksForked as $key => $value) {
+      if(strlen($value)!=0){
+        //%uid%=19|-&-|%name%=pu_sc
+        $exbrace=substr($value, 2,strlen($value)-4);
+        $exparameter=explode("|-&-|",$exbrace);
+
+        $prouid=substr($exparameter[0], 6);
+        $proname=substr($exparameter[1], 7);
+
+        if($uid==$prouid and $name==$proname){
+          return true;
+        }
+        else{
+          return false;}
+      }
+    }
+  }else{
+    return false;}
+}
+
+function DelFork($uid,$name,$loginuid){
 
 }
 
