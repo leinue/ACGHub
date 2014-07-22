@@ -34,6 +34,30 @@ function GetPhoDir($email){
   }else{return false;}
 }
 
+function GetEmail($uid){
+  $sql="SELECT `email` FROM `acghub_member` WHERE `id`=$uid";
+  $res=getone($sql);
+  if($res!=false){
+    return $res;
+  }else{return false;}
+}
+
+function GetName($uid){
+  $sql="SELECT `name` FROM `acghub_member` WHERE `id`=$uid";
+  $res=getone($sql);
+  if($res!=false){
+    return $res;
+  }else{return false;} 
+}
+
+function Getuid($email){
+  $sql="SELECT `id` FROM `acghub_member` WHERE `email`='$email'";
+  $res=getone($sql);
+  if($res!=false){
+    return $res;
+  }else{return false;}
+}
+
 function SingleDecToHex($dec){
 $tmp="";
 $dec=$dec%16;
@@ -93,9 +117,9 @@ function delsvndir($svndir){
     
 }
 
-function WriteDyn($DynamicUser){
+function WriteDyn($DynamicUser,$email){
 
-$sql_get="SELECT `dynamic` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
+$sql_get="SELECT `dynamic` FROM `acghub_member` WHERE `email`='".$email."'";
 $get=getone($sql_get);
 
 if($get!=false){
@@ -107,7 +131,7 @@ if($get!=false){
   	$get=$get."{|---+---|}".$DynamicUser;
   }
 
-  $sql_up="UPDATE `acghub_member` SET `dynamic`='".$get."' WHERE `email`='".$_SESSION['user-account']."'";
+  $sql_up="UPDATE `acghub_member` SET `dynamic`='".$get."' WHERE `email`='".$email."'";
   $res_up=mysql_query($sql_up);
   if($res_up!=false){
   $up=mysql_affected_rows();
@@ -195,6 +219,8 @@ function DelTrendsItem($email,$num){
 
 }
 
+/*****************************上传图片********************************/
+
 function UploadPic($max_file_size=2000000,$destination_folder,$imgpreview=0,$imgpreviewsize=1,$formname){
   //上传文件类型列表
 $uptypes=array(
@@ -274,6 +300,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 }
 
+/*****************************项目相关********************************/
 
 function GetProType($dir){
   
@@ -292,5 +319,35 @@ function GetProType($dir){
   }
 
 }
+
+function GetDes($filename){
+      //$mulu=scandir($path);
+      //$a=count($mulu);
+      //if($a>2){
+        //for($i = 2;$i<=$a-1;$i++){
+          //$handle = fopen($filename, "r");
+          //$contents = fread($handle, filesize ($filename));
+          //fclose($handle);
+  if(file_exists($filename)){
+    $opts = array('file' => array('encoding' => 'gb2312'));
+        $ctxt = stream_context_create($opts);
+        $contents=file_get_contents($filename, FILE_TEXT, $ctxt); 
+        $contents = iconv("gb2312", "utf-8//IGNORE",$contents); 
+        return $contents;
+  }
+  else{
+    echo false;
+  }
+}
+
+function GetItem($list){
+  $mulu = scandir($list);
+    $count = count($mulu);
+    if($count>2){
+      return $mulu;
+    }
+    else{return false;}
+}
+
 
 ?>

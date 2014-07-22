@@ -51,7 +51,7 @@ date_default_timezone_set('Etc/GMT-8');//设置时区
                   fwrite($pro_setting, $txt_setting);
                   fclose($pro_setting);
 
-                  $wd=WriteDyn(date("Y-m-d H:i:s")." Create $pro_name project");
+                  $wd=WriteDyn(date("Y-m-d H:i:s")." Create $pro_name project",$_SESSION['user-account']);
 
                   header("location:user.php");
 

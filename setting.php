@@ -437,12 +437,13 @@ connect_mysql();
 <?php
 
 function echo_fork_list($name,$msg_url,$uid){
+  $gpd=GetPhoDir(GetEmail($uid));
   echo '    <div class="f-i-left">
       <div class="panel panel-default">
      <div class="panel-body">
 
       <div class="friends-photo">
-<img class="img-thumbnail" src="http://i0.hdslb.com/user/1248/124871/myface_m.jpg" height="50" width="50">
+<img class="img-thumbnail" src="'.$gpd.'" height="50" width="50">
       </div>
 
       <div class="friends-detail">
@@ -477,12 +478,14 @@ if($res!=false){
       $row=mysql_fetch_row($res);
       $send_msg_url="message.php?uid=".$uid;
 
+      $gpd=GetPhoDir(GetEmail($uid));
+
       echo '     <div class="f-i-left">
       <div class="panel panel-default">
      <div class="panel-body">
 
       <div class="friends-photo">
-<img class="img-thumbnail" src="http://i0.hdslb.com/user/1248/124871/myface_m.jpg" height="50" width="50">
+<img class="img-thumbnail" src="'.$gpd.'" height="50" width="50">
       </div>
 
       <div class="friends-detail">
@@ -496,7 +499,7 @@ if($res!=false){
 
     }
     else{
-      echo '数据库错误';
+      //echo '数据库错误';
     }
 
   }
@@ -540,7 +543,7 @@ else{
       echo_fork_list($row[0],$send_msg_url,$uid);
     }
     else{
-      echo '数据库错误';
+      //echo '数据库错误1111';
     }
 }
 ?>
@@ -600,6 +603,8 @@ echo '<div class="panel panel-default">
 
               $msger_url="message.php?uid=".$msger_uid."?content=".$msg_content;
 
+              $gpd=GetPhoDir(GetEmail($msger_uid));
+
               $msg_content_solo=explode("+==+", $msg_content);
               $num_arrary=count($msg_content_solo);
               $last_msg=$msg_content_solo[$num_arrary-1];
@@ -607,7 +612,7 @@ echo '<div class="panel panel-default">
       <div class="panel panel-default">
        <div class="panel-body">     
         <div class="friends-photo">
-            <a href="#"><img class="img-thumbnail" src="http://i0.hdslb.com/user/1248/124871/myface_m.jpg" height="50" width="50"></a>
+            <a href="#"><img class="img-thumbnail" src="<?php echo $gpd; ?>" height="50" width="50"></a>
         </div>
         <div class="friends-detail">
             <p>与 <a href="<?php echo $msger_url; ?>" target="_blank"><?php echo $obj_name; ?></a> 的最后一次对话</p>

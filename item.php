@@ -1,35 +1,6 @@
 <?php
 include('header.php');
 
-function GetDes($filename){
-      //$mulu=scandir($path);
-      //$a=count($mulu);
-      //if($a>2){
-        //for($i = 2;$i<=$a-1;$i++){
-          //$handle = fopen($filename, "r");
-          //$contents = fread($handle, filesize ($filename));
-          //fclose($handle);
-	if(file_exists($filename)){
-		$opts = array('file' => array('encoding' => 'gb2312'));
-        $ctxt = stream_context_create($opts);
-        $contents=file_get_contents($filename, FILE_TEXT, $ctxt); 
-        $contents = iconv("gb2312", "utf-8//IGNORE",$contents); 
-        return $contents;
-	}
-	else{
-		echo false;
-	}
-}
-
-function GetItem($list){
-	$mulu = scandir($list);
-    $count = count($mulu);
-    if($count>2){
-    	return $mulu;
-    }
-    else{return false;}
-}
-
 $itemname=test_input($_GET['name']);
 $uid=test_input($_GET['uid']);
 date_default_timezone_set('Etc/GMT-8');//设置时区
@@ -39,7 +10,7 @@ if($_SESSION['user-login-id']==1){
 	if($_POST['del-all-item']=="del-all-item"){
 
 		if(delsvndir("userpro/".$uid."/$itemname")){
-			WriteDyn(date("Y-m-d H:i:s")." del $itemname project");
+			WriteDyn(date("Y-m-d H:i:s")." del $itemname project",$_SESSION['user-account']);
 			header("location:user.php");
 		}
 		else{
@@ -102,7 +73,10 @@ if($_SESSION['user-login-id']==1){
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title"><?php echo $itemname; ?></h3>
+  <?php
+  $userName=GetName($uid);
+  ?>
+    <h3 class="panel-title"><?php echo '<a href="user.php?uid='.$uid.'" target="_blank" id="Username-pro">'.$userName.'</a>/'.$itemname; ?></h3>
   </div>
    <table class="table" id="table-size">
 
@@ -172,32 +146,22 @@ else{
     <h3 class="panel-title">菜单</h3>
   </div>
   <div class="panel-body">
+<?php
+$login_uid=Getuid($_SESSION['user-account']);
 
-
-<div class="item-split-menu">
-<div class="btn-group btn-group-justified" id="item-split-menu-space">
-  <div class="btn-group">
-    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-heart-empty"></span> 关注</button>
-  </div>
-  <div class="btn-group">
-    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-up"></span> 碉堡</button>
-  </div>
-  <div class="btn-group">
-    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-down"></span> 弱爆</button>
-  </div>  
-</div>
-</div>
+if($login_uid==$uid){
+?>
 
 <div class="item-split-menu">
 <div class="btn-group btn-group-justified" id="item-split-menu-space">
     <div class="input-group">
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" value="<?php echo 'item.php?name='.$itemname.'&uid='.$uid; ?>"disabled>
       <span class="input-group-btn">
-        <button class="btn btn-default" type="button">复制</button>
+        <button class="btn btn-default" type="button">分享</button>
       </span>
     </div><!-- /input-group -->
 </div>
-<span class="help-block">在这里可以复制项目的URL</span>
+<span class="help-block">在这里可以分享项目的URL</span>
 </div>
 
 <div class="item-split-menu">
@@ -210,6 +174,59 @@ else{
   </div>
 </div>
 </div>
+
+<?php
+}
+else
+{
+
+?>
+<div class="item-split-menu">
+
+<form action="item.php?name=<?php echo $itemname."&uid=".$uid; ?>" method="POST" name="forkForm">
+<div class="btn-group btn-group-justified" id="item-split-menu-space">
+  <div class="btn-group">
+    <button type="submit" name="fork" value="fork" class="btn btn-default"><span class="glyphicon glyphicon-heart-empty"></span> 关注</button>
+  </div>
+  <div class="btn-group">
+    <button type="submit" name="like" value="like" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-up"></span> 碉堡</button>
+  </div>
+  <div class="btn-group">
+    <button type="submit" name="dislike" value="dislike" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-down"></span> 弱爆</button>
+  </div>  
+</div>
+</form>
+
+</div>
+
+<div class="item-split-menu">
+<div class="btn-group btn-group-justified" id="item-split-menu-space">
+    <div class="input-group">
+      <input type="text" class="form-control" value="<?php echo 'item.php?name='.$itemname.'&uid='.$uid; ?>"disabled>
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">分享</button>
+      </span>
+    </div><!-- /input-group -->
+</div>
+<span class="help-block">在这里可以分享项目的URL</span>
+</div>
+
+<div class="item-split-menu">
+<div class="btn-group btn-group-justified" id="item-split-menu-space">
+  <div class="btn-group">
+    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-cloud-download"></span> 下载</button>
+  </div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-star"></span> 赞者</button>
+  </div>
+</div>
+</div>
+
+<?php
+
+}
+
+?>
 
   </div>
 </div>
