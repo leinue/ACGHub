@@ -53,73 +53,6 @@ if($_SESSION['user-login-id']==1){
 <div class="overitem">
 
 <div class="item-left">
-
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title"><?php echo $itemname; ?></h3>
-  </div>
-  <div class="panel-body">
-<?php
-
-if(strlen($itemname)!=0 and strlen($uid)!=0){
-
-	$des=GetDes("userpro/".$uid."/".$itemname."/readme");
-
-	if($des!=false){
-		echo $des;
-	}
-	else{echo $itemname.'project';}
-}
-else{
-	header("location:index.php");
-}
-
-?>
-   
-  </div>
-
-   <table class="table" id="table-size">
-
-    <tr>
-    <th><input type="checkbox" value=""></th>
-    <th>文件</th>
-    <th>详细</th>
-    <th>时间</th>
-    </tr>
-    
-<?php
-   $conlist=GetItem("userpro/".$uid."/".$itemname);
-   $a=count($conlist);
-   if($conlist!=false){
-   for($i = 2;$i<=$a-1;$i++){
-   	if($conlist[$i]!="prosetting.afg" and $conlist[$i]!="readme"){
-   	   	echo '<tr>
-   	<td><input type="checkbox" value=""></td>   	
-    <td>'.iconv('gbk','utf-8',$conlist[$i]).'</td>
-    <td>'.$des.'</td>
-    <td>1分钟以前</td>
-    </tr>';
-    }
-    else{
-    	continue;
-    }
-   }
-   }
-   else{
-   	echo '<tr>
-    <td>暂无数据</td>
-    </tr>';
-   }
-?>
-    
-
-  </table>
-
-</div>
-
-</div>
-
-<div class="item-left">
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">管理</h3>
@@ -138,6 +71,7 @@ else{
          </select>
          <button type="submit" class="btn btn-default btn-sm" id="speace">应用</button>
          <button type="button" class="btn btn-danger btn-sm" id="deleteallitem"  data-toggle="modal" data-target="#myModal">删除项目</button>
+         <button type="button" class="btn btn-default btn-sm" id="quickly-jump"><span class="glyphicon glyphicon-list-alt"></span> 快速预览</button>
     </div>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -160,19 +94,122 @@ else{
 
 </form>
 
-
   </div>
 </div>
 </div>
+
+<div class="item-left">
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><?php echo $itemname; ?></h3>
+  </div>
+   <table class="table" id="table-size">
+
+    <tr>
+    <th><input type="checkbox" value=""></th>
+    <th>文件</th>
+    <th>详细</th>
+    <th>时间</th>
+    </tr>
+    
+<?php
+   $conlist=GetItem("userpro/".$uid."/".$itemname);
+   $a=count($conlist);
+   if($conlist!=false){
+   for($i = 2;$i<=$a-1;$i++){
+    if($conlist[$i]!="prosetting.afg" and $conlist[$i]!="readme"){
+        echo '<tr>
+    <td><input type="checkbox" value=""></td>     
+    <td>'.iconv('gbk','utf-8',$conlist[$i]).'</td>
+    <td>'.$des.'</td>
+    <td>1分钟以前</td>
+    </tr>';
+    }
+    else{
+      continue;
+    }
+   }
+   }
+   else{
+    echo '<tr>
+    <td>暂无数据</td>
+    </tr>';
+   }
+?>
+    
+  </table>
+
+  <div class="panel-footer">
+<?php
+
+if(strlen($itemname)!=0 and strlen($uid)!=0){
+
+	$des=GetDes("userpro/".$uid."/".$itemname."/readme");
+
+	if($des!=false){
+		echo $des;
+	}
+	else{echo $itemname.'project';}
+}
+else{
+	header("location:index.php");
+}
+
+?>
+   
+  </div>
+
+</div>
+
+</div>
+
 
 <div class="item-right">
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">未定栏</h3>
+    <h3 class="panel-title">菜单</h3>
   </div>
   <div class="panel-body">
-    
+
+
+<div class="item-split-menu">
+<div class="btn-group btn-group-justified" id="item-split-menu-space">
+  <div class="btn-group">
+    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-heart-empty"></span> 关注</button>
+  </div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-up"></span> 碉堡</button>
+  </div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-down"></span> 弱爆</button>
+  </div>  
+</div>
+</div>
+
+<div class="item-split-menu">
+<div class="btn-group btn-group-justified" id="item-split-menu-space">
+    <div class="input-group">
+      <input type="text" class="form-control">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">复制</button>
+      </span>
+    </div><!-- /input-group -->
+</div>
+<span class="help-block">在这里可以复制项目的URL</span>
+</div>
+
+<div class="item-split-menu">
+<div class="btn-group btn-group-justified" id="item-split-menu-space">
+  <div class="btn-group">
+    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-cloud-download"></span> 下载</button>
+  </div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-star"></span> 赞者</button>
+  </div>
+</div>
+</div>
 
   </div>
 </div>

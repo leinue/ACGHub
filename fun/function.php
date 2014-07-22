@@ -276,6 +276,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 
 function GetProType($dir){
+  
   $ProType = array("script","Storyboard","enactment","code","dubbing","music");
 
   $hand=fopen($dir, "r") or die("Unable to open file!");
@@ -290,6 +291,6 @@ function GetProType($dir){
     }
   }
 
- 
 }
+
 ?>
