@@ -12,7 +12,7 @@ if(trim($username)<>"" and trim($usermail)<>"" and $userpw<>""){
     if(checkemail($usermail)==false){
       if(connect_mysql()){
         
-      $sql="INSERT INTO `acghub_member`(`name`,`email`,`password`,`_date`,`sta`,checked,age,sex,`website`,`location`,`message`,`friends`,`photo`,`dynamic`,`forworks`)
+      $sql="INSERT INTO `acghub_member`(`name`,`email`,`password`,`_date`,`sta`,checked,age,sex,`website`,`location`,`message`,`friends`,`photo`,`dynamic`,`forworks`,`like`,`liker`,`dislike`,`disliker`)
        VALUES('".$username."'
         ,'".$usermail."'
         ,'".md5($userpw)."'
@@ -22,12 +22,12 @@ if(trim($username)<>"" and trim($usermail)<>"" and $userpw<>""){
         ,0
         ,0
         ,'www.acghub.com'
-        ,'tianchao'
+        ,'China'
         ,'0'
         ,'0'
         ,'https://avatars3.githubusercontent.com/u/2469688?s=140'
-        ,'". date("Y/m/d")." join in ACGHub'
-        ,'9')";
+        ,'". date("Y-m-d")." join in ACGHub'
+        ,'9','9','9','9','9')";
 
       if(mysql_query($sql)){
         $reg_url="http://localhost/emailcheck.php?u=".mysql_insert_id()."?method=reg";

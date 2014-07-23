@@ -454,5 +454,57 @@ function DelFork($uid,$name,$loginuid){
 
 }
 /*****************************评价作品********************************/
+function LikeOrDislikeSyn($method,$email,$itemname,$uid){
+  //$method=1->like $method=2->dislike
 
+  if($method==1){
+    $sql="SELECT `like` FROM `acghub_member` WHERE `email`='$email'";
+  }elseif ($method==2) {
+    $sql="SELECT `liker` FROM `acghub_member` WHERE `email`='$email'";
+  }
+
+  if($res!=false){
+    if($res=="9"){
+      if($method==1){
+        $wl="%like%=$itemname|--&&--|";
+      }elseif ($method==2) {
+        $wl="{|%likeruid%=$uid,|-&&-|%itemname%=$itemname|}{|$&$|}";
+      }
+    }
+    else{
+      if ($method==1) {
+        $wl=$wl."%like%=$itemname|--&&--|";
+      }elseif ($method==2) {
+        $wl=$wl."{|%likeruid%=$uid,|-&&-|%itemname%=$itemname|}{|$&$|}";
+      }
+    }
+  }else{return false;}
+
+  if($method==1){
+    $sql="UPDATE `acghub_member` SET `like`='$wl' WHERE `email`='".$email."'";
+  }elseif ($method==2) {
+    $sql="UPDATE `acghub_member` SET `liker`='$wl' WHERE `email`='".$email."'";
+  }
+  
+  $res=mysql_query($sql);
+
+  if($res!=false){
+    if(mysql_affected_rows()!=-1){
+      return true;
+    }else{return false;}
+  }else{return false;}
+
+}
+
+function WriteLike($itemname,$email){
+  //%like%=pu_sc|--&&--|
+  return LikeOrDislikeSyn(1,$email,$itemname,0);
+
+}
+
+function WriteLiker($uid,$itemname,$email){
+  // {|%likeruid%=19,|-&&-|%itemname%=dyntest2|}{|$&$|}
+  return LikeOrDislikeSyn(1,$email,$itemname,$uid);
+
+}
 ?>
