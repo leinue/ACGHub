@@ -566,11 +566,12 @@ function isLike($uid,$itemname){
   }else{return false;}
 }
 
-function isLiker($uid,$itemname){
+/*function isLiker($uid,$itemname){
   //$uid->要判断的人 $itemname->要判断的项目名
   $rler=ReadLiker($uid);
   if($rler!=false){
     foreach ($rler as $key => $value) {
+      echo $value;
       $rler_ex=explode("|-&&-|", $value);
       if($itemname==$rler_ex[1]){
         $rler_uid_ex=explode(",", $rler_ex[0]);
@@ -588,7 +589,12 @@ function isLiker($uid,$itemname){
     }
   }else{
     return false;}
-}
+}*/
 
+function isLiker($uid,$itemname){
+  if(isLike($uid,$itemname)){
+    return $uid;
+  }else{return false;}
+}
 /**********************DISLIKE*********************/
 ?>
