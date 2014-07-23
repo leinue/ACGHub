@@ -552,5 +552,18 @@ function ReadLike($uid){
 function ReadLiker($uid){
   return ReadLikeOrLikerSyn(2,$uid);}
 
+function isLike($uid,$itemname){
+  $rl=ReadLike($uid);
+  if($rl!=false){
+    foreach ($rl as $key => $value) {
+      if($itemname==$value){
+        return true;
+        break;
+      }
+      else{return false;}
+    }
+  }else{return false;}
+}
+
 /**********************DISLIKE*********************/
 ?>

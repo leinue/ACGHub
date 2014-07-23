@@ -37,6 +37,10 @@ if($_SESSION['user-login-id']==1){
     WriteLiker(Getuid($_SESSION['user-account']),$itemname,GetEmail($uid));
   }
 
+  if($_POST['unlike'=="unlike"]){
+    
+  }
+
 ?>
 
 <div class="overitem">
@@ -218,7 +222,19 @@ else
   ?>
   </div>
   <div class="btn-group">
-    <button type="submit" name="like" value="like" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-up"></span> 碉堡</button>
+  <?php
+  if(islike(Getuid($_SESSION['user-account']),$itemname)){
+  ?>
+  <button type="submit" name="unlike" value="unlike" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-up"></span> 取赞</button>
+  <?php
+  }
+  else{
+  ?>
+   <button type="submit" name="like" value="like" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-up"></span> 碉堡</button>
+  <?php
+  }
+  ?>
+    
   </div>
   <div class="btn-group">
     <button type="submit" name="dislike" value="dislike" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-down"></span> 弱爆</button>
