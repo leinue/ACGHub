@@ -27,9 +27,9 @@ if($_SESSION['user-login-id']==1){
 
   if($_POST['unfork']=="unfork"){
     if(DelFork($uid,$itemname,Getuid($_SESSION['user-account']))!=false){
-      echo '关注成功';
+      echo '取关成功';
     }
-    else{echo '关注失败';}
+    else{echo '取关失败';}
   }
 
   if($_POST['like']=="like"){

@@ -458,14 +458,13 @@ function DelFork($uid,$name,$loginuid){
 /***********************LIKE**********************/
 function LikeOrDislikeSyn($method,$email,$itemname,$uid){
   //$method=1->like $method=2->dislike
-
   if($method==1){
     $sql="SELECT `like` FROM `acghub_member` WHERE `email`='$email'";
   }elseif ($method==2) {
     $sql="SELECT `liker` FROM `acghub_member` WHERE `email`='$email'";
   }
 
-  $res=mysql_query($sql);
+  $res=getone($sql);
 
   if($res!=false){
     if($res=="9"){
@@ -501,18 +500,57 @@ function LikeOrDislikeSyn($method,$email,$itemname,$uid){
 }
 
 function WriteLike($itemname,$email){
-  //%like%=pu_sc|--&&--|
-  return LikeOrDislikeSyn(1,$email,$itemname,0);
-}
+  return LikeOrDislikeSyn(1,$email,$itemname,0);}
 
 function WriteLiker($uid,$itemname,$email){
-  // {|%likeruid%=19,|-&&-|%itemname%=dyntest2|}{|$&$|}
-  return LikeOrDislikeSyn(2,$email,$itemname,$uid);
+  return LikeOrDislikeSyn(2,$email,$itemname,$uid);}
+
+function ReadLikeOrLikerSyn($method,$uid){
+  //$method=1->like $method=2->liker
+  if($method==1){
+    $sql="SELECT `like` FROM `acghub_member` WHERE `id`=$uid";
+  }elseif ($method==2) {
+    $sql="SELECT `liker` FROM `acghub_member` WHERE `id`=$uid";
+  }
+  
+  $res=getone($sql);
+  if($res!=false){
+    if($method==1){
+      //%like%=pu_sc|--&&--|
+      $like=explode("|--&&--|",$res);
+      $sublike_arr=array();
+      foreach ($like as $key => $value) {
+        if(strlen($value)!=0){
+          $sublike=substr($value, 7);
+          $sublike_arr[$key]=$sublike;
+        }
+      }
+      return $sublike_arr;
+    }
+    elseif ($method==2) {
+      // {|%likeruid%=19,|-&&-|%itemname%=dyntest2|}{|$&$|}
+      $liker=explode("{|$&$|}", $res);
+      $subliker_arr=array();
+      foreach ($liker as $key => $value) {
+        if(strlen($value)!=0){
+          $subliker=str_replace("{|%likeruid%=","",$value);
+          $subliker=str_replace("%itemname%=","",$subliker);
+          $subliker=str_replace("|}","",$subliker);
+
+          $subliker_arr[$key]=$subliker;
+        }
+      }
+      return $subliker_arr;
+    }
+  }
+  else{return false;}
 }
 
-function ReadLike(){
+function ReadLike($uid){
+  return ReadLikeOrLikerSyn(1,$uid);}
 
-}
+function ReadLiker($uid){
+  return ReadLikeOrLikerSyn(2,$uid);}
 
 /**********************DISLIKE*********************/
 ?>
