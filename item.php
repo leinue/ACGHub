@@ -37,8 +37,8 @@ if($_SESSION['user-login-id']==1){
     WriteLiker(Getuid($_SESSION['user-account']),$itemname,GetEmail($uid));
   }
 
-  if($_POST['unlike'=="unlike"]){
-
+  if($_POST['unlike']=="unlike"){
+    echo DelLike($itemname,Getuid($_SESSION['user-account']),$uid);
   }
 
 ?>

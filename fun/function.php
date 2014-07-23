@@ -471,14 +471,14 @@ function LikeOrDislikeSyn($method,$email,$itemname,$uid){
       if($method==1){
         $wl="%like%=$itemname|--&&--|";
       }elseif ($method==2) {
-        $wl="{|%likeruid%=$uid,|-&&-|%itemname%=$itemname|}{|$&$|}";
+        $wl="{|%likeruid%=$uid|-&&-|%itemname%=$itemname|}{|$&$|}";
       }
     }
     else{
       if ($method==1) {
         $wl=$wl."%like%=$itemname|--&&--|";
       }elseif ($method==2) {
-        $wl=$wl."{|%likeruid%=$uid,|-&&-|%itemname%=$itemname|}{|$&$|}";
+        $wl=$wl."{|%likeruid%=$uid|-&&-|%itemname%=$itemname|}{|$&$|}";
       }
     }
   }else{return false;}
@@ -528,7 +528,7 @@ function ReadLikeOrLikerSyn($method,$uid){
       return $sublike_arr;
     }
     elseif ($method==2) {
-      // {|%likeruid%=19,|-&&-|%itemname%=dyntest2|}{|$&$|}
+      // {|%likeruid%=19|-&&-|%itemname%=dyntest2|}{|$&$|}
       $liker=explode("{|$&$|}", $res);
       $subliker_arr=array();
       foreach ($liker as $key => $value) {
@@ -596,5 +596,86 @@ function isLiker($uid,$itemname){
     return $uid;
   }else{return false;}
 }
+
+function DelLike($itemname,$uid,$uidA){
+  //$uid->取赞的人 $itemname->被取赞的项目 $uidA->项目作者
+  $flag0=0;
+
+  $rl=ReadLike($uid);
+
+  if($rl!=false){
+    foreach ($rl as $key => $value) {
+      if($value==$itemname){
+        $rldel=array_splice($rl,$key,1);
+      }
+    }
+  }
+  else{$flag0=0;}
+
+  $flag1=0;
+  foreach ($rldel as $key => $value) {
+    
+    if(strlen($value)==0){
+      $v="9";
+    }else{
+      $v="%like%=$value|--&&--|";
+    }
+
+    $sql="UPDATE `acghub_member` SET `like`='".$v."' WHERE `id`=".$uid;
+    $res=mysql_query($sql);
+    if($res!=false){
+      if(mysql_affected_rows()!=-1){
+        $flag1=1;
+        if(strlen($value)==0){break;}
+      }
+      else{
+        $flag0=0;
+      }
+    }else{$flag0=0;}
+
+  }
+
+  /************************************************/
+
+  $rler=ReadLiker($uidA);
+
+  if($rler!=false){
+    foreach ($rler as $key => $value) {
+      $rler_ex=explode("|-&&-|", $value);
+      if($uid==$rler_ex[0] and $itemname==$rler_ex[1]){
+        $rlerdel=array_splice($rler,$key,1);
+      }
+      else {
+        $flag0=0;
+      }
+    }
+  }else{$flag0=0;}
+
+  $flag2=0;
+  foreach ($rlerdel as $key => $value) {
+    $rler_ex=explode("|-&&-|", $value);
+    if(strlen($rler_ex[0])==0 or strlen($rler_ex[1])==0){
+      $vdata="9";
+    }
+    else{
+      $vdata="{|%dislikeruid%=$rler_ex[0]|-&&-|%itemname%=$rler_ex[1]|}{|$&$|}";
+    }
+    
+    $sql="UPDATE `acghub_member` SET `liker`='".$vdata."' WHERE `id`=".$uidA;
+    $res=mysql_query($sql);
+    if($res!=false){
+      if(mysql_affected_rows()!=-1){
+        $flag2=1;
+        if(strlen($rler_ex[0])==0 or strlen($rler_ex[1])==0){break;}
+      }else{$flag0=0;}
+    }else{$flag0=0;}    
+  }
+
+  if($flag1==1 and $flag2==1){
+    return true;
+  }else{return false;}
+
+}
+
 /**********************DISLIKE*********************/
 ?>
