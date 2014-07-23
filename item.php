@@ -32,6 +32,11 @@ if($_SESSION['user-login-id']==1){
     else{echo '关注失败';}
   }
 
+  if($_POST['like']=="like"){
+    WriteLike($itemname,$_SESSION['user-account']);
+    WriteLiker(Getuid($_SESSION['user-account']),$itemname,GetEmail($uid));
+  }
+
 ?>
 
 <div class="overitem">

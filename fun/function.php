@@ -453,7 +453,9 @@ function DelFork($uid,$name,$loginuid){
   else{return false;}
 
 }
-/*****************************评价作品********************************/
+/**************************************评价作品*****************************************/
+
+/***********************LIKE**********************/
 function LikeOrDislikeSyn($method,$email,$itemname,$uid){
   //$method=1->like $method=2->dislike
 
@@ -462,6 +464,8 @@ function LikeOrDislikeSyn($method,$email,$itemname,$uid){
   }elseif ($method==2) {
     $sql="SELECT `liker` FROM `acghub_member` WHERE `email`='$email'";
   }
+
+  $res=mysql_query($sql);
 
   if($res!=false){
     if($res=="9"){
@@ -499,12 +503,16 @@ function LikeOrDislikeSyn($method,$email,$itemname,$uid){
 function WriteLike($itemname,$email){
   //%like%=pu_sc|--&&--|
   return LikeOrDislikeSyn(1,$email,$itemname,0);
-
 }
 
 function WriteLiker($uid,$itemname,$email){
   // {|%likeruid%=19,|-&&-|%itemname%=dyntest2|}{|$&$|}
-  return LikeOrDislikeSyn(1,$email,$itemname,$uid);
+  return LikeOrDislikeSyn(2,$email,$itemname,$uid);
+}
+
+function ReadLike(){
 
 }
+
+/**********************DISLIKE*********************/
 ?>
