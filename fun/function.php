@@ -533,7 +533,8 @@ function ReadLikeOrLikerSyn($method,$uid){
       $subliker_arr=array();
       foreach ($liker as $key => $value) {
         if(strlen($value)!=0){
-          $subliker=str_replace("{|%likeruid%=","",$value);
+          //$subliker=str_replace("{|%likeruid%=","",$value);
+          $subliker=substr($value, 16);
           $subliker=str_replace("%itemname%=","",$subliker);
           $subliker=str_replace("|}","",$subliker);
 
@@ -602,17 +603,33 @@ function DelLike($itemname,$uid,$uidA){
   $flag0=0;
 
   $rl=ReadLike($uid);
-
   if($rl!=false){
     foreach ($rl as $key => $value) {
       if($value==$itemname){
-        $rldel=array_splice($rl,$key,1);
+        if(count($rl)==1){
+          unset($rl);
+          break;
+        }else{
+          $rldel=array_splice($rl,$key,1);
+        }
       }
     }
   }
   else{$flag0=0;}
 
   $flag1=0;
+
+  if(count($rl)==0){
+    $sql="UPDATE `acghub_member` SET `like`='9' WHERE `id`=".$uid;
+    $res=mysql_query($sql);
+    if($res!=false){
+      if(mysql_affected_rows()!=-1){
+        $flag1=1;
+      }
+    }else{$flag0=0;}
+  }
+  else{
+
   foreach ($rldel as $key => $value) {
     
     if(strlen($value)==0){
@@ -633,17 +650,23 @@ function DelLike($itemname,$uid,$uidA){
       }
     }else{$flag0=0;}
 
+  }    
+
   }
 
   /************************************************/
 
   $rler=ReadLiker($uidA);
-
+  print_r($rler);
   if($rler!=false){
     foreach ($rler as $key => $value) {
       $rler_ex=explode("|-&&-|", $value);
       if($uid==$rler_ex[0] and $itemname==$rler_ex[1]){
-        $rlerdel=array_splice($rler,$key,1);
+        if(count($rler)==1){
+          unset($rler);
+        }else{
+          $rlerdel=array_splice($rler,$key,1);
+        }
       }
       else {
         $flag0=0;
@@ -652,6 +675,17 @@ function DelLike($itemname,$uid,$uidA){
   }else{$flag0=0;}
 
   $flag2=0;
+  if(count($rler)==0){
+    $sql="UPDATE `acghub_member` SET `liker`='9' WHERE `id`=".$uidA;
+    $res=mysql_query($sql);
+    if($res!=false){
+      if(mysql_affected_rows()!=-1){
+        $flag1=1;
+      }
+    }else{$flag0=0;}
+  }
+  else{
+
   foreach ($rlerdel as $key => $value) {
     $rler_ex=explode("|-&&-|", $value);
     if(strlen($rler_ex[0])==0 or strlen($rler_ex[1])==0){
@@ -669,6 +703,8 @@ function DelLike($itemname,$uid,$uidA){
         if(strlen($rler_ex[0])==0 or strlen($rler_ex[1])==0){break;}
       }else{$flag0=0;}
     }else{$flag0=0;}    
+  }    
+
   }
 
   if($flag1==1 and $flag2==1){

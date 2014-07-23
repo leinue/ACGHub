@@ -38,7 +38,7 @@ if($_SESSION['user-login-id']==1){
   }
 
   if($_POST['unlike']=="unlike"){
-    echo DelLike($itemname,Getuid($_SESSION['user-account']),$uid);
+    DelLike($itemname,Getuid($_SESSION['user-account']),$uid);
   }
 
 ?>
