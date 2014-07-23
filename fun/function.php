@@ -553,6 +553,7 @@ function ReadLiker($uid){
   return ReadLikeOrLikerSyn(2,$uid);}
 
 function isLike($uid,$itemname){
+  //$uid->要判断的人 $itemname->要判断的项目名
   $rl=ReadLike($uid);
   if($rl!=false){
     foreach ($rl as $key => $value) {
@@ -563,6 +564,30 @@ function isLike($uid,$itemname){
       else{return false;}
     }
   }else{return false;}
+}
+
+function isLiker($uid,$itemname){
+  //$uid->要判断的人 $itemname->要判断的项目名
+  $rler=ReadLiker($uid);
+  if($rler!=false){
+    foreach ($rler as $key => $value) {
+      $rler_ex=explode("|-&&-|", $value);
+      if($itemname==$rler_ex[1]){
+        $rler_uid_ex=explode(",", $rler_ex[0]);
+        foreach ($rler_uid_ex as $i => $data) {
+          if(strlen($data)!=0){
+            if($uid==$data){
+              return true;
+            }
+            else{
+              return false;}
+          }
+        }
+      }else{
+        return false;}
+    }
+  }else{
+    return false;}
 }
 
 /**********************DISLIKE*********************/
