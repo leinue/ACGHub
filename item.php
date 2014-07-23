@@ -237,7 +237,18 @@ else
     
   </div>
   <div class="btn-group">
-    <button type="submit" name="dislike" value="dislike" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-down"></span> 弱爆</button>
+  <?php
+  if(islike(Getuid($_SESSION['user-account']),$itemname)){
+  ?>
+  <fieldset disabled><button type="submit" name="dislike" value="dislike" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-down"></span> 弱爆</button></fieldset>
+  <?php
+  }
+  else{
+  ?>
+  <button type="submit" name="dislike" value="dislike" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-down"></span> 弱爆</button>
+  <?php
+  }
+  ?>
   </div>  
 </div>
 </form>
