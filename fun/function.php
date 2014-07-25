@@ -455,13 +455,16 @@ function DelFork($uid,$name,$loginuid){
 }
 /**************************************评价作品*****************************************/
 
-/***********************LIKE**********************/
 function LikeOrDislikeSyn($method,$email,$itemname,$uid){
-  //$method=1->like $method=2->dislike
+  //$method=1->like $method=2->liker $method=3->dislike $method=4->disliker
   if($method==1){
     $sql="SELECT `like` FROM `acghub_member` WHERE `email`='$email'";
   }elseif ($method==2) {
     $sql="SELECT `liker` FROM `acghub_member` WHERE `email`='$email'";
+  }elseif ($method==3) {
+    $sql="SELECT `dislike` FROM `acghub_member` WHERE `email`='$email'";    
+  }elseif ($metho==4) {
+    $sql="SELECT `disliker` FROM `acghub_member` WHERE `email`='$email'";
   }
 
   $res=getone($sql);
@@ -472,6 +475,10 @@ function LikeOrDislikeSyn($method,$email,$itemname,$uid){
         $wl="%like%=$itemname|--&&--|";
       }elseif ($method==2) {
         $wl="{|%likeruid%=$uid|-&&-|%itemname%=$itemname|}{|$&$|}";
+      }elseif ($method==3) {
+        $wl="%dislike%=$itemname|--&&--|";
+      }elseif ($method==4) {
+        $wl="{|%dislikeruid%=$uid|-&&-|%itemname%=$itemname|}{|$&$|}";
       }
     }
     else{
@@ -479,6 +486,10 @@ function LikeOrDislikeSyn($method,$email,$itemname,$uid){
         $wl=$wl."%like%=$itemname|--&&--|";
       }elseif ($method==2) {
         $wl=$wl."{|%likeruid%=$uid|-&&-|%itemname%=$itemname|}{|$&$|}";
+      }elseif ($method==3) {
+        $wl=$wl."%dislike%=$itemname|--&&--|";
+      }elseif ($method==4) {
+        $wl=$wl."{|%dislikeruid%=$uid|-&&-|%itemname%=$itemname|}{|$&$|}";
       }
     }
   }else{return false;}
@@ -487,6 +498,10 @@ function LikeOrDislikeSyn($method,$email,$itemname,$uid){
     $sql="UPDATE `acghub_member` SET `like`='$wl' WHERE `email`='".$email."'";
   }elseif ($method==2) {
     $sql="UPDATE `acghub_member` SET `liker`='$wl' WHERE `email`='".$email."'";
+  }elseif ($method==3) {
+    $sql="UPDATE `acghub_member` SET `dislike`='$wl' WHERE `email`='$email'";
+  }elseif ($method==4) {
+    $sql="UPDATE ``acghub_member SET `disliker`='$wl' WHERE `email`='$email'";
   }
   
   $res=mysql_query($sql);
@@ -505,36 +520,54 @@ function WriteLike($itemname,$email){
 function WriteLiker($uid,$itemname,$email){
   return LikeOrDislikeSyn(2,$email,$itemname,$uid);}
 
+function WriteDislike($itemname,$email){
+  return LikeOrDislikeSyn(3,$email,$itemname,0);}
+
+function WriteDisliker($uid,$itemname,$email){
+  return LikeOrDislikeSyn(4,$email,$itemname,$uid);}
+
 function ReadLikeOrLikerSyn($method,$uid){
-  //$method=1->like $method=2->liker
+  //$method=1->like $method=2->liker $method=3->dislike $method=4->disliker
   if($method==1){
     $sql="SELECT `like` FROM `acghub_member` WHERE `id`=$uid";
   }elseif ($method==2) {
     $sql="SELECT `liker` FROM `acghub_member` WHERE `id`=$uid";
+  }elseif ($method==3) {
+    $sql="SELECT `dislike` FROM `acghub_member` WHERE `id`=$uid";
+  }elseif ($method==4) {
+    $sql="SELECT `disliker` FROM `acghub_member` WHERE `id`=$uid";
   }
   
   $res=getone($sql);
   if($res!=false){
-    if($method==1){
+    if($method==1 or $method==3){
       //%like%=pu_sc|--&&--|
       $like=explode("|--&&--|",$res);
       $sublike_arr=array();
       foreach ($like as $key => $value) {
         if(strlen($value)!=0){
-          $sublike=substr($value, 7);
+          if($method==1){
+            $sublike=substr($value, 7);
+          }elseif ($method==3) {
+            $sublike=substr($value, 10);
+          }
           $sublike_arr[$key]=$sublike;
         }
       }
       return $sublike_arr;
     }
-    elseif ($method==2) {
+    elseif ($method==2 or $method==4) {
       // {|%likeruid%=19|-&&-|%itemname%=dyntest2|}{|$&$|}
       $liker=explode("{|$&$|}", $res);
       $subliker_arr=array();
       foreach ($liker as $key => $value) {
         if(strlen($value)!=0){
           //$subliker=str_replace("{|%likeruid%=","",$value);
-          $subliker=substr($value, 16);
+          if($method==2){
+            $subliker=substr($value,16);
+          }elseif ($method==4) {
+            $subliker=substr($value,19);
+          }
           $subliker=str_replace("%itemname%=","",$subliker);
           $subliker=str_replace("|}","",$subliker);
 
@@ -553,9 +586,21 @@ function ReadLike($uid){
 function ReadLiker($uid){
   return ReadLikeOrLikerSyn(2,$uid);}
 
-function isLike($uid,$itemname){
+function ReadDislike($uid){
+  return ReadLikeOrLikerSyn(3,$uid);}
+
+function ReadDisliker($uid){
+  return ReadLikeOrLikerSyn(4,$uid);}
+
+function isLikeSyn($method,$uid,$itemname){
+  //$method=1->like $method=2->dislike
   //$uid->要判断的人 $itemname->要判断的项目名
-  $rl=ReadLike($uid);
+  if($method==1){
+    $rl=Readlike($uid);
+  }elseif ($method==2) {
+    $rl=ReadDislike($uid);
+  }
+  
   if($rl!=false){
     foreach ($rl as $key => $value) {
       if($itemname==$value){
@@ -565,6 +610,14 @@ function isLike($uid,$itemname){
       else{return false;}
     }
   }else{return false;}
+}
+
+function isLike($uid,$itemname){
+  return isLikeSyn(1,$uid,$itemname);
+}
+
+function isDislike($uid ,$itemname){
+  return isLikeSyn(2,$uid,$itemname);
 }
 
 /*function isLiker($uid,$itemname){
@@ -592,8 +645,26 @@ function isLike($uid,$itemname){
     return false;}
 }*/
 
+function GetLikerNum($itemname){
+  $count=0;
+
+  $sql="SELECT `id` FROM `acghub_member` WHERE ";
+  $res=getone($sql);
+  if($res!=false){
+    if(isLike($res,$itemname)){
+      $count+=1;
+    }
+  }else{return false;}
+}
+
 function isLiker($uid,$itemname){
   if(isLike($uid,$itemname)){
+    return $uid;
+  }else{return false;}
+}
+
+function isDisliker($uid,$itemname){
+  if(isDislike($uid,$itemname)){
     return $uid;
   }else{return false;}
 }
@@ -714,4 +785,5 @@ function DelLike($itemname,$uid,$uidA){
 }
 
 /**********************DISLIKE*********************/
+
 ?>

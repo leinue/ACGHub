@@ -33,12 +33,20 @@ if($_SESSION['user-login-id']==1){
   }
 
   if($_POST['like']=="like"){
-    WriteLike($itemname,$_SESSION['user-account']);
-    WriteLiker(Getuid($_SESSION['user-account']),$itemname,GetEmail($uid));
+    if(islike(Getuid($_SESSION['user-account']),$itemname)!=true){
+      WriteLike($itemname,$_SESSION['user-account']);
+      WriteLiker(Getuid($_SESSION['user-account']),$itemname,GetEmail($uid));
+    }
   }
 
   if($_POST['unlike']=="unlike"){
     DelLike($itemname,Getuid($_SESSION['user-account']),$uid);
+  }
+  if($_POST['dislike']=="dislike"){
+    if(isDislike(Getuid($_SESSION['user-account']),$itemname)!=true){
+      WriteDislike($itemname,$_SESSION['user-account']);
+      WriteDisliker(Getuid($_SESSION['user-account']),$itemname,GetEmail($uid));
+    }
   }
 
 ?>
@@ -229,8 +237,17 @@ else
   <?php
   }
   else{
+    if(isDislike(Getuid($_SESSION['user-account']),$itemname)){
+  ?>
+   <fieldset disabled><button type="submit" name="like" value="like" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-up"></span> 碉堡</button></fieldset>
+  <?php
+    }
+    else{
   ?>
    <button type="submit" name="like" value="like" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-up"></span> 碉堡</button>
+  <?php
+    }
+  ?>
   <?php
   }
   ?>
@@ -244,8 +261,17 @@ else
   <?php
   }
   else{
+    if(isDislike(Getuid($_SESSION['user-account']),$itemname)){
   ?>
-  <button type="submit" name="dislike" value="dislike" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-down"></span> 弱爆</button>
+    <button type="submit" name="dislike" value="dislike" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-down"></span> 取弱</button>
+  <?php
+    }
+    else{
+  ?>
+    <button type="submit" name="dislike" value="dislike" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-down"></span> 弱爆</button>
+  <?php
+    }
+  ?>
   <?php
   }
   ?>
