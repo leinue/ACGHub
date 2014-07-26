@@ -312,7 +312,7 @@ else
     <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-cloud-download"></span> 下载</button>
   </div>
   <div class="btn-group">
-    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-star"></span> 赞者</button>
+    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-star"></span> 赞者(<?php echo GetLikerNum($itemname); ?>)</button>
   </div>
 </div>
 </div>

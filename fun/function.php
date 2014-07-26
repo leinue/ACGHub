@@ -652,13 +652,16 @@ function isDislike($uid ,$itemname){
 function GetLikerNum($itemname){
   $count=0;
 
-  $sql="SELECT `id` FROM `acghub_member` WHERE ";
-  $res=getone($sql);
-  if($res!=false){
-    if(isLike($res,$itemname)){
+  $strSQL="SELECT `id` FROM `acghub_member`";
+  $result=mysql_query($strSQL);
+  while($row=mysql_fetch_row($result)){
+    if(isLike($row[0],$itemname)){
       $count+=1;
+      //echo '$count='.$count.'<br>';
     }
-  }else{return false;}
+  }
+
+  return $count;
 }
 
 function isLiker($uid,$itemname){
