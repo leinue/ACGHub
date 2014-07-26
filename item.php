@@ -214,10 +214,10 @@ if($login_uid==$uid){
 <div class="item-split-menu">
 <div class="btn-group btn-group-justified" id="item-split-menu-space">
   <div class="btn-group">
-    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-cloud-download"></span> 下载</button>
+    <a href="<?php echo "item.php?name=".$itemname."&uid=".$uid."&method=1"; ?>"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span> 关注者(<?php echo GetFollowerNum($uid,$itemname); ?>)</button></a>
   </div>
   <div class="btn-group">
-    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-star"></span> 赞者</button>
+    <a href="<?php echo "item.php?name=".$itemname."&uid=".$uid."&method=2"; ?>"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-star"></span> 赞者(<?php echo GetLikerNum($itemname); ?>)</button></a>
   </div>
 </div>
 </div>
@@ -348,6 +348,7 @@ else
 
 <?php
     $fouid=GetFollower($uid,$itemname);
+    if(count($fouid)>0){
     foreach ($fouid as $key => $value) {
       
       echo '<div class="foer">
@@ -368,6 +369,10 @@ else
   </div>';
 
     }
+   }
+   else{
+  echo '<div class="alert alert-info" role="alert"><img alt="蛤蛤蛤" class="img-circle" src="http://i62.tinypic.com/w7zg3k.jpg"> 好可怜,暂时没有哦,请继续努力!</div>';
+   }
 ?>
 
   </div>
@@ -388,6 +393,8 @@ else
 <?php
 $likelist=GetLiker($itemname);
 
+if(count($likelist)>0){
+
 foreach ($likelist as $key => $value) {
       echo '<div class="foer">
     <div class="panel panel-default">
@@ -407,6 +414,9 @@ foreach ($likelist as $key => $value) {
   </div>';
 }
 
+}
+else{
+  echo '<div class="alert alert-info" role="alert"><img alt="蛤蛤蛤" class="img-circle" src="http://i62.tinypic.com/w7zg3k.jpg"> 好可怜,暂时没有哦,请继续努力!</div>';}
 ?>
 
   </div>
