@@ -50,8 +50,7 @@ if($_SESSION['user-login-id']==1){
   }
 
   if($_POST['unlike']=="unlike"){
-    DelLike($itemname,Getuid($_SESSION['user-account']),$uid);
-  }
+    DelLike($itemname,Getuid($_SESSION['user-account']),$uid);}
 
   if($_POST['dislike']=="dislike"){
     if(isDislike(Getuid($_SESSION['user-account']),$itemname)!=true){
@@ -60,9 +59,8 @@ if($_SESSION['user-login-id']==1){
     }
   }
 
-  /*if($_POST['undislike']=="undislike"){
-    DelDislike();
-  }*/
+  if($_POST['undislike']=="undislike"){
+    DelDislike($itemname,Getuid($_SESSION['user-account']),$uid);}
 
 ?>
 

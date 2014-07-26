@@ -673,8 +673,9 @@ function isDisliker($uid,$itemname){
   }else{return false;}
 }
 
-function DelLike($itemname,$uid,$uidA){
+function DelLikeOrDislikeSyn($method,$itemname,$uid,$uidA){
   //$uid->取赞的人 $itemname->被取赞的项目 $uidA->项目作者
+  //$method=1->like $method=2->dislike
   $flag0=0;
 
   $rl=ReadLike($uid);
@@ -682,7 +683,7 @@ function DelLike($itemname,$uid,$uidA){
     foreach ($rl as $key => $value) {
       if($value==$itemname){
         if(count($rl)==1){
-          unset($rl);
+          $rldel=array_splice($rl,0,1);
           break;
         }else{
           $rldel=array_splice($rl,$key,1);
@@ -694,8 +695,20 @@ function DelLike($itemname,$uid,$uidA){
 
   $flag1=0;
 
-  if(count($rl)==0){
-    $sql="UPDATE `acghub_member` SET `like`='9' WHERE `id`=".$uid;
+  if(count($rlel)==0){
+
+    switch ($method) {
+      case 1:
+        $sql="UPDATE `acghub_member` SET `like`='9' WHERE `id`=".$uid;
+        break;
+      case 2:
+        $sql="UPDATE `acghub_member` SET `dislike`='9' WHERE `id`=".$uid;
+        break;
+      default:
+        return false;
+        break;
+    }
+
     $res=mysql_query($sql);
     if($res!=false){
       if(mysql_affected_rows()!=-1){
@@ -710,10 +723,31 @@ function DelLike($itemname,$uid,$uidA){
     if(strlen($value)==0){
       $v="9";
     }else{
-      $v="%like%=$value|--&&--|";
+      switch ($method) {
+        case 1:
+          $v="%like%=$value|--&&--|";
+          break;
+        case 2:
+          $v="%dislike%=$value|--&&--|";
+          break;
+        default:
+          return false;
+          break;
+      }
     }
 
-    $sql="UPDATE `acghub_member` SET `like`='".$v."' WHERE `id`=".$uid;
+    switch ($method) {
+      case 1:
+        $sql="UPDATE `acghub_member` SET `like`='$v' WHERE `id`=".$uid;
+        break;
+      case 2:
+        $sql="UPDATE `acghub_member` SET `dislike`='$v' WHERE `id`=".$uid;
+        break;
+      default:
+        return false;
+        break;
+    }
+    
     $res=mysql_query($sql);
     if($res!=false){
       if(mysql_affected_rows()!=-1){
@@ -752,7 +786,19 @@ function DelLike($itemname,$uid,$uidA){
 
   $flag2=0;
   if(count($rlerdel)==0){
-    $sql="UPDATE `acghub_member` SET `liker`='9' WHERE `id`=".$uidA;
+
+    switch ($method) {
+      case 1:
+        $sql="UPDATE `acghub_member` SET `liker`='9' WHERE `id`=".$uidA;
+        break;
+      case 2:
+        $sql="UPDATE `acghub_member` SET `disliker`='9' WHERE `id`=".$uidA;
+        break;
+      default:
+        return false;
+        break;
+    }
+
     $res=mysql_query($sql);
     if($res!=false){
       if(mysql_affected_rows()!=-1){
@@ -771,7 +817,18 @@ function DelLike($itemname,$uid,$uidA){
       $vdata="{|%dislikeruid%=$rler_ex[0]|-&&-|%itemname%=$rler_ex[1]|}{|$&$|}";
     }
     
-    $sql="UPDATE `acghub_member` SET `liker`='".$vdata."' WHERE `id`=".$uidA;
+    switch ($method) {
+      case 1:
+        $sql="UPDATE `acghub_member` SET `liker`='".$vdata."' WHERE `id`=".$uidA;
+        break;
+      case 2:
+        $sql="UPDATE `acghub_member` SET `disliker`='".$vdata."' WHERE `id`=".$uidA;
+        break;
+      default:
+        return false;
+        break;
+    }
+    
     $res=mysql_query($sql);
     if($res!=false){
       if(mysql_affected_rows()!=-1){
@@ -788,6 +845,12 @@ function DelLike($itemname,$uid,$uidA){
   }else{return false;}
 
 }
+
+function DelLike($itemname,$uid,$uidA){
+  DelLikeOrDislikeSyn(1,$itemname,$uid,$uidA);}
+
+function DelDislike($itemname,$uid,$uidA){
+  DelLikeOrDislikeSyn(2,$itemname,$uid,$uidA);}
 
 /**********************DISLIKE*********************/
 
