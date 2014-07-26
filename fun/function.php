@@ -55,11 +55,49 @@ function GetName($uid){
 }
 
 function Getuid($email){
-  $sql="SELECT `id` FROM `acghub_member` WHERE `email`='$email'";
+  $sql="SELECT `id` 
+  FROM `acghub_member` WHERE `email`='$email'";
   $res=getone($sql);
   if($res!=false){
     return $res;
   }else{return false;}
+}
+
+function GetWebsite($uid){
+  $sql="SELECT `website` FROM `acghub_member` 
+  WHERE `id`=$uid";
+  $res=getone($sql);
+  if($res!=false){
+    return $res;
+  }else{return false;}
+}
+
+function GetLocation($uid){
+  $sql="SELECT 
+  `location` FROM 
+  `acghub_member` WHERE 
+  `id`=$uid";
+  $res=getone($sql);
+  if($res!=false){
+    return $res;
+  }else{return false;}
+}
+
+function GetAge($uid){
+  $sql="SELECT `age` FROM `acghub_member` WHERE `id`=$uid";
+  $res=getone($sql);
+  if($res!=false){
+    return $res;
+  }else{return false;}  
+}
+
+function GetSex($uid){
+  $sql="SELECT `sex` 
+  FROM `acghub_member` WHERE `id`=$uid";
+  $res=getone($sql);
+  if($res!=false){
+    return $res;
+  }else{return false;}    
 }
 
 function SingleDecToHex($dec){
