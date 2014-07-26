@@ -10,6 +10,16 @@ if($_SESSION['user-login-id']==1){
 	if($_POST['del-all-item']=="del-all-item"){
 
 		if(delsvndir("userpro/".$uid."/$itemname")){
+
+      if(isFork($uid,$itemname,Getuid($_SESSION['user-account']))){
+        DelFork($uid,$itemname,Getuid($_SESSION['user-account']));}
+
+      if(isLike(Getuid($_SESSION['user-account']),$itemname)){
+        DelLike($itemname,Getuid($_SESSION['user-account']),$uid);}
+
+      if (isDislike(Getuid($_SESSION['user-account']),$itemname)) {
+      }
+
 			WriteDyn(date("Y-m-d H:i:s")." del $itemname project",$_SESSION['user-account']);
 			header("location:user.php");
 		}
