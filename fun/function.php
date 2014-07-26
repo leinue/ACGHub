@@ -450,7 +450,7 @@ function GetFollower($uid,$itemname){
   $strSQL="SELECT `id` FROM `acghub_member`";
   $result=mysql_query($strSQL);
   while($row=mysql_fetch_row($result)){
-      if(isFork($uid,$itemname,$row[0]))){
+      if(isFork($uid,$itemname,$row[0])){
         $repo[$index]=$row[0];
         $index+=1;
       }

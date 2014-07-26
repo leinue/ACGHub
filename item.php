@@ -3,10 +3,13 @@ include('header.php');
 
 $itemname=test_input($_GET['name']);
 $uid=test_input($_GET['uid']);
+$method=test_input($_GET['method']);
+
 date_default_timezone_set('Etc/GMT-8');//设置时区
 
 if($_SESSION['user-login-id']==1 and strlen($itemname)!=0 and strlen($uid)!=0){
 
+  if(strlen($method)==0){
 
 	if($_POST['del-all-item']=="del-all-item"){
 
@@ -310,10 +313,10 @@ else
 <div class="item-split-menu">
 <div class="btn-group btn-group-justified" id="item-split-menu-space">
   <div class="btn-group">
-    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-cloud-download"></span> 下载</button>
+    <a href="<?php echo "item.php?name=".$itemname."&uid=".$uid."&method=1"; ?>"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span> 关注者(<?php echo GetFollowerNum($uid,$itemname); ?>)</button></a>
   </div>
   <div class="btn-group">
-    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-star"></span> 赞者(<?php echo GetLikerNum($itemname); ?>)</button>
+    <a href="<?php echo "item.php?name=".$itemname."&uid=".$uid."&method=2"; ?>"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-star"></span> 赞者(<?php echo GetLikerNum($itemname); ?>)</button></a>
   </div>
 </div>
 </div>
@@ -332,6 +335,40 @@ else
 </div>
 
 <?php
+  }
+  else{
+?>
+<div class="overitem">
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">关注 <a href="<?php echo "item.php?name=".$itemname."&uid=".$uid; ?>"><strong><?php echo $itemname ?></a></strong> 的人</h3>
+  </div>
+  <div class="panel-body">
+
+  <div class="foer">
+    <div class="panel panel-default">
+      <div class="panel-body">
+
+      <div class="proeditor-photo">
+        <img alt="ivy" class="img-rounded" src="https://avatars2.githubusercontent.com/u/2469688?s=192" height="96" width="96">
+      </div>
+      
+      <div class="proeditor">
+         <p><a href="#">11</a></p>
+         <p><span class="glyphicon glyphicon-map-marker"></span> 1111</p>
+      </div>
+
+      </div>
+    </div>
+  </div>
+
+  </div>
+</div>
+
+</div>
+<?php
+  }
 
 }
 else{

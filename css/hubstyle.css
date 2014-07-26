@@ -260,3 +260,18 @@
     }
 
     #Username-pro{color:rgb(88,41,126);}
+
+    .foer{
+        width:235px;
+        margin-right: 7px;
+        float:left;
+    }
+
+    .proeditor-photo{float:left;}
+
+    .proeditor{
+        margin-left:15px;
+        float: left;
+    }
+
+    .proeditor p span{color:rgb(204,204,204);}
