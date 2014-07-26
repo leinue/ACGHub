@@ -336,7 +336,7 @@ else
 
 <?php
   }
-  else{
+  elseif($method==1){
 ?>
 <div class="overitem">
 
@@ -366,7 +366,47 @@ else
       </div>
     </div>
   </div>';
+
     }
+?>
+
+  </div>
+</div>
+
+</div>
+<?php
+  }elseif ($method==2) {
+?>
+<div class="overitem">
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">认为 <a href="<?php echo "item.php?name=".$itemname."&uid=".$uid; ?>"><strong><?php echo $itemname ?></a></strong> 碉堡的人</h3>
+  </div>
+  <div class="panel-body">
+
+<?php
+$likelist=GetLiker($itemname);
+
+foreach ($likelist as $key => $value) {
+      echo '<div class="foer">
+    <div class="panel panel-default">
+      <div class="panel-body">
+
+      <div class="proeditor-photo">
+        <img alt="'.GetName($value).'" class="img-rounded" src="'.GetPhoDir(GetEmail($value)).'" height="96" width="96">
+      </div>
+      
+      <div class="proeditor">
+         <p><a href=user.php?uid='.$value.'>'.GetName($value).'</a></p>
+         <p><span class="glyphicon glyphicon-map-marker"></span> '.GetLocation($value).'</p>
+      </div>
+
+      </div>
+    </div>
+  </div>';
+}
+
 ?>
 
   </div>
