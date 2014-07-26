@@ -404,6 +404,7 @@ function ReadForkWorks($loginuid){
 }
 
 function isFork($uid,$name,$loginuid){
+  //$uid->项目作者uid
   $worksForked=ReadForkWorks($loginuid);
   if($worksForked!=false){
     foreach ($worksForked as $key => $value) {
@@ -426,8 +427,36 @@ function isFork($uid,$name,$loginuid){
     return false;}
 }
 
-function GetFollower(){
+function GetFollowerNum($uid,$itemname){
+  //$uid->项目作者uid
+  $count=0;
 
+  $strSQL="SELECT `id` FROM `acghub_member`";
+  $result=mysql_query($strSQL);
+  while($row=mysql_fetch_row($result)){
+   if(isFork($uid,$itemname,$row[0])){
+    $count+=1;
+   }
+  }
+
+  return $count;  
+}
+
+function GetFollower($uid,$itemname){
+  //$uid->项目作者uid
+  $index=0;
+  $repo=array();
+
+  $strSQL="SELECT `id` FROM `acghub_member`";
+  $result=mysql_query($strSQL);
+  while($row=mysql_fetch_row($result)){
+      if(isFork($uid,$itemname,$row[0]))){
+        $repo[$index]=$row[0];
+        $index+=1;
+      }
+  }
+
+  return $repo;  
 }
 
 function DelFork($uid,$name,$loginuid){
