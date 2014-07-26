@@ -564,9 +564,9 @@ function ReadLikeOrLikerSyn($method,$uid){
         if(strlen($value)!=0){
           //$subliker=str_replace("{|%likeruid%=","",$value);
           if($method==2){
-            $subliker=substr($value,16);
+            $subliker=substr($value,15);
           }elseif ($method==4) {
-            $subliker=substr($value,19);
+            $subliker=substr($value,18);
           }
           $subliker=str_replace("%itemname%=","",$subliker);
           $subliker=str_replace("|}","",$subliker);
@@ -728,13 +728,14 @@ function DelLike($itemname,$uid,$uidA){
   /************************************************/
 
   $rler=ReadLiker($uidA);
-  print_r($rler);
+  //Array ( [0] => |-&&-|pu_sc )
   if($rler!=false){
     foreach ($rler as $key => $value) {
       $rler_ex=explode("|-&&-|", $value);
       if($uid==$rler_ex[0] and $itemname==$rler_ex[1]){
         if(count($rler)==1){
           unset($rler);
+          $rlerdel=array_splice($rler,0,1);
         }else{
           $rlerdel=array_splice($rler,$key,1);
         }
@@ -745,8 +746,10 @@ function DelLike($itemname,$uid,$uidA){
     }
   }else{$flag0=0;}
 
+  echo count($rlerdel);
+
   $flag2=0;
-  if(count($rler)==0){
+  if(count($rlerdel)==0){
     $sql="UPDATE `acghub_member` SET `liker`='9' WHERE `id`=".$uidA;
     $res=mysql_query($sql);
     if($res!=false){

@@ -42,12 +42,17 @@ if($_SESSION['user-login-id']==1){
   if($_POST['unlike']=="unlike"){
     DelLike($itemname,Getuid($_SESSION['user-account']),$uid);
   }
+
   if($_POST['dislike']=="dislike"){
     if(isDislike(Getuid($_SESSION['user-account']),$itemname)!=true){
       WriteDislike($itemname,$_SESSION['user-account']);
       WriteDisliker(Getuid($_SESSION['user-account']),$itemname,GetEmail($uid));
     }
   }
+
+  /*if($_POST['undislike']=="undislike"){
+    DelDislike();
+  }*/
 
 ?>
 
@@ -263,7 +268,7 @@ else
   else{
     if(isDislike(Getuid($_SESSION['user-account']),$itemname)){
   ?>
-    <button type="submit" name="dislike" value="dislike" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-down"></span> 取弱</button>
+    <button type="submit" name="undislike" value="undislike" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-down"></span> 取弱</button>
   <?php
     }
     else{
