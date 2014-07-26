@@ -5,7 +5,8 @@ $itemname=test_input($_GET['name']);
 $uid=test_input($_GET['uid']);
 date_default_timezone_set('Etc/GMT-8');//设置时区
 
-if($_SESSION['user-login-id']==1){
+if($_SESSION['user-login-id']==1 and strlen($itemname)!=0 and strlen($uid)!=0){
+
 
 	if($_POST['del-all-item']=="del-all-item"){
 

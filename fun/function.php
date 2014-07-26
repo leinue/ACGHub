@@ -426,6 +426,10 @@ function isFork($uid,$name,$loginuid){
     return false;}
 }
 
+function GetFollower(){
+
+}
+
 function DelFork($uid,$name,$loginuid){
 
   $worksForked=ReadForkWorks($loginuid);
@@ -676,6 +680,39 @@ function GetLikerNum($itemname){
 
 function GetDislikerNum($itemname){
   return GetLikerOrDislikerNumSyn(2,$itemname);}  
+
+function GetLikerOrDislikerSyn($method,$itemname){
+  //$method=1->like //$method=2->dislike
+  $index=0;
+  $repo=array();
+
+  $strSQL="SELECT `id` FROM `acghub_member`";
+  $result=mysql_query($strSQL);
+  while($row=mysql_fetch_row($result)){
+    switch ($method) {
+      case 1:
+        if(isLiker($row[0],$itemname)!=false){
+          $repo[$index]=$row[0];
+          $index+=1;
+        }
+        break;
+      case 2:
+        if(isDisliker($row[0],$itemname)!=false){
+          $repo[$index]=$row[0];
+          $index+=1;
+        }
+        break;
+    }
+  }
+
+  return $repo;
+}
+
+function GetLiker($itemname){
+  return GetLikerOrDislikerSyn(1,$itemname);}
+
+function GetDisliker($itemname){
+  return GetLikerOrDislikerSyn(2,$itemname);}
 
 function isLiker($uid,$itemname){
   if(isLike($uid,$itemname)){
