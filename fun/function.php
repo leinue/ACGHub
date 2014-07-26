@@ -649,20 +649,33 @@ function isDislike($uid ,$itemname){
     return false;}
 }*/
 
-function GetLikerNum($itemname){
+function GetLikerOrDislikerNumSyn($method,$itemname){
+  //$method=1->like //$method=2->dislike
   $count=0;
 
   $strSQL="SELECT `id` FROM `acghub_member`";
   $result=mysql_query($strSQL);
   while($row=mysql_fetch_row($result)){
-    if(isLike($row[0],$itemname)){
-      $count+=1;
-      //echo '$count='.$count.'<br>';
+    switch ($method) {
+      case 1:
+        if(isLike($row[0],$itemname)){
+          $count+=1;}
+        break;
+      case 2:
+        if(isDislike($row[0],$itemname)){
+          $count+=1;}
+        break;
     }
   }
 
   return $count;
 }
+
+function GetLikerNum($itemname){
+  return GetLikerOrDislikerNumSyn(1,$itemname);}
+
+function GetDislikerNum($itemname){
+  return GetLikerOrDislikerNumSyn(2,$itemname);}  
 
 function isLiker($uid,$itemname){
   if(isLike($uid,$itemname)){
