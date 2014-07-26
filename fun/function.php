@@ -463,7 +463,7 @@ function LikeOrDislikeSyn($method,$email,$itemname,$uid){
     $sql="SELECT `liker` FROM `acghub_member` WHERE `email`='$email'";
   }elseif ($method==3) {
     $sql="SELECT `dislike` FROM `acghub_member` WHERE `email`='$email'";    
-  }elseif ($metho==4) {
+  }elseif ($method==4) {
     $sql="SELECT `disliker` FROM `acghub_member` WHERE `email`='$email'";
   }
 
@@ -501,7 +501,7 @@ function LikeOrDislikeSyn($method,$email,$itemname,$uid){
   }elseif ($method==3) {
     $sql="UPDATE `acghub_member` SET `dislike`='$wl' WHERE `email`='$email'";
   }elseif ($method==4) {
-    $sql="UPDATE ``acghub_member SET `disliker`='$wl' WHERE `email`='$email'";
+    $sql="UPDATE `acghub_member` SET `disliker`='$wl' WHERE `email`='$email'";
   }
   
   $res=mysql_query($sql);
@@ -514,6 +514,8 @@ function LikeOrDislikeSyn($method,$email,$itemname,$uid){
 
 }
 
+/*******************************************************/
+
 function WriteLike($itemname,$email){
   return LikeOrDislikeSyn(1,$email,$itemname,0);}
 
@@ -525,6 +527,8 @@ function WriteDislike($itemname,$email){
 
 function WriteDisliker($uid,$itemname,$email){
   return LikeOrDislikeSyn(4,$email,$itemname,$uid);}
+
+/*******************************************************/
 
 function ReadLikeOrLikerSyn($method,$uid){
   //$method=1->like $method=2->liker $method=3->dislike $method=4->disliker
@@ -745,8 +749,6 @@ function DelLike($itemname,$uid,$uidA){
       }
     }
   }else{$flag0=0;}
-
-  echo count($rlerdel);
 
   $flag2=0;
   if(count($rlerdel)==0){
