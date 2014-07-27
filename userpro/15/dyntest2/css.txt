@@ -277,12 +277,3 @@
     .proeditor p span{color:rgb(204,204,204);}
 
     .overitem-quickly-title p{font-size: 20px;}
-
-    .overitem .overitem-itemname{
-        font-size: 20px;
-        color:rgb(65,131,196);
-    }
-    .overitem-list-right-menu{
-        float: right;
-        margin-top: -3px;
-    }

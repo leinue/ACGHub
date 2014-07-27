@@ -4,12 +4,13 @@ include('header.php');
 $itemname=test_input($_GET['name']);
 $uid=test_input($_GET['uid']);
 $method=test_input($_GET['method']);
+$preview=test_input($_GET['preview']);
 
 date_default_timezone_set('Etc/GMT-8');//设置时区
 
 if($_SESSION['user-login-id']==1 and strlen($itemname)!=0 and strlen($uid)!=0){
 
-  if(strlen($method)==0){
+  if(strlen($method)==0 and strlen($preview)==0){
 
 	if($_POST['del-all-item']=="del-all-item"){
 
@@ -338,7 +339,7 @@ else
 
 <?php
   }
-  elseif($method==1){
+  elseif($method==1 and strlen($preview)==0){
 ?>
 <div class="overitem">
 
@@ -382,7 +383,7 @@ else
 
 </div>
 <?php
-  }elseif ($method==2) {
+  }elseif ($method==2 and strlen($preview)==0) {
 ?>
 <div class="overitem">
 
@@ -426,7 +427,7 @@ else{
 
 </div>
 <?php
-  }elseif ($method==3) {
+  }elseif ($method==3 and strlen($preview)==0) {
 ?>
 <div class="overitem">
 
@@ -445,12 +446,13 @@ else{
     if(is_array($value)){
       foreach ($value as $key1 => $value1) {
         if($key1>=2){
-          echo '<a href="#" class="list-group-item"><span class="glyphicon glyphicon-list-alt"></span> '.iconv('gbk','utf-8',$value1).'</a>';
+          //$keyname=array_keys($value,$value1);
+          echo '<a href=item.php?name='.$itemname.'&uid='.$uid.'&preview='.$key.'/'.iconv('gbk','utf-8',$value1).' class="list-group-item"><span class="glyphicon glyphicon-list-alt"></span> '.$key.'/'.iconv('gbk','utf-8',$value1).'</a>';
         }
       }
     }
-    if($key>=2){
-    echo '<a href="#" class="list-group-item"><span class="glyphicon glyphicon-list-alt"></span> '.$value.'</a>';}
+    if($value!="prosetting.afg" and $value!="readme" and is_array($value)==false){
+    echo '<a href=item.php?name='.$itemname.'&uid='.$uid.'&preview='.$value.' class="list-group-item"><span class="glyphicon glyphicon-list-alt"></span> '.$value.'</a>';}
    }
  }else{
   echo '<a href="#" class="list-group-item"><span class="glyphicon glyphicon-list-alt"></span> 暂无数据</a>';
@@ -458,6 +460,26 @@ else{
 
 ?>
 
+</div>
+
+</div>
+<?php
+  }elseif (strlen($preview)!=0) {
+?>
+<div class="overitem">
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+  <div class="overitem-list-right-menu">
+  <button type="button" class="btn btn-danger btn-sm">删除</button>
+  </div>
+    <h3 class="panel-title"><a class="overitem-itemname" href="<?php echo "item.php?name=$itemname&uid=$uid"; ?>"><?php echo $itemname; ?></a> / <a href="<?php echo "item.php?name=$itemname&uid=$uid&preview=$preview";?>"><?php echo $preview; ?></a></h3>
+  </div>
+  <div class="panel-body">
+    <?php
+     echo GetProContent("userpro/".$uid."/".$itemname."/".$preview); 
+     ?>
+  </div>
 </div>
 
 </div>

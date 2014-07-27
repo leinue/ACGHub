@@ -413,6 +413,8 @@ function GetProNum($dir){
 
 function GetProEditor($uid){return GetName($uid);}
 
+function GetProContent($dir){return iconv("utf-8", "gbk",file_get_contents($dir));}
+
 /*****************************关注作品********************************/
 
 function WriteForkWorks($uid,$name,$loginuid){
