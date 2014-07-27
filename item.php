@@ -89,7 +89,7 @@ if($_SESSION['user-login-id']==1 and strlen($itemname)!=0 and strlen($uid)!=0){
          </select>
          <button type="submit" class="btn btn-default btn-sm" id="speace">应用</button>
          <button type="button" class="btn btn-danger btn-sm" id="deleteallitem"  data-toggle="modal" data-target="#myModal">删除项目</button>
-         <button type="button" class="btn btn-default btn-sm" id="quickly-jump"><span class="glyphicon glyphicon-list-alt"></span> 快速预览</button>
+         <a href="<?php echo "item.php?name=".$itemname."&uid=".$uid."&method=3"; ?>"><button type="button" class="btn btn-default btn-sm" id="quickly-jump"><span class="glyphicon glyphicon-list-alt"></span> 快速预览</button></a>
     </div>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -123,7 +123,9 @@ if($_SESSION['user-login-id']==1 and strlen($itemname)!=0 and strlen($uid)!=0){
   <?php
   $userName=GetName($uid);
   ?>
-    <h3 class="panel-title"><?php echo '<a href="user.php?uid='.$uid.'" target="_blank" id="Username-pro">'.$userName.'</a>/'.$itemname; ?></h3>
+    <h3 class="panel-title">
+    <?php echo '<a href="user.php?uid='.$uid.'" target="_blank" id="Username-pro">'.$userName.'</a> / '.$itemname; ?>
+    </h3>
   </div>
    <table class="table" id="table-size">
 
@@ -342,7 +344,7 @@ else
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">关注 <a href="<?php echo "item.php?name=".$itemname."&uid=".$uid; ?>"><strong><?php echo $itemname ?></a></strong> 项目的人</h3>
+    <h3 class="panel-title"><?php echo '<a href="item.php?name='.$itemname.'&uid='.$uid.'">'.$itemname.'</a>'; ?> / 关注 <a href="<?php echo "item.php?name=".$itemname."&uid=".$uid; ?>"><strong><?php echo $itemname ?></a></strong> 项目的人</h3>
   </div>
   <div class="panel-body">
 
@@ -386,7 +388,7 @@ else
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">认为 <a href="<?php echo "item.php?name=".$itemname."&uid=".$uid; ?>"><strong><?php echo $itemname ?></a></strong> 碉堡的人</h3>
+    <h3 class="panel-title"><?php echo '<a href="item.php?name='.$itemname.'&uid='.$uid.'">'.$itemname.'</a>'; ?> / 认为 <a href="<?php echo "item.php?name=".$itemname."&uid=".$uid; ?>"><strong><?php echo $itemname ?></a></strong> 碉堡的人</h3>
   </div>
   <div class="panel-body">
 
@@ -420,6 +422,42 @@ else{
 ?>
 
   </div>
+</div>
+
+</div>
+<?php
+  }elseif ($method==3) {
+?>
+<div class="overitem">
+
+<div class="overitem-quickly-title">
+<p><a href="<?php echo 'item.php?name='.$itemname.'&uid='.$uid; ?>">ACGHub</a> /</p>
+</div>
+
+<div class="list-group">
+<?php
+
+   $allfiles=GetAllItem("userpro/".$uid."/".$itemname);
+   $acnt=count($allfiles);
+   
+ if($acnt>2){
+   foreach ($allfiles as $key => $value) {
+    if(is_array($value)){
+      foreach ($value as $key1 => $value1) {
+        if($key1>=2){
+          echo '<a href="#" class="list-group-item"><span class="glyphicon glyphicon-list-alt"></span> '.iconv('gbk','utf-8',$value1).'</a>';
+        }
+      }
+    }
+    if($key>=2){
+    echo '<a href="#" class="list-group-item"><span class="glyphicon glyphicon-list-alt"></span> '.$value.'</a>';}
+   }
+ }else{
+  echo '<a href="#" class="list-group-item"><span class="glyphicon glyphicon-list-alt"></span> 暂无数据</a>';
+ }
+
+?>
+
 </div>
 
 </div>

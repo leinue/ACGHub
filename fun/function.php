@@ -363,13 +363,6 @@ function GetProType($dir){
 }
 
 function GetDes($filename){
-  //$mulu=scandir($path);
-  //$a=count($mulu);
-  //if($a>2){
-  //for($i = 2;$i<=$a-1;$i++){
-  //$handle = fopen($filename, "r");
-  //$contents = fread($handle, filesize ($filename));
-  //fclose($handle);
   if(file_exists($filename)){
     $opts = array('file' => array('encoding' => 'gb2312'));
     $ctxt = stream_context_create($opts);
@@ -389,6 +382,23 @@ function GetItem($list){
       return $mulu;
     }
     else{return false;}
+}
+
+function GetAllItem($dir){
+  $files=array();
+  if($handle = opendir($dir)){
+    while(($file = readdir($handle))!==false){
+      if($file!=".." && $file!="."){
+        if(is_dir($dir."/".$file) ){
+          $files[$file]=scandir($dir."/".$file);
+        }else{
+          $files[]=iconv('gbk','utf-8',$file);
+        }
+      }
+    }
+  closedir($handle);
+  return $files;
+  }
 }
 
 function GetProNum($dir){
