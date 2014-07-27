@@ -67,6 +67,10 @@ if($_SESSION['user-login-id']==1 and strlen($itemname)!=0 and strlen($uid)!=0){
   if($_POST['undislike']=="undislike"){
     DelDislike($itemname,Getuid($_SESSION['user-account']),$uid);}
 
+  if($_POST['delSoloItem']=="delSoloItem"){
+    unlink("userpro/".$uid."/".$itemname."/".$preview);
+  }
+
 ?>
 
 <div class="overitem">
@@ -138,6 +142,7 @@ if($_SESSION['user-login-id']==1 and strlen($itemname)!=0 and strlen($uid)!=0){
     </tr>
     
 <?php
+//item.php?name=dyntest2&uid=15&preview=shit.doc
    $conlist=GetItem("userpro/".$uid."/".$itemname);
    $a=count($conlist);
    if($conlist!=false){
@@ -145,7 +150,7 @@ if($_SESSION['user-login-id']==1 and strlen($itemname)!=0 and strlen($uid)!=0){
     if($conlist[$i]!="prosetting.afg" and $conlist[$i]!="readme"){
         echo '<tr>
     <td><input type="checkbox" value=""></td>     
-    <td>'.iconv('gbk','utf-8',$conlist[$i]).'</td>
+    <td><a href="item.php?name='.$itemname.'&uid='.$uid.'&preview='.iconv('gbk','utf-8',$conlist[$i]).'">'.iconv('gbk','utf-8',$conlist[$i]).'</a></td>
     <td>'.$des.'</td>
     <td>1分钟以前</td>
     </tr>';
@@ -334,7 +339,22 @@ else
 </div>
 
 </div>
-
+<!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="请将此处替换成文章在你的站点中的ID" data-title="<?php echo $itemname ?>" data-url="请替换成文章的网址"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"acghub"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
 </div>
 
 <?php
@@ -432,7 +452,7 @@ else{
 <div class="overitem">
 
 <div class="overitem-quickly-title">
-<p><a href="<?php echo 'item.php?name='.$itemname.'&uid='.$uid; ?>">ACGHub</a> /</p>
+<p><a href="<?php echo 'item.php?name='.$itemname.'&uid='.$uid; ?>"><?php echo $itemname; ?></a> /</p>
 </div>
 
 <div class="list-group">
@@ -472,7 +492,12 @@ else{
 <div class="panel panel-default">
   <div class="panel-heading">
   <div class="overitem-list-right-menu">
-  <button type="button" class="btn btn-danger btn-sm">删除</button>
+  <form action="<?php echo "item.php?name=$itemname&uid=$uid&preview=$preview"; ?>" method="post">
+  <button type="submit" name="delSoloItem" value="delSoloItem" class="btn btn-danger btn-sm">删除</button>
+  </form>
+  </div>
+  <div class="overitem-list-right-menu">
+  <a href="<?php echo "item.php?name=".$itemname."&uid=".$uid."&method=3"; ?>"><button type="button" class="btn btn-default btn-sm" id="quickly-jump"><span class="glyphicon glyphicon-list-alt"></span> 快速预览</button></a>
   </div>
     <h3 class="panel-title"><a class="overitem-itemname" href="<?php echo "item.php?name=$itemname&uid=$uid"; ?>"><?php echo $itemname; ?></a> / <a href="<?php echo "item.php?name=$itemname&uid=$uid&preview=$preview";?>"><?php echo $preview; ?></a></h3>
   </div>
@@ -483,10 +508,7 @@ else{
   </div>
 </div>
 
-<!-- 多说评论框 start -->
   <div class="ds-thread" data-thread-key="请将此处替换成文章在你的站点中的ID" data-title="请替换成文章的标题" data-url="请替换成文章的网址"></div>
-<!-- 多说评论框 end -->
-<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
 var duoshuoQuery = {short_name:"acghub"};
   (function() {
@@ -498,7 +520,6 @@ var duoshuoQuery = {short_name:"acghub"};
      || document.getElementsByTagName('body')[0]).appendChild(ds);
   })();
   </script>
-<!-- 多说公共JS代码 end -->
 
 </div>
 <?php
