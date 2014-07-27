@@ -413,7 +413,15 @@ function GetProNum($dir){
 
 function GetProEditor($uid){return GetName($uid);}
 
-function GetProContent($dir){return iconv("utf-8", "gbk",file_get_contents($dir));}
+function GetProContent($dir){
+    $filename = $dir;
+    $handle = fopen($filename, "r");
+    
+    $contents = fread($handle, filesize ($filename));
+    fclose($handle);
+
+    return nl2br($contents);
+}
 
 /*****************************关注作品********************************/
 
