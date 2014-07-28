@@ -367,10 +367,13 @@ function GetProType($dir){
   fclose($hand);
 
   $ex_rule=explode("\r\n", $rule);
+  $ex_rule_d=explode("=", $ex_rule[1]);
 
   foreach ($ProType as $key => $value) {
-    if($ex_rule==$value){
+    if($ex_rule_d[1]==$value){
       return $value;
+    }else{
+      return false;
     }
   }
 
@@ -1139,7 +1142,7 @@ class RecommendWorks{
     }
 
     arsort($newitemmarks);
-    
+
     print_r($newitemmarks);
     print_r($newitemuid);
     /*foreach ($newitemmarks as $key => $marks) {
