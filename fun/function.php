@@ -520,26 +520,41 @@ function GetFollower($uid,$itemname){
 function DelFork($uid,$name,$loginuid){
 
   $worksForked=ReadForkWorks($loginuid);
+
   if($worksForked!=false){
     foreach ($worksForked as $key => $value){
+      if(strlen($value)!=0){
+        //{|%uid%=19|-&-|%name%=pu_sc|}
+        $exbrace=substr($value, 2,strlen($value)-4);$exparameter=explode("|-&-|",$exbrace);
+        $prouid=substr($exparameter[0], 6);$proname=substr($exparameter[1], 7);
 
-      $exbrace=substr($value, 2,strlen($value)-4);$exparameter=explode("|-&-|",$exbrace);
-      $prouid=substr($exparameter[0], 6);$proname=substr($exparameter[1], 7);
-
-      if($uid==$prouid and $name==$proname){
-          $wfdel=array_splice($value,$key,1);
+        if($uid==$prouid and $name==$proname){
+          array_splice($worksForked,$key,1);
+        }
+        else{return false;}
       }
-      else{return false;}
     }
 
-    foreach ($wfdel as $key => $value) {
-      $sql_up="UPDATE `acghub_member` SET `forkworks`='".$value."' WHERE `email`='".GetEmail($loginuid)."'";
+    if(count($worksForked)==0){
+      $sql_up="UPDATE `acghub_member` SET `forkworks`='9' WHERE `email`='".GetEmail($loginuid)."'";
       $res_up=mysql_query($sql_up);
       if(mysql_affected_rows()!=-1){
         return true;
       }
-      else{return false;}
+      else{return false;}      
     }
+    else{
+      foreach ($worksForked as $key => $value) {
+        $sql_up="UPDATE `acghub_member` SET `forkworks`='".$value."' WHERE `email`='".GetEmail($loginuid)."'";
+     
+        $res_up=mysql_query($sql_up);
+        if(mysql_affected_rows()!=-1){
+          return true;
+        }
+        else{return false;}
+       }
+    }
+
   }
   else{return false;}
 
@@ -714,31 +729,6 @@ function isLike($uid,$itemname){
 function isDislike($uid ,$itemname){
   return isLikeSyn(2,$uid,$itemname);
 }
-
-/*function isLiker($uid,$itemname){
-  //$uid->要判断的人 $itemname->要判断的项目名
-  $rler=ReadLiker($uid);
-  if($rler!=false){
-    foreach ($rler as $key => $value) {
-      echo $value;
-      $rler_ex=explode("|-&&-|", $value);
-      if($itemname==$rler_ex[1]){
-        $rler_uid_ex=explode(",", $rler_ex[0]);
-        foreach ($rler_uid_ex as $i => $data) {
-          if(strlen($data)!=0){
-            if($uid==$data){
-              return true;
-            }
-            else{
-              return false;}
-          }
-        }
-      }else{
-        return false;}
-    }
-  }else{
-    return false;}
-}*/
 
 function GetLikerOrDislikerNumSyn($method,$itemname){
   //$method=1->like //$method=2->dislike

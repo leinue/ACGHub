@@ -41,10 +41,12 @@ if($_SESSION['user-login-id']==1 and strlen($itemname)!=0 and strlen($uid)!=0){
   }
 
   if($_POST['unfork']=="unfork"){
-    if(DelFork($uid,$itemname,Getuid($_SESSION['user-account']))!=false){
-      echo '取关成功';
-    }
-    else{echo '取关失败';}
+    if(isFork($uid,$itemname,Getuid($_SESSION['user-account']))){
+       if(DelFork($uid,$itemname,Getuid($_SESSION['user-account']))!=false){
+        echo '取关成功';
+       }
+       else{echo '取关失败';}   
+    }else{echo '你还没有关注';}
   }
 
   if($_POST['like']=="like"){
@@ -68,8 +70,7 @@ if($_SESSION['user-login-id']==1 and strlen($itemname)!=0 and strlen($uid)!=0){
     DelDislike($itemname,Getuid($_SESSION['user-account']),$uid);}
 
   if($_POST['delSoloItem']=="delSoloItem"){
-    unlink("userpro/".$uid."/".$itemname."/".$preview);
-  }
+    unlink("userpro/".$uid."/".$itemname."/".$preview);}
 
 ?>
 
@@ -503,7 +504,7 @@ else{
   </div>
   <div class="panel-body">
     <?php
-     echo GetProContent("userpro/".$uid."/".$itemname."/".$preview); 
+     echo iconv('gbk','utf-8',GetProContent("userpro/".$uid."/".$itemname."/".$preview)); 
      ?>
   </div>
 </div>
