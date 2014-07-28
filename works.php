@@ -3,11 +3,13 @@
 <div class="acg-works-left">
 
 <div class="acg-script">
-<p id="e-col"><span class="glyphicon glyphicon-book" id="col-icon"></span> 脚本</p>
+<p id="e-col-first"><span class="glyphicon glyphicon-book" id="col-icon"></span> 脚本</p>
 
 <?php
 
 ?>
+<div class="acg-item-box">
+
 <div class="acg-item">
 
 <div class="item-head">
@@ -29,9 +31,10 @@
 
 </div>
 
-<div class="acg-item">
+
 
 </div>
+
 </div>
 
 <div class="acg-storyboard">
@@ -116,7 +119,7 @@
 
 <div class="acg-dubbing">
 
-<p id="e-col"><span class="glyphicon glyphicon-transfer" id="col-icon"></span> 推荐</p>
+<p id="e-col-first"><span class="glyphicon glyphicon-transfer" id="col-icon"></span> 推荐</p>
 
 <div class="acg-right-item">
 

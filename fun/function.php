@@ -1044,6 +1044,9 @@ function DelLike($itemname,$uid,$uidA){
 function DelDislike($itemname,$uid,$uidA){
   DelLikeOrDislikeSyn(2,$itemname,$uid,$uidA);}
 
-/**********************DISLIKE*********************/
+/************************LIKE***********************/
+
+/*******************推荐作品上首页**********************/
+
 
 ?>
