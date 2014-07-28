@@ -6,12 +6,10 @@
 <p id="e-col-first"><span class="glyphicon glyphicon-book" id="col-icon"></span> 脚本</p>
 
 <?php
-
-$reco=new RecommendWorks();
-
-foreach ($reco->itemuid as $key => $value) {
-	echo $key;
-}
+//echo GetProNum("userpro/15/dyntest2");
+echo GetProType("userpro/15/dyntest2/prosetting.afg");
+$reco=new RecommendWorks(1);
+$reco->GetRecommendItem();
 
 ?>
 

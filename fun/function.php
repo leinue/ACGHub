@@ -18,11 +18,16 @@ function checkemail($email_checked){
 }
 
 function GetAllId(){
-  $sql="SELECT `id` FROM `acghub_member` ";
+  $res_row=array();
+  $count=0;
+  $sql="SELECT `id` FROM `acghub_member`";
   $res=mysql_query($sql);
   if($res!=false){
-    $row=mysql_fetch_row($res);
-    return $row;
+    while($row=mysql_fetch_row($res)){
+      $res_row[$count]=$row[0];
+      $count+=1;
+    }
+    return $res_row;
   }else{return false;}
 }
 
@@ -355,10 +360,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 function GetProType($dir){
   
-  $ProType = array("script","Storyboard","enactment","code","dubbing","music");
+  $ProType = array("script","storyboard","enactment","code","dubbing","music");
 
   $hand=fopen($dir, "r") or die("Unable to open file!");
-  $rule=fread($myfile,filesize($dir));
+  $rule=fread($hand,filesize($dir));
   fclose($hand);
 
   $ex_rule=explode("\r\n", $rule);
@@ -1066,48 +1071,81 @@ class RecommendWorks{
   var $itemmarks=array();
   var $itemnum=array();
   var $itemeditor=array();
+  var $type;
 
-  function __construct(){
+  function __construct($initype){
   //$typ=1->脚本 $type=2->分镜 $type=3->设定 $type=4->代码 $type=5->配音 $type=6->音乐
+  //array("script","storyboard","enactment","code","dubbing","music");
+    switch ($initype) {
+      case 1:
+        $type="script";
+        break;
+      case 2:
+        $type="storyboard";
+        break;
+      case 3:
+        $type="enactment";
+        break;
+      case 4:
+        $type="code";  
+        break;
+      case 5:
+        $type="dubbing";
+        break;
+      case 6:
+        $type="music";
+        break;    
+      default:
+        $type="all";
+        break;
+    }
     $allid=GetAllId();
     foreach ($allid as $key => $id) {
       $itemarr=GetItem("userpro/".$id);
       $a=count($itemarr);
       for($i=2;$i<=$a-1;$i++){ 
-        $gln=GetLikerNum($itemarr[$i]); 
-        $gfn=GetFollowerNum($id,$itemarr[$i]);
+        if(strlen($itemarr[$i])!=0){
+          $gln=GetLikerNum($itemarr[$i]); 
+          $gfn=GetFollowerNum($id,$itemarr[$i]);
 
-        $this->itemuid[$i-2]=$id;
-        $this->itemname[$i-2]=$itemarr[$i];
-        $this->$itemnum[$i-2]=GetProNum("userpro/".$id."/".$itemarr[$i]);
-        $this->$itemeditor[$i-2]=GetProEditor($id);
-        $this->itemmarks[$i-2]=round($gfn*0.4+$gln*0.6);
-
+          $this->itemuid[$i-2]=$id;
+          $this->itemname[$i-2]=$itemarr[$i];
+          $this->itemnum[$i-2]=GetProNum("userpro/".$id."/".$itemarr[$i]);
+          $this->itemeditor[$i-2]=GetProEditor($id);
+          $this->itemmarks[$i-2]=round($gfn*0.4+$gln*0.6);
+        }
       }
     }
-    /*switch ($type) {
-      case 1:
-      
-        break;
-      case 2:
-      
-        break;
-      case 3:
-      
-        break;
-      case 4:
-      
-        break;
-      case 5:
-      
-        break;
-      case 6:
-      
-        break;    
-      default:
-        return false;
-        break;
+  }
+
+  function GetRecommendItem(){
+    $newitemuid=array();
+    $newitemname=array();
+    $newitemnum=array();
+    $newitemeditor=array();
+    $newitemmarks=array();
+    $count=0;
+
+    foreach ($this->itemuid as $key => $id) {
+      if(GetProType("userpro/".$id."/".$this->itemname[$key]."/prosetting.afg")==$this->type){
+        $newitemuid[$count]=$id;
+        $newitemname[$count]=$this->itemname[$key];
+        $newitemnum[$count]=$this->itemnum[$key];
+        $newitemeditor[$count]=$this->itemeditor[$key];
+        $newitemmarks[$count]=$this->itemmarks[$key];
+
+        $count+=1;
+      }
+    }
+
+    arsort($newitemmarks);
+    
+    print_r($newitemmarks);
+    print_r($newitemuid);
+    /*foreach ($newitemmarks as $key => $marks) {
+      echo $key;
     }*/
+    
   }
 }
 
