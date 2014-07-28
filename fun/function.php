@@ -469,6 +469,7 @@ function isFork($uid,$name,$loginuid){
   //$uid->项目作者uid
   $worksForked=ReadForkWorks($loginuid);
   if($worksForked!=false){
+   if(is_array($worksForked)){
     foreach ($worksForked as $key => $value) {
       if(strlen($value)!=0){
         //%uid%=19|-&-|%name%=pu_sc
@@ -485,6 +486,7 @@ function isFork($uid,$name,$loginuid){
           return false;}
       }
     }
+   } 
   }else{
     return false;}
 }
@@ -557,6 +559,25 @@ function GetForkedPronameByuid($uid){
 
 function GetForkeduidByuid($uid){
   return GetForkingWorksOfSomeoneSyn(1,$uid);}
+
+function GetUidByItemname($itemname){
+
+}
+
+function isBelongTo($itemname){
+  //判断itemname属于哪个uid
+
+}
+
+function itemIsExist($uid,$itemname){
+  return file_exists("userpro/".$uid."/".$itemname);}
+
+function uidIsExist($uid){
+  if(GetEmail($uid)!=false){
+    return true;
+  }
+  else{return false;}
+}
 
 function DelFork($uid,$name,$loginuid){
 

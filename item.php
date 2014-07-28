@@ -7,6 +7,17 @@ $method=test_input($_GET['method']);
 $preview=test_input($_GET['preview']);
 $login_uid=Getuid($_SESSION['user-account']);
 
+if(uidIsExist($uid)){
+  if(itemIsExist($uid,$itemname)){
+
+  }else{
+    header("location:index.php");
+  }
+}
+else{
+  header("location:index.php");
+}
+
 date_default_timezone_set('Etc/GMT-8');//设置时区
 
 if($_SESSION['user-login-id']==1 and strlen($itemname)!=0 and strlen($uid)!=0){
@@ -551,8 +562,10 @@ var duoshuoQuery = {short_name:"acghub"};
       $lo="item.php?name=$itemname&uid=$uid";
       header('location:'.$lo);
     }
-  }
-
+  }else{
+      $lo="item.php?name=$itemname&uid=$uid";
+      header('location:'.$lo);    
+    }
 }
 else{
 	header('location:index.php');
