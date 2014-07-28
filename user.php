@@ -308,39 +308,30 @@ include('header.php');
 
   <div class="panel-act">
      <div class="panel-body">
+<?php
+    $rfw=GetForkedPronameByuid($user_uid);
+    $rfwuid=GetForkeduidByuid($user_uid);
 
-     <div class="panel-body-item">
-
+    foreach ($rfw as $rfwkey => $rfwvalue) {
+      /*$rfwdes=GetDes("userpro/".$user_uid."/".$rfwvalue."/readme");
+      if(!$rfwdes){
+        $rfwdes=$rfwvalue." Project";
+      }*/
+      echo '<div class="panel-body-item">
      <div class="panel-body-title">
-     <h2><span class="glyphicon glyphicon-list-alt"></span> hhh</h2>
+     <h2><span class="glyphicon glyphicon-list-alt"></span> <a href="item.php?name='.$rfwvalue.'&uid='.$rfwuid[$rfwkey].'" target="_blank">'.$rfwvalue.'</a></h2>
      </div>
-
-     <div class="panel-body-content">
-     <h4>hhhhhhhhhh Project</h4>
-     </div>
-
+     
      <div class="panel-body-content">
      <span class="help-block">最后一次更新:20分钟前</span> 
      </div>
+     </div>';
+    }
 
-     </div>
-
-     <div class="panel-body-item">
-
-     <div class="panel-body-title">
-     <h2><span class="glyphicon glyphicon-list-alt"></span> hhh</h2>
-     </div>
-
-     <div class="panel-body-content">
-     <h4>hhhhhhhhhh Project</h4>
-     </div>
-
-     <div class="panel-body-content">
-     <span class="help-block">最后一次更新:20分钟前</span> 
-     </div>
-
-     </div>
-
+    /*<div class="panel-body-content">
+     <h4>'.$rfwdes.'</h4>
+     </div>*/
+?>
      </div>
   </div>
 

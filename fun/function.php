@@ -456,8 +456,12 @@ function ReadForkWorks($loginuid){
   $sql="SELECT `forkworks` FROM `acghub_member` WHERE `email`='$email'";
   $res=getone($sql);
   if($res!=false){
-    $exworks=explode("|+&+|",$res);
-    return $exworks;
+    if($res=="9"){
+      return -1;//无
+    }else{
+      $exworks=explode("|+&+|",$res);
+      return $exworks;
+    }
   }else{return false;}
 }
 
@@ -514,8 +518,45 @@ function GetFollower($uid,$itemname){
       }
   }
 
-  return $repo;  
+  return $repo;
 }
+
+function GetForkingWorksOfSomeoneSyn($method,$uid){
+  //$method=1->Getuid $method=2->GetProname $uid->要得到关注作品的人
+  $rfw=ReadForkWorks($uid);
+  $pronamearr=array();
+
+  if($rfw!=false){
+    if($rfw==-1){
+      return -1;//无
+    }else{
+      foreach ($rfw as $key => $value) {
+        if(strlen($value)!=0){
+          $exbrace=substr($value, 2,strlen($value)-4);$exparameter=explode("|-&-|",$exbrace);
+          $prouid=substr($exparameter[0], 6);$proname=substr($exparameter[1], 7);
+          switch ($method) {
+            case 1:
+              $pronamearr[$key]=$prouid;
+              break;
+            case 2:
+              $pronamearr[$key]=$proname;
+              break;
+            default:
+              return false;
+              break;
+          }
+        }
+      }
+      return $pronamearr;
+    }
+  }else{return false;}
+}
+
+function GetForkedPronameByuid($uid){
+  return GetForkingWorksOfSomeoneSyn(2,$uid);}
+
+function GetForkeduidByuid($uid){
+  return GetForkingWorksOfSomeoneSyn(1,$uid);}
 
 function DelFork($uid,$name,$loginuid){
 

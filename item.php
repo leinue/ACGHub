@@ -377,7 +377,7 @@ var duoshuoQuery = {short_name:"acghub"};
     (document.getElementsByTagName('head')[0] 
      || document.getElementsByTagName('body')[0]).appendChild(ds);
   })();
-  </script>
+</script>
 <!-- 多说公共JS代码 end -->
 </div>
 
