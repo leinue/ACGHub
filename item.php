@@ -34,10 +34,13 @@ if($_SESSION['user-login-id']==1 and strlen($itemname)!=0 and strlen($uid)!=0){
 	}
 
   if($_POST['fork']=="fork"){
-    if(WriteForkWorks($uid,$itemname,Getuid($_SESSION['user-account']))!=false){
-      echo '关注成功';
-    }
-    else{echo '关注失败';}
+    if(isFork($uid,$itemname,Getuid($_SESSION['user-account']))==false){
+      if(WriteForkWorks($uid,$itemname,Getuid($_SESSION['user-account']))!=false){
+        echo '关注成功';
+      }
+      else{echo '关注失败';}      
+    }else{echo '你已经关注过了';}
+
   }
 
   if($_POST['unfork']=="unfork"){
@@ -57,7 +60,10 @@ if($_SESSION['user-login-id']==1 and strlen($itemname)!=0 and strlen($uid)!=0){
   }
 
   if($_POST['unlike']=="unlike"){
-    DelLike($itemname,Getuid($_SESSION['user-account']),$uid);}
+    if(islike(Getuid($_SESSION['user-account']),$itemname)){
+       DelLike($itemname,Getuid($_SESSION['user-account']),$uid);
+    }else{echo '你还没有赞';}
+  }
 
   if($_POST['dislike']=="dislike"){
     if(isDislike(Getuid($_SESSION['user-account']),$itemname)!=true){
@@ -67,7 +73,10 @@ if($_SESSION['user-login-id']==1 and strlen($itemname)!=0 and strlen($uid)!=0){
   }
 
   if($_POST['undislike']=="undislike"){
-    DelDislike($itemname,Getuid($_SESSION['user-account']),$uid);}
+    if(isDislike(Getuid($_SESSION['user-account']),$itemname)){
+      DelDislike($itemname,Getuid($_SESSION['user-account']),$uid);
+    }
+  }
 
   if($_POST['delSoloItem']=="delSoloItem"){
     unlink("userpro/".$uid."/".$itemname."/".$preview);}
