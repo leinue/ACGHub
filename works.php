@@ -7,8 +7,13 @@
 
 <?php
 
+$reco=new RecommendWorks();
+
+foreach ($reco->itemuid as $key => $value) {
+	echo $key;
+}
+
 ?>
-<div class="acg-item-box">
 
 <div class="acg-item">
 
@@ -28,10 +33,6 @@
 </div>
 
 <div class="acg-item">
-
-</div>
-
-
 
 </div>
 

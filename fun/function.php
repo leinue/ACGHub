@@ -17,6 +17,15 @@ function checkemail($email_checked){
     else{return false;}
 }
 
+function GetAllId(){
+  $sql="SELECT `id` FROM `acghub_member` ";
+  $res=mysql_query($sql);
+  if($res!=false){
+    $row=mysql_fetch_row($res);
+    return $row;
+  }else{return false;}
+}
+
 function getone($sql){
     $res=mysql_query($sql);
     if($res!=false){
@@ -1048,5 +1057,58 @@ function DelDislike($itemname,$uid,$uidA){
 
 /*******************推荐作品上首页**********************/
 
+/**
+* 
+*/
+class RecommendWorks{
+  var $itemuid=array();
+  var $itemname=array();
+  var $itemmarks=array();
+  var $itemnum=array();
+  var $itemeditor=array();
+
+  function __construct(){
+  //$typ=1->脚本 $type=2->分镜 $type=3->设定 $type=4->代码 $type=5->配音 $type=6->音乐
+    $allid=GetAllId();
+    foreach ($allid as $key => $id) {
+      $itemarr=GetItem("userpro/".$id);
+      $a=count($itemarr);
+      for($i=2;$i<=$a-1;$i++){ 
+        $gln=GetLikerNum($itemarr[$i]); 
+        $gfn=GetFollowerNum($id,$itemarr[$i]);
+
+        $this->itemuid[$i-2]=$id;
+        $this->itemname[$i-2]=$itemarr[$i];
+        $this->$itemnum[$i-2]=GetProNum("userpro/".$id."/".$itemarr[$i]);
+        $this->$itemeditor[$i-2]=GetProEditor($id);
+        $this->itemmarks[$i-2]=round($gfn*0.4+$gln*0.6);
+
+      }
+    }
+    /*switch ($type) {
+      case 1:
+      
+        break;
+      case 2:
+      
+        break;
+      case 3:
+      
+        break;
+      case 4:
+      
+        break;
+      case 5:
+      
+        break;
+      case 6:
+      
+        break;    
+      default:
+        return false;
+        break;
+    }*/
+  }
+}
 
 ?>
