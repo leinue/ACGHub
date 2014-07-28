@@ -5,6 +5,7 @@ $itemname=test_input($_GET['name']);
 $uid=test_input($_GET['uid']);
 $method=test_input($_GET['method']);
 $preview=test_input($_GET['preview']);
+$login_uid=Getuid($_SESSION['user-account']);
 
 date_default_timezone_set('Etc/GMT-8');//设置时区
 
@@ -36,7 +37,7 @@ if($_SESSION['user-login-id']==1 and strlen($itemname)!=0 and strlen($uid)!=0){
   if($_POST['fork']=="fork"){
     if(isFork($uid,$itemname,Getuid($_SESSION['user-account']))==false){
       if(WriteForkWorks($uid,$itemname,Getuid($_SESSION['user-account']))!=false){
-        echo '关注成功';
+        WriteDyn(date("Y-m-d H:i:s")." follow $itemname project",$_SESSION['user-account']);
       }
       else{echo '关注失败';}      
     }else{echo '你已经关注过了';}
@@ -56,6 +57,7 @@ if($_SESSION['user-login-id']==1 and strlen($itemname)!=0 and strlen($uid)!=0){
     if(islike(Getuid($_SESSION['user-account']),$itemname)!=true){
       WriteLike($itemname,$_SESSION['user-account']);
       WriteLiker(Getuid($_SESSION['user-account']),$itemname,GetEmail($uid));
+      WriteDyn(date("Y-m-d H:i:s")." like $itemname project",$_SESSION['user-account']);
     }
   }
 
@@ -69,6 +71,7 @@ if($_SESSION['user-login-id']==1 and strlen($itemname)!=0 and strlen($uid)!=0){
     if(isDislike(Getuid($_SESSION['user-account']),$itemname)!=true){
       WriteDislike($itemname,$_SESSION['user-account']);
       WriteDisliker(Getuid($_SESSION['user-account']),$itemname,GetEmail($uid));
+      WriteDyn(date("Y-m-d H:i:s")." dislike $itemname project",$_SESSION['user-account']);
     }
   }
 
@@ -79,7 +82,9 @@ if($_SESSION['user-login-id']==1 and strlen($itemname)!=0 and strlen($uid)!=0){
   }
 
   if($_POST['delSoloItem']=="delSoloItem"){
-    unlink("userpro/".$uid."/".$itemname."/".$preview);}
+    unlink("userpro/".$uid."/".$itemname."/".$preview);
+    WriteDyn(date("Y-m-d H:i:s")." del $preview of $itemname project",$_SESSION['user-account']);
+  }
 
 ?>
 
@@ -103,8 +108,18 @@ if($_SESSION['user-login-id']==1 and strlen($itemname)!=0 and strlen($uid)!=0){
               <option value="delete">删除</option>
          </select>
          <button type="submit" class="btn btn-default btn-sm" id="speace">应用</button>
+         <?php
+         if($uid==$login_uid){
+         ?>
          <button type="button" class="btn btn-danger btn-sm" id="deleteallitem"  data-toggle="modal" data-target="#myModal">删除项目</button>
          <a href="<?php echo "item.php?name=".$itemname."&uid=".$uid."&method=3"; ?>"><button type="button" class="btn btn-default btn-sm" id="quickly-jump"><span class="glyphicon glyphicon-list-alt"></span> 快速预览</button></a>
+         <?php
+         }else{
+         ?>
+         <a href="<?php echo "item.php?name=".$itemname."&uid=".$uid."&method=3"; ?>"><button type="button" class="btn btn-default btn-sm" id="quickly-jump"><span class="glyphicon glyphicon-list-alt"></span> 快速预览</button></a>         
+         <?php
+         }
+         ?>
     </div>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -212,7 +227,6 @@ else{
   </div>
   <div class="panel-body">
 <?php
-$login_uid=Getuid($_SESSION['user-account']);
 
 if($login_uid==$uid){
 ?>
