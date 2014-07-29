@@ -121,27 +121,43 @@ PrintProRecommended(6);
 <p id="e-col-first"><span class="glyphicon glyphicon-transfer" id="col-icon"></span> 推荐</p>
 
 <div class="acg-right-item">
-
-<div class="acg-recommend">
+<?php
+$whomarks=new RecommendWorks(0);
+$itemmem=count($whomarks->itemwholemarks);
+$wholecnt=0;
+if($itemmem!=0){
+	if($itemmem<=5){
+		foreach ($whomarks->itemwholemarks as $key => $marks){
+			echo '<div class="acg-recommend">
     <div class="acg-reced-title">
-    	<span class="acg-reced-title-obj"><a href="#">xxxxxxxxxx</a></span>
+    	<span class="acg-reced-title-obj"><a href="item.php?name='.$whomarks->itemname[$key].'&uid='.$whomarks->itemuid[$key].'">'.$whomarks->itemname[$key].'</a></span>
     </div>
-</div>
+</div>';
+		}
+	}elseif($itemmem>5){
+		foreach ($whomarks->itemwholemarks as $key => $marks){
+		echo '<div class="acg-recommend">
+    <div class="acg-reced-title">
+    	<span class="acg-reced-title-obj"><a href="item.php?name='.$whomarks->itemname[$key].'&uid='.$whomarks->itemuid[$key].'">'.$whomarks->itemname[$key].'</a></span>
+    </div>
+</div>';
+       $wholecnt+=1;
+       if($wholecnt==5){
+       	break;
+       }
+   }
+	}
 
-<div class="acg-recommend">
-	
-</div>
-<div class="acg-recommend">
-	
-</div>
-<div class="acg-recommend">
-	
-</div>
-<div class="acg-recommend">
-	
-</div>
-
-
+}else{
+	for ($i=0;$i<5;$i++) { 
+		echo '<div class="acg-recommend">
+    <div class="acg-reced-title">
+    	<span class="acg-reced-title-obj"><a href="">资料暂缺</a></span>
+    </div>
+</div>';
+	}
+}
+?>
 </div>
 
 </div>
