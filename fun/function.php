@@ -1099,7 +1099,7 @@ class RecommendWorks{
         $this->type="enactment";
         break;
       case 4:
-        $$this->type="code";  
+        $this->type="code";  
         break;
       case 5:
         $this->type="dubbing";
