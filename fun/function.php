@@ -360,7 +360,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 function GetProType($dir){
   
-  $ProType = array("script","storyboard","enactment","code","dubbing","music");
+  $ProType=array("script","storyboard","enactment","code","dubbing","music");
 
   $hand=fopen($dir, "r") or die("Unable to open file!");
   $rule=fread($hand,filesize($dir));
@@ -369,12 +369,28 @@ function GetProType($dir){
   $ex_rule=explode("\r\n", $rule);
   $ex_rule_d=explode("=", $ex_rule[1]);
 
-  foreach ($ProType as $key => $value) {
-    if($ex_rule_d[1]==$value){
-      return $value;
-    }else{
-      return false;
-    }
+  switch ($ex_rule_d[1]) {
+    case "script":
+      return $ex_rule_d[1];
+      break;
+    case "storyboard":
+      return $ex_rule_d[1];
+      break;
+    case "enactment":
+      return $ex_rule_d[1];
+      break;
+    case "code":
+      return $ex_rule_d[1];
+      break;
+     case "dubbing":
+      return $ex_rule_d[1];
+      break;
+    case "music":
+      return $ex_rule_d[1];
+      break;                       
+    default:
+      return fasle;
+      break;
   }
 
 }
@@ -1075,6 +1091,7 @@ class RecommendWorks{
   var $itemnum=array();
   var $itemeditor=array();
   var $itemdes=array();
+  var $itemwholemarks=array();
 
   var $type;
 
@@ -1125,17 +1142,18 @@ class RecommendWorks{
         $this->itemname[$count]=$itemarr[$i];
         $this->itemnum[$count]=GetProNum("userpro/".$id."/".$itemarr[$i]);
         $this->itemeditor[$count]=GetProEditor($id);
-        $this->itemmarks[$count]=round($gfn*0.4+$gln*0.6);
+        $this->itemmarks[$count]=round($gfn*0.4+$gln*0.6,2);
         $this->itemdes[$count]=GetDes("userpro/".$id."/".$itemarr[$i]."/readme");
+        $this->itemwholemarks[$count]=round($gfn*0.4+$gln*0.6,2);
 
         $count+=1;
       }
     }
+    arsort($this->itemwholemarks);
   }
 
   function InitializeRecommendedItem(){
     $count=0;
-
     foreach ($this->itemuid as $key => $id) {
       if(GetProType("userpro/".$id."/".$this->itemname[$key]."/prosetting.afg")==$this->type){
         $this->newitemuid[$count]=$id;
