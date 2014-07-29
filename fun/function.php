@@ -1083,7 +1083,7 @@ class RecommendWorks{
   var $newitemnum=array();
   var $newitemeditor=array();
   var $newitemmarks=array();
-  var $netitemdes=array();
+  var $newitemdes=array();
 
   function __construct($initype){
   //$typ=1->脚本 $type=2->分镜 $type=3->设定 $type=4->代码 $type=5->配音 $type=6->音乐
@@ -1126,7 +1126,7 @@ class RecommendWorks{
         $this->itemnum[$count]=GetProNum("userpro/".$id."/".$itemarr[$i]);
         $this->itemeditor[$count]=GetProEditor($id);
         $this->itemmarks[$count]=round($gfn*0.4+$gln*0.6);
-        $this->itemdes[$count]=GetDes();
+        $this->itemdes[$count]=GetDes("userpro/".$id."/".$itemarr[$i]."/readme");
 
         $count+=1;
       }
@@ -1143,6 +1143,7 @@ class RecommendWorks{
         $this->newitemnum[$count]=$this->itemnum[$key];
         $this->newitemeditor[$count]=$this->itemeditor[$key];
         $this->newitemmarks[$count]=$this->itemmarks[$key];
+        $this->newitemdes[$count]=$this->itemdes[$key];
 
         $count+=1;
       }

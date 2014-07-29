@@ -12,12 +12,16 @@ $reco->InitializeRecommendedItem();
 
 foreach ($reco->newitemmarks as $key => $marks) {
 	if(count($reco->newitemmarks)<=3){
+		if(strlen(strip_tags($reco->newitemdes[$key]))>100){
+			$reco->newitemdes[$key]=substr(strip_tags($reco->newitemdes[$key]), 0,100)."...";
+		}
+
 		echo '<div class="acg-item">
 <div class="item-head">
     <p id="item-head-title"><a href="item.php?name='.$reco->newitemname[$key].'&uid='.$reco->newitemuid[$key].'">'.$reco->newitemname[$key].'</a></p>
 </div>
 <div class="item-body">
-<p>All the icons you could dream of all wrapped up nice and neatly as web fonts.</p>
+<p>'.$reco->newitemdes[$key].'</p>
 </div>
 <div class="item-foot">
 <span class="glyphicon glyphicon-folder-open" id="col-icon"> '.$reco->newitemnum[$key].'</span>

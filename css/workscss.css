@@ -43,12 +43,13 @@
 	margin-left: 20px;
 	margin-right: 20px;
 	margin-top: 20px;
+	height: 100px;
 }
 
 .item-foot{
 	margin-left: 20px;
 	margin-right: 20px;
-	margin-top: 40px;
+	/*margin-top: 50px;*/
 }
 
 .acg-right-item{
@@ -77,10 +78,4 @@
 
 .acg-recommend:hover{background: rgb(248,248,248);}
 
-#e-col{
-	margin-top: 300px;
-}
-
-.acg-item-box{
-	width: 717px;
-}
+#e-col{margin-top: 300px;}
