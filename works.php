@@ -249,25 +249,116 @@ if($itemmem!=0){
   </div>  
 
   <div class="the-normal-list">
-    <div class="whitecol"></div>
+
+    <div class="normal-header">
+      <div class="normal-content">
+         hhhhh
+      </div>
+      <div class="normal-editor">
+      ivy
+      </div>
+    </div>
+
+    <div class="normal-footer">
+      <div class="normal-content">
+         hhhhh
+      </div>
+      <div class="normal-editor">
+      ivy
+      </div>
+    </div>
+
   </div>
 
   <div class="the-normal-list">
-    <div class="whitecol"></div>
+    <div class="normal-header">
+    </div>
+    <div class="normal-footer">
+    </div>
   </div>
   <div class="the-normal-list">
-    <div class="whitecol"></div>
+    <div class="normal-header">
+    </div>
+    <div class="normal-footer">
+    </div>
   </div>
   <div class="the-normal-list">
-    <div class="whitecol"></div>
+    <div class="normal-header">
+    </div>
+    <div class="normal-footer">
+    </div>
   </div>
   <div class="the-normal-list">
-    <div class="whitecol"></div>
-  </div>  
+    <div class="normal-header">
+    </div>
+    <div class="normal-footer">
+    </div>
+  </div>
+
 </div>
 
 <div class="rank">
-<p id="e-col-newest"><span class="glyphicon glyphicon-repeat" id="col-icon"></span> <a href="works.php?cata=music">排行榜</a></p>
+<p id="e-col-newest"><span class="glyphicon glyphicon-fire" id="col-icon"></span> <a href="works.php?cata=music">排行榜 Top 10</a></p>
+
+  <div class="the-top-three">
+
+    <div class="the-top-three-content">
+    <span><a href="">SBSengine</a></span>
+    </div>
+
+    <div class="the-top-three-footer">
+    <a href="">ivy</a>
+    </div>
+
+  </div>
+
+  <div class="the-top-three">
+
+    <div class="the-top-three-content">
+    <span><a href="">SBSengine</a></span>
+    </div>
+
+    <div class="the-top-three-footer">
+    <a href="">ivy</a>
+    </div>
+
+  </div>
+
+  <div class="the-top-three">
+
+    <div class="the-top-three-content">
+    <span><a href="">SBSengine</a></span>
+    </div>
+
+    <div class="the-top-three-footer">
+    <a href="">ivy</a>
+    </div>
+
+  </div>
+
+  <div class="the-normal-list">
+    <div class="normal-header">
+    </div>
+    <div class="normal-footer">
+    </div>
+  </div>
+
+  <div class="normal-list-long">
+
+  </div>
+  <div class="normal-list-long">
+
+  </div>
+  <div class="normal-list-long">
+
+  </div>
+
+  <div class="normal-list-long">
+
+  <div class="normal-list-long-header">
+  </div>
+
+  </div>
 
 </div>
 
