@@ -1103,20 +1103,22 @@ class RecommendWorks{
         break;
     }
     $allid=GetAllId();
+    $count=0;
+
     foreach ($allid as $key => $id) {
       $itemarr=GetItem("userpro/".$id);
       $a=count($itemarr);
-      for($i=2;$i<=$a-1;$i++){ 
-        if(strlen($itemarr[$i])!=0){
-          $gln=GetLikerNum($itemarr[$i]); 
-          $gfn=GetFollowerNum($id,$itemarr[$i]);
+      for($i=2;$i<=$a-1;$i++){
+        $gln=GetLikerNum($itemarr[$i]); 
+        $gfn=GetFollowerNum($id,$itemarr[$i]);
 
-          $this->itemuid[$i-2]=$id;
-          $this->itemname[$i-2]=$itemarr[$i];
-          $this->itemnum[$i-2]=GetProNum("userpro/".$id."/".$itemarr[$i]);
-          $this->itemeditor[$i-2]=GetProEditor($id);
-          $this->itemmarks[$i-2]=round($gfn*0.4+$gln*0.6);
-        }
+        $this->itemuid[$count]=$id;
+        $this->itemname[$count]=$itemarr[$i];
+        $this->itemnum[$count]=GetProNum("userpro/".$id."/".$itemarr[$i]);
+        $this->itemeditor[$count]=GetProEditor($id);
+        $this->itemmarks[$count]=round($gfn*0.4+$gln*0.6);
+
+        $count+=1;
       }
     }
   }
@@ -1141,10 +1143,12 @@ class RecommendWorks{
       }
     }
 
-    arsort($newitemmarks);
+    //print_r($newitemuid);
 
-    print_r($newitemmarks);
-    print_r($newitemuid);
+    //arsort($newitemmarks);
+
+    //print_r($newitemmarks);
+    //print_r($newitemuid);
     /*foreach ($newitemmarks as $key => $marks) {
       echo $key;
     }*/
