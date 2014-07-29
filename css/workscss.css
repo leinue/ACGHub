@@ -79,3 +79,87 @@
 .acg-recommend:hover{background: rgb(248,248,248);}
 
 #e-col{margin-top: 300px;}
+
+.e-col-right{float: right;}
+
+/************************ssolo item**********************/
+
+.overitem{
+    margin-left:15%;
+    margin-top:60px;
+    width: 1000px;
+}
+
+.overitem a{
+	text-decoration: none;
+	color: rgb(51,51,51);
+}
+
+.overitem a:hover{color:rgb(205,205,205);}
+
+.the-top-three{
+	border:1px solid rgb(248,248,248);
+	background:rgb(26,153,215);
+	width: 200px;
+	height: 200px;
+	margin-right: 5px;
+	float: left;
+	margin-bottom: 5xp;
+}
+
+.the-top-three-content{
+	text-align: center;
+	font-size: 28px;
+	overflow:hidden;
+	padding-top: 80px;
+}
+
+.the-top-three-footer{
+	text-align: center;
+	margin-top: 50px;
+	font-size: 18px;
+}
+
+.the-top-three:hover{
+	-webkit-box-shadow: 0px 2px 6px #39F,
+    0 0 0px #39F,
+    0 0 0px #39F;
+
+    -moz-box-shadow: 0px 2px 6px #39F,
+    0 0 0px #39F,
+    0 0 0px #39F;
+ 
+    box-shadow: 0px 2px 6px #39F,
+    0 0 0px #39F,
+    0 0 0px #39F;
+}
+
+#e-col-newest{border-bottom: 2px solid rgb(231,231,231);}
+
+.the-normal-list{
+	float:left;
+	width:200px;
+	height: 200px;
+	background:rgb(102,202,237);
+	margin-bottom: 5px;
+	margin-right: 5px;
+}
+
+.whitecol{
+	margin-top: 100px;
+	border-bottom: 5px solid rgb(251,251,251);
+}
+
+.page-col{
+	float: right;
+	margin-right: 10px;
+}
+
+.page-col span{
+	color:rgb(219,161,255);
+	font-size: 50px;
+}
+
+.page-col span:hover{color:rgb(208,208,208);}
+
+.rank{margin-top: 5px;}
