@@ -1074,32 +1074,41 @@ class RecommendWorks{
   var $itemmarks=array();
   var $itemnum=array();
   var $itemeditor=array();
+  var $itemdes=array();
+
   var $type;
+
+  var $newitemuid=array();
+  var $newitemname=array();
+  var $newitemnum=array();
+  var $newitemeditor=array();
+  var $newitemmarks=array();
+  var $netitemdes=array();
 
   function __construct($initype){
   //$typ=1->脚本 $type=2->分镜 $type=3->设定 $type=4->代码 $type=5->配音 $type=6->音乐
   //array("script","storyboard","enactment","code","dubbing","music");
     switch ($initype) {
       case 1:
-        $type="script";
+        $this->type="script";
         break;
       case 2:
-        $type="storyboard";
+        $this->type="storyboard";
         break;
       case 3:
-        $type="enactment";
+        $this->type="enactment";
         break;
       case 4:
-        $type="code";  
+        $$this->type="code";  
         break;
       case 5:
-        $type="dubbing";
+        $this->type="dubbing";
         break;
       case 6:
-        $type="music";
+        $this->type="music";
         break;    
       default:
-        $type="all";
+        $this->type="all";
         break;
     }
     $allid=GetAllId();
@@ -1117,43 +1126,31 @@ class RecommendWorks{
         $this->itemnum[$count]=GetProNum("userpro/".$id."/".$itemarr[$i]);
         $this->itemeditor[$count]=GetProEditor($id);
         $this->itemmarks[$count]=round($gfn*0.4+$gln*0.6);
+        $this->itemdes[$count]=GetDes();
 
         $count+=1;
       }
     }
   }
 
-  function GetRecommendItem(){
-    $newitemuid=array();
-    $newitemname=array();
-    $newitemnum=array();
-    $newitemeditor=array();
-    $newitemmarks=array();
+  function InitializeRecommendedItem(){
     $count=0;
 
     foreach ($this->itemuid as $key => $id) {
       if(GetProType("userpro/".$id."/".$this->itemname[$key]."/prosetting.afg")==$this->type){
-        $newitemuid[$count]=$id;
-        $newitemname[$count]=$this->itemname[$key];
-        $newitemnum[$count]=$this->itemnum[$key];
-        $newitemeditor[$count]=$this->itemeditor[$key];
-        $newitemmarks[$count]=$this->itemmarks[$key];
+        $this->newitemuid[$count]=$id;
+        $this->newitemname[$count]=$this->itemname[$key];
+        $this->newitemnum[$count]=$this->itemnum[$key];
+        $this->newitemeditor[$count]=$this->itemeditor[$key];
+        $this->newitemmarks[$count]=$this->itemmarks[$key];
 
         $count+=1;
       }
     }
 
-    //print_r($newitemuid);
-
-    //arsort($newitemmarks);
-
-    //print_r($newitemmarks);
-    //print_r($newitemuid);
-    /*foreach ($newitemmarks as $key => $marks) {
-      echo $key;
-    }*/
-    
+    arsort($this->newitemmarks);
   }
+
 }
 
 ?>

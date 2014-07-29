@@ -8,30 +8,28 @@
 <?php
 //echo GetProNum("userpro/15/dyntest2");
 $reco=new RecommendWorks(1);
-$reco->GetRecommendItem();
+$reco->InitializeRecommendedItem();
 
-?>
-
-<div class="acg-item">
-
+foreach ($reco->newitemmarks as $key => $marks) {
+	if(count($reco->newitemmarks)<=3){
+		echo '<div class="acg-item">
 <div class="item-head">
-     <p id="item-head-title"><a href="">xxxxxx</a></p>
+    <p id="item-head-title"><a href="item.php?name='.$reco->newitemname[$key].'&uid='.$reco->newitemuid[$key].'">'.$reco->newitemname[$key].'</a></p>
 </div>
-
 <div class="item-body">
 <p>All the icons you could dream of all wrapped up nice and neatly as web fonts.</p>
 </div>
-
 <div class="item-foot">
-<span class="glyphicon glyphicon-folder-open" id="col-icon"> 15</span>
-<span class="glyphicon glyphicon-user" id="col-icon"> xy</span>
+<span class="glyphicon glyphicon-folder-open" id="col-icon"> '.$reco->newitemnum[$key].'</span>
+<span class="glyphicon glyphicon-user" id="col-icon"> <a href="user.php?uid='.$reco->newitemuid[$key].'" target="_blank">'.$reco->newitemeditor[$key].'</a></span>
 </div>
+</div>';
+	}else{
 
-</div>
+	}
+}
 
-<div class="acg-item">
-
-</div>
+?>
 
 </div>
 
