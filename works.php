@@ -195,26 +195,19 @@ if($itemmem!=0){
 </div>
 <?php
 }else{
-	switch ($cata_) {
-		case "music":
-			
-			break;
-		case "code":
-		    
-		    break;
-		case "script":
-?>
-<div class="overitem">
+	function PrintPagrConcerningSoloType($protype){
 
-<div class="newest-submit">
-<p id="e-col-newest"><span class="glyphicon glyphicon-repeat" id="col-icon"></span> <a href="works.php?cata=music">最新投稿</a></p>
+echo '<div class="overitem">';
+
+echo '<div class="newest-submit">';
+echo '<p id="e-col-newest"><span class="glyphicon glyphicon-repeat" id="col-icon"></span> <a href="works.php?cata=music">最新投稿</a></p>
 
   <div class="page-col"><a href=""><span class="glyphicon glyphicon-circle-arrow-right"></span></a></div>
-  <div class="page-col"><a href=""><span class="glyphicon glyphicon-circle-arrow-left"></span></a></div>  
+  <div class="page-col"><a href=""><span class="glyphicon glyphicon-circle-arrow-left"></span></a></div>  ';
 
-<?php
 
-$script_repo=new RecommendWorks(1);
+
+$script_repo=new RecommendWorks($protype);
 $scriptcnt=0;
 
 foreach ($script_repo->itemtime as $timekey => $itime) {
@@ -246,14 +239,14 @@ foreach ($script_repo->itemtime as $timekey => $itime) {
   }
 }
 
-?>
 
-</div>
 
-<div class="rank">
-<p id="e-col-newest"><span class="glyphicon glyphicon-fire" id="col-icon"></span> <a href="works.php?cata=music">排行榜 Top 10</a></p>
+echo '</div>';
 
-<?php
+echo '<div class="rank">';
+echo '<p id="e-col-newest"><span class="glyphicon glyphicon-fire" id="col-icon"></span> <a href="works.php?cata=music">排行榜 Top 10</a></p>';
+
+
 
 $script_repo->InitializeRecommendedItem();
 $markcnt=0;
@@ -310,21 +303,31 @@ if($arrmarkcnt!=0){
 }else{echo '暂无数据';}
 
 }
-?>
 
-</div>
 
-</div>
-<?php
+echo '</div>';
+
+echo '</div>';
+
+}
+	switch ($cata_) {
+		case "music":
+            PrintPagrConcerningSoloType(6);			
+			break;
+		case "code":
+            PrintPagrConcerningSoloType(4);		    
+		    break;
+		case "script":
+            PrintPagrConcerningSoloType(1);
 		    break;
 		case "enactment":
-		    
+            PrintPagrConcerningSoloType(3);		    
 		    break;
 		case "dubbing":
-		    
+            PrintPagrConcerningSoloType(5);		    
 		    break;
 		case "storyboard":
-		    
+            PrintPagrConcerningSoloType(2);		    
 		    break;
 	}
 }
