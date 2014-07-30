@@ -261,6 +261,7 @@ $arrmarkcnt=count($script_repo->newitemmarks);
 
 foreach ($script_repo->newitemmarks as $markkey => $imark){
 if($arrmarkcnt!=0){
+
 	if($markcnt<3){
 		echo '<div class="the-top-three">
 
@@ -274,16 +275,15 @@ if($arrmarkcnt!=0){
 
   </div>';
        $markcnt=$markcnt+1;
-	}elseif ($markcnt>=3){
+	}elseif ($markcnt>=3 and $markcnt<8){
 
 		echo '  <div class="normal-list-long">
       <div class="normal-content"><a href="" target="_blank">暂无数据</a></div>
       <div class="normal-editor"><a href="" target="_blank">暂无数据</a></div>
   </div>';
         $markcnt=$markcnt+1;
-
-	}elseif ($marcnt>=8) {
-		echo '  <div class="normal-list-long">
+        if($markcnt>=8){
+           echo '  <div class="normal-list-long">
   <div class="normal-list-long-header">
       <div class="normal-content">111</div>
       <div class="normal-editor">5555</div>
@@ -294,7 +294,11 @@ if($arrmarkcnt!=0){
   </div>
   </div>';
         $markcnt=$markcnt+1;
-        if($markcnt==11){break;}
+        if ($markcnt==10) {break;}	
+        }
+	}else{
+		
+       
 	}
 
 }else{echo '暂无数据';}
