@@ -208,30 +208,31 @@ echo '<p id="e-col-newest"><span class="glyphicon glyphicon-repeat" id="col-icon
 
 
 $script_repo=new RecommendWorks($protype);
+$script_repo->InitializeRecommendedItem();
 $scriptcnt=0;
 
-foreach ($script_repo->itemtime as $timekey => $itime) {
+foreach ($script_repo->newitemtime as $timekey => $itime) {
   if($scriptcnt<3){
 	echo '<div class="the-top-three">
     <div class="the-top-three-content">
-    <span><a href="item.php?name='.$script_repo->itemname[$timekey].'&uid='.$script_repo->itemuid[$timekey].'" target="_blank">'.$script_repo->itemname[$timekey].'</a></span>
+    <span><a href="item.php?name='.$script_repo->newitemname[$timekey].'&uid='.$script_repo->newitemuid[$timekey].'" target="_blank">'.$script_repo->newitemname[$timekey].'</a></span>
     </div>
     <div class="the-top-three-footer">
-    <a href="user.php?uid='.$script_repo->itemuid[$timekey].'" target="_blank">'.$script_repo->itemeditor[$timekey].'</a>
+    <a href="user.php?uid='.$script_repo->newitemuid[$timekey].'" target="_blank">'.$script_repo->newitemeditor[$timekey].'</a>
     </div>
   </div>';
     $scriptcnt+=1;
   }
   else{
-  	$nextpos=array_search(next($script_repo->itemtime),$script_repo->itemtime);
+  	$nextpos=array_search(next($script_repo->newitemtime),$script_repo->newitemtime);
   	echo '<div class="the-normal-list">
     <div class="normal-header">
-      <div class="normal-content"><a href="item.php?name='.$script_repo->itemname[$timekey].'&uid='.$script_repo->itemuid[$timekey].'" target="_blank">'.$script_repo->itemname[$timekey].'</a></div>
-      <div class="normal-editor"><a href="user.php?uid='.$script_repo->itemuid[$timekey].'" target="_blank">'.$script_repo->itemeditor[$timekey].'</a></div>
+      <div class="normal-content"><a href="item.php?name='.$script_repo->newitemname[$timekey].'&uid='.$script_repo->newitemuid[$timekey].'" target="_blank">'.$script_repo->newitemname[$timekey].'</a></div>
+      <div class="normal-editor"><a href="user.php?uid='.$script_repo->newitemuid[$timekey].'" target="_blank">'.$script_repo->newitemeditor[$timekey].'</a></div>
     </div>
     <div class="normal-footer">
-      <div class="normal-content"><a href="item.php?name='.$script_repo->itemname[$nextpos].'&uid='.$script_repo->itemuid[$timekey].'" target="_blank">'.$script_repo->itemname[$nextpos].'</a></div>
-      <div class="normal-editor"><a href="user.php?uid='.$script_repo->itemuid[$nextpos].'" target="_blank">'.$script_repo->itemeditor[$nextpos].'</a></div>
+      <div class="normal-content"><a href="item.php?name='.$script_repo->newitemname[$nextpos].'&uid='.$script_repo->newitemuid[$timekey].'" target="_blank">'.$script_repo->newitemname[$nextpos].'</a></div>
+      <div class="normal-editor"><a href="user.php?uid='.$script_repo->newitemuid[$nextpos].'" target="_blank">'.$script_repo->newitemeditor[$nextpos].'</a></div>
     </div>
   </div>';
     $scriptcnt+=1;
@@ -248,7 +249,6 @@ echo '<p id="e-col-newest"><span class="glyphicon glyphicon-fire" id="col-icon">
 
 
 
-$script_repo->InitializeRecommendedItem();
 $markcnt=0;
 $arrmarkcnt=count($script_repo->newitemmarks);
 $rankitemname=array();
@@ -332,6 +332,5 @@ echo '</div>';
 	}
 }
 ?>
-
 
 <?php include('footer.php'); ?>

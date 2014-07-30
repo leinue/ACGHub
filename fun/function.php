@@ -1102,6 +1102,7 @@ class RecommendWorks{
   var $newitemeditor=array();
   var $newitemmarks=array();
   var $newitemdes=array();
+  var $newitemtime=array();
 
   function __construct($initype){
   //$typ=1->脚本 $type=2->分镜 $type=3->设定 $type=4->代码 $type=5->配音 $type=6->音乐
@@ -1165,6 +1166,7 @@ class RecommendWorks{
         $this->newitemeditor[$count]=$this->itemeditor[$key];
         $this->newitemmarks[$count]=$this->itemmarks[$key];
         $this->newitemdes[$count]=$this->itemdes[$key];
+        $this->newitemtime[$count]=$this->itemtime[$key];
 
         $count+=1;
       }
