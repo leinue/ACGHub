@@ -258,6 +258,7 @@ foreach ($script_repo->itemtime as $timekey => $itime) {
 $script_repo->InitializeRecommendedItem();
 $markcnt=0;
 $arrmarkcnt=count($script_repo->newitemmarks);
+$rankitemname=array();
 
 foreach ($script_repo->newitemmarks as $markkey => $imark){
 if($arrmarkcnt!=0){
@@ -278,27 +279,32 @@ if($arrmarkcnt!=0){
 	}elseif ($markcnt>=3 and $markcnt<8){
 
 		echo '  <div class="normal-list-long">
-      <div class="normal-content"><a href="" target="_blank">暂无数据</a></div>
-      <div class="normal-editor"><a href="" target="_blank">暂无数据</a></div>
+      <div class="normal-content"><a href="item.php?name='.$script_repo->newitemname[$markkey].'&uid='.$script_repo->newitemuid[$markkey].'" target="_blank">'.$script_repo->newitemname[$markkey].'</a></div>
+      <div class="normal-editor"><a href="user.php?uid='.$script_repo->newitemuid[$markkey].'" target="_blank">'.$script_repo->newitemeditor[$markkey].'</a></div>
   </div>';
         $markcnt=$markcnt+1;
         if($markcnt>=8){
+        	$nextpos=array_search(next($script_repo->newitemmarks),$script_repo->newitemmarks);
+        	if($arrmarkcnt>=9){
+        		$rankitemname[0]=$script_repo->newitemname[$markkey];
+        		$rankitemname[1]="暂无数据";
+        	}else{
+        		$rankitemname[0]=$script_repo->newitemname[$markkey];
+        		$rankitemname[1]=$script_repo->newitemname[$nextpos];
+        	}
            echo '  <div class="normal-list-long">
   <div class="normal-list-long-header">
-      <div class="normal-content">111</div>
-      <div class="normal-editor">5555</div>
+      <div class="normal-content"><a href="item.php?name='.$script_repo->newitemname[$markkey].'&uid='.$script_repo->newitemuid[$markkey].'">'.$rankitemname[0].'</a></div>
+      <div class="normal-editor"><a href="user.php?uid='.$script_repo->newitemuid[$markkey].'">'.$script_repo->newitemeditor[$markkey].'</a></div>
   </div>
   <div class="normal-list-long-right">
-      <div class="normal-content">111</div>
-      <div class="normal-editor">5555</div>
+      <div class="normal-content"><a href="item.php?name='.$script_repo->newitemname[$nextpos].'&uid='.$script_repo->newitemuid[$nextpos].'">'.$rankitemname[1].'</a></div>
+      <div class="normal-editor"><a href="user.php?uid='.$script_repo->newitemuid[$nextpos].'">'.$script_repo->newitemeditor[$nextpos].'</a></div>
   </div>
   </div>';
         $markcnt=$markcnt+1;
         if ($markcnt==10) {break;}	
         }
-	}else{
-		
-       
 	}
 
 }else{echo '暂无数据';}
