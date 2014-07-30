@@ -1092,6 +1092,7 @@ class RecommendWorks{
   var $itemeditor=array();
   var $itemdes=array();
   var $itemwholemarks=array();
+  var $itemtime=array();
 
   var $type;
 
@@ -1145,11 +1146,13 @@ class RecommendWorks{
         $this->itemmarks[$count]=round($gfn*0.4+$gln*0.6,2);
         $this->itemdes[$count]=GetDes("userpro/".$id."/".$itemarr[$i]."/readme");
         $this->itemwholemarks[$count]=round($gfn*0.4+$gln*0.6,2);
+        $this->itemtime[$count]=filectime("userpro/".$id."/".$itemarr[$i]);
 
         $count+=1;
       }
     }
     arsort($this->itemwholemarks);
+    arsort($this->itemtime);
   }
 
   function InitializeRecommendedItem(){

@@ -212,88 +212,39 @@ if($itemmem!=0){
   <div class="page-col"><a href=""><span class="glyphicon glyphicon-circle-arrow-right"></span></a></div>
   <div class="page-col"><a href=""><span class="glyphicon glyphicon-circle-arrow-left"></span></a></div>  
 
-  <div class="the-top-three">
+<?php
 
+$script_repo=new RecommendWorks(1);
+$scriptcnt=0;
+
+foreach ($script_repo->itemtime as $timekey => $itime) {
+  if($scriptcnt<3){
+	echo '<div class="the-top-three">
     <div class="the-top-three-content">
-    <span><a href="">SBSengine</a></span>
+    <span><a href="item.php?name='.$script_repo->itemname[$timekey].'&uid='.$script_repo->itemuid[$timekey].'" target="_blank">'.$script_repo->itemname[$timekey].'</a></span>
     </div>
-
     <div class="the-top-three-footer">
-    <a href="">ivy</a>
+    <a href="user.php?uid='.$script_repo->itemuid[$timekey].'" target="_blank">'.$script_repo->itemeditor[$timekey].'</a>
     </div>
-
-  </div>
-
-  <div class="the-top-three">
-
-    <div class="the-top-three-content">
-    <span><a href="">SBSengine</a></span>
-    </div>
-
-    <div class="the-top-three-footer">
-    <a href="">ivy</a>
-    </div>
-
-  </div>
-
-  <div class="the-top-three">
-
-    <div class="the-top-three-content">
-    <span><a href="">SBSengine</a></span>
-    </div>
-
-    <div class="the-top-three-footer">
-    <a href="">ivy</a>
-    </div>
-
-  </div>  
-
-  <div class="the-normal-list">
-
+  </div>';
+  $scriptcnt+=1;
+  }
+  else{
+  	$nextpos=array_search(next($script_repo->itemtime),$script_repo->itemtime);
+  	echo '<div class="the-normal-list">
     <div class="normal-header">
-      <div class="normal-content">
-         hhhhh
-      </div>
-      <div class="normal-editor">
-      ivy
-      </div>
-    </div>
-
-    <div class="normal-footer">
-      <div class="normal-content">
-         hhhhh
-      </div>
-      <div class="normal-editor">
-      ivy
-      </div>
-    </div>
-
-  </div>
-
-  <div class="the-normal-list">
-    <div class="normal-header">
+      <div class="normal-content"><a href="item.php?name='.$script_repo->itemname[$timekey].'&uid='.$script_repo->itemuid[$timekey].'" target="_blank">'.$script_repo->itemname[$timekey].'</a></div>
+      <div class="normal-editor"><a href="user.php?uid='.$script_repo->itemuid[$timekey].'" target="_blank">'.$script_repo->itemeditor[$timekey].'</a></div>
     </div>
     <div class="normal-footer">
+      <div class="normal-content"><a href="item.php?name='.$script_repo->itemname[$nextpos].'&uid='.$script_repo->itemuid[$timekey].'" target="_blank">'.$script_repo->itemname[$nextpos].'</a></div>
+      <div class="normal-editor"><a href="user.php?uid='.$script_repo->itemuid[$nextpos].'" target="_blank">'.$script_repo->itemeditor[$nextpos].'</a></div>
     </div>
-  </div>
-  <div class="the-normal-list">
-    <div class="normal-header">
-    </div>
-    <div class="normal-footer">
-    </div>
-  </div>
-  <div class="the-normal-list">
-    <div class="normal-header">
-    </div>
-    <div class="normal-footer">
-    </div>
-  </div>
-  <div class="the-normal-list">
-    <div class="normal-header">
-    </div>
-    <div class="normal-footer">
-    </div>
-  </div>
+  </div>';
+  }
+}
+
+?>
 
 </div>
 
@@ -319,7 +270,7 @@ if($itemmem!=0){
     </div>
 
     <div class="the-top-three-footer">
-    <a href="">ivy</a>
+    <a href="">leinue</a>
     </div>
 
   </div>

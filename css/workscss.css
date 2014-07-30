@@ -199,10 +199,6 @@
 	border-right: 5px solid rgb(251,251,251);
 }
 
-.rank .the-top-three{
-	background: rgb(219,86,46);
-}
+.rank .the-top-three{background: rgb(219,86,46);}
 
-.rank .the-normal-list{
-	background: rgb(0,165,0);
-}
+.rank .the-normal-list{background: rgb(0,165,0);}
