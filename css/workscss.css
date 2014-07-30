@@ -191,12 +191,21 @@
 	background:rgb(26,170,185);
 	margin-right: 5px;
 	float: left;
+	text-align: center;
 }
 
 .normal-list-long-header{
+	float: left;
 	width: 100px;
 	height: 100px;
 	border-right: 5px solid rgb(251,251,251);
+}
+
+.normal-list-long-right{
+	width: 100px;
+	height: 100px;
+	float: left;
+	text-align: center;
 }
 
 .rank .the-top-three{background: rgb(219,86,46);}

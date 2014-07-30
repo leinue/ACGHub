@@ -251,51 +251,46 @@ foreach ($script_repo->itemtime as $timekey => $itime) {
 <div class="rank">
 <p id="e-col-newest"><span class="glyphicon glyphicon-fire" id="col-icon"></span> <a href="works.php?cata=music">排行榜 Top 10</a></p>
 
-  <div class="the-top-three">
+<?php
+$script_repo->InitializeRecommendedItem();
+$markcnt=0;
+
+foreach ($script_repo->newitemmarks as $markkey => $imark) {
+	if($markcnt<3){
+		echo '<div class="the-top-three">
 
     <div class="the-top-three-content">
-    <span><a href="">SBSengine</a></span>
+    <span><a href="item.php?name='.$script_repo->newitemname[$markkey].'&uid='.$script_repo->newitemuid[$markkey].'" target="_blank">'.$script_repo->newitemname[$markkey].'</a></span>
     </div>
 
     <div class="the-top-three-footer">
-    <a href="">ivy</a>
+    <a href="user.php?uid='.$script_repo->newitemuid[$markkey].'" target="_blank">'.$script_repo->newitemeditor[$markkey].'</a>
     </div>
 
-  </div>
+  </div>';
+        $markcnt+=1;
+	}else{
 
-  <div class="the-top-three">
+	}
+}
+?>
 
-    <div class="the-top-three-content">
-    <span><a href="">SBSengine</a></span>
-    </div>
 
-    <div class="the-top-three-footer">
-    <a href="">leinue</a>
-    </div>
-
-  </div>
-
-  <div class="the-top-three">
-
-    <div class="the-top-three-content">
-    <span><a href="">SBSengine</a></span>
-    </div>
-
-    <div class="the-top-three-footer">
-    <a href="">ivy</a>
-    </div>
-
-  </div>
 
   <div class="the-normal-list">
     <div class="normal-header">
+      <div class="normal-content">111</div>
+      <div class="normal-editor">5555</div>
     </div>
     <div class="normal-footer">
+      <div class="normal-content">111</div>
+      <div class="normal-editor">5555</div>      
     </div>
   </div>
 
   <div class="normal-list-long">
-
+      <div class="normal-content">111</div>
+      <div class="normal-editor">5555</div>
   </div>
   <div class="normal-list-long">
 
@@ -307,8 +302,13 @@ foreach ($script_repo->itemtime as $timekey => $itime) {
   <div class="normal-list-long">
 
   <div class="normal-list-long-header">
+      <div class="normal-content">111</div>
+      <div class="normal-editor">5555</div>
   </div>
-
+  <div class="normal-list-long-right">
+      <div class="normal-content">111</div>
+      <div class="normal-editor">5555</div>
+  </div>
   </div>
 
 </div>
