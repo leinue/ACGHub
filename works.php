@@ -227,7 +227,7 @@ foreach ($script_repo->itemtime as $timekey => $itime) {
     <a href="user.php?uid='.$script_repo->itemuid[$timekey].'" target="_blank">'.$script_repo->itemeditor[$timekey].'</a>
     </div>
   </div>';
-  $scriptcnt+=1;
+    $scriptcnt+=1;
   }
   else{
   	$nextpos=array_search(next($script_repo->itemtime),$script_repo->itemtime);
@@ -241,6 +241,8 @@ foreach ($script_repo->itemtime as $timekey => $itime) {
       <div class="normal-editor"><a href="user.php?uid='.$script_repo->itemuid[$nextpos].'" target="_blank">'.$script_repo->itemeditor[$nextpos].'</a></div>
     </div>
   </div>';
+    $scriptcnt+=1;
+    if($scriptcnt==8){break;}
   }
 }
 
@@ -252,10 +254,13 @@ foreach ($script_repo->itemtime as $timekey => $itime) {
 <p id="e-col-newest"><span class="glyphicon glyphicon-fire" id="col-icon"></span> <a href="works.php?cata=music">排行榜 Top 10</a></p>
 
 <?php
+
 $script_repo->InitializeRecommendedItem();
 $markcnt=0;
+$arrmarkcnt=count($script_repo->newitemmarks);
 
-foreach ($script_repo->newitemmarks as $markkey => $imark) {
+foreach ($script_repo->newitemmarks as $markkey => $imark){
+if($arrmarkcnt!=0){
 	if($markcnt<3){
 		echo '<div class="the-top-three">
 
@@ -268,39 +273,17 @@ foreach ($script_repo->newitemmarks as $markkey => $imark) {
     </div>
 
   </div>';
-        $markcnt+=1;
-	}else{
+       $markcnt=$markcnt+1;
+	}elseif ($markcnt>=3){
 
-	}
-}
-?>
+		echo '  <div class="normal-list-long">
+      <div class="normal-content"><a href="" target="_blank">暂无数据</a></div>
+      <div class="normal-editor"><a href="" target="_blank">暂无数据</a></div>
+  </div>';
+        $markcnt=$markcnt+1;
 
-
-
-  <div class="the-normal-list">
-    <div class="normal-header">
-      <div class="normal-content">111</div>
-      <div class="normal-editor">5555</div>
-    </div>
-    <div class="normal-footer">
-      <div class="normal-content">111</div>
-      <div class="normal-editor">5555</div>      
-    </div>
-  </div>
-
-  <div class="normal-list-long">
-      <div class="normal-content">111</div>
-      <div class="normal-editor">5555</div>
-  </div>
-  <div class="normal-list-long">
-
-  </div>
-  <div class="normal-list-long">
-
-  </div>
-
-  <div class="normal-list-long">
-
+	}elseif ($marcnt>=8) {
+		echo '  <div class="normal-list-long">
   <div class="normal-list-long-header">
       <div class="normal-content">111</div>
       <div class="normal-editor">5555</div>
@@ -309,7 +292,15 @@ foreach ($script_repo->newitemmarks as $markkey => $imark) {
       <div class="normal-content">111</div>
       <div class="normal-editor">5555</div>
   </div>
-  </div>
+  </div>';
+        $markcnt=$markcnt+1;
+        if($markcnt==11){break;}
+	}
+
+}else{echo '暂无数据';}
+
+}
+?>
 
 </div>
 
