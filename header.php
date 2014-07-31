@@ -1,6 +1,6 @@
 <?php 
-error_reporting(E_ALL & ~E_DEPRECATED);
-error_reporting(E_ALL ^ E_NOTICE);
+//error_reporting(E_ALL & ~E_DEPRECATED);
+//error_reporting(E_ALL ^ E_NOTICE);
 include('fun/mysql.php');
 include('fun/function.php');
 connect_mysql();
@@ -65,6 +65,14 @@ connect_mysql();
         <li class="create"><a href="create.php" title="新建资源"><span class="glyphicon glyphicon-plus"></span></a></li>
         <li class="user"><a href="<?php echo $user_url; ?>" title="个人面板"><span class="glyphicon glyphicon-user"> <?php echo $_SESSION['user-name']; ?></span></a></li>
     </ul>
+     <form class="navbar-form navbar-left" role="search">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="全站搜索">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button">搜索</button>
+            </span>
+        </div><!-- /input-group -->
+    </form>
     <?php
     }
     ?>

@@ -134,7 +134,18 @@ include('header.php');
    </div>
 
    <div class="input-group-right">
-       <a href="create.php" target="_blank"><button type="button" class="btn btn-default">创建</button></a>
+   <?php
+   if($user_uid==GetUid($_SESSION['user-account'])){
+   ?>
+   <a href="create.php" target="_blank"><button type="button" class="btn btn-default">创建</button></a>
+   <?php
+   }else{
+   ?>
+   <button type="button" class="btn btn-default">关注</button>
+   <?php
+   }
+   ?>
+       
    </div>
 
    </div>

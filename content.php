@@ -63,9 +63,7 @@ connect_mysql();
 <div class="user-per">
 
 <div class="trends">
-
-<ul class="list-group">
-
+<div class="list-group">
 <?php
 
 $tr=ReadDyn($_SESSION['user-account']);
@@ -76,12 +74,17 @@ foreach ($tr_re as $key => $value) {
   $ts=GetTimeStamp($stime);
 
   $vasub=substr($value, 19);
-  echo '<li class="list-group-item">'.$ts.' 前'.$vasub.'</li>';
+  echo '
+  <a href="#" class="list-group-item">
+    <h4 class="list-group-item-heading">'.$vasub.'</h4>
+    <p class="list-group-item-text">'.$ts.'前</p>
+  </a>
+';
+
 }
 
 ?>
-
-</ul>
+</div>
 
 </div>
 
@@ -119,7 +122,7 @@ foreach ($tr_re as $key => $value) {
   <div class="tab-pane fade active in" id="all">
 
   <div class="panel-res">
-  <ul class="list-group">
+  <div class="list-group">
   <?php
 
     if($res!=false){
@@ -194,7 +197,7 @@ foreach ($tr_re as $key => $value) {
 }
 
   ?>
-  </ul>
+  </div>
   </div>
 
   </div>
