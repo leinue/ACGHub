@@ -83,7 +83,6 @@
 .e-col-right{float: right;}
 
 /************************ssolo item**********************/
-
 .overitem{
     margin-left:15%;
     margin-top:60px;
@@ -105,6 +104,7 @@
 	margin-right: 5px;
 	float: left;
 	margin-bottom: 5px;
+	overflow: hidden;
 }
 
 .the-top-three-content{
@@ -140,6 +140,11 @@
 	margin-bottom: 10px;
 }
 
+.rankcls p span{
+	margin-top: 15px;
+	margin-left: -820px;
+}
+
 .the-normal-list{
 	float:left;
 	width:200px;
@@ -148,6 +153,7 @@
 	margin-bottom: 5px;
 	margin-right: 5px;
 	text-align: center;
+	overflow: hidden;
 }
 
 .page-col{
@@ -166,7 +172,8 @@
 
 .normal-footer{
 	height: 95px;
-	height: 200px;
+	width: 200px;
+	overflow: hidden;
 }
 
 .normal-content{
@@ -187,6 +194,7 @@
 	margin-right: 5px;
 	float: left;
 	text-align: center;
+	overflow: hidden;
 }
 
 .normal-list-long-header{
@@ -194,6 +202,7 @@
 	width: 100px;
 	height: 100px;
 	border-right: 5px solid rgb(251,251,251);
+	overflow: hidden;
 }
 
 .normal-list-long-right{
@@ -201,6 +210,7 @@
 	height: 100px;
 	float: left;
 	text-align: center;
+	overflow: hidden;
 }
 
 .rank .the-top-three{background: rgb(219,86,46);}

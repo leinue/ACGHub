@@ -195,23 +195,52 @@ if($itemmem!=0){
 </div>
 <?php
 }else{
-	function PrintPagrConcerningSoloType($protype){
+
+function PrintPagrConcerningSoloType($protype){
+
+$script_repo=new RecommendWorks($protype);
+$script_repo->InitializeRecommendedItem();
 
 echo '<div class="overitem">';
 
 echo '<div class="newest-submit">';
-echo '<p id="e-col-newest"><span class="glyphicon glyphicon-repeat" id="col-icon"></span> <a href="works.php?cata=music">最新投稿</a></p>';
+echo '<p id="e-col-newest"><span class="glyphicon glyphicon-repeat" id="col-icon"></span> <a href="">最新投稿</a></p>';
 
+$CurrentPageNo=test_input($_GET['page']);
+$PageSize=ceil(count($script_repo->newitemname)/13);
 
+if(strlen($CurrentPageNo)==0){$CurrentPageNo=1;}
 
-echo '<div class="page-col"><a href=""><span class="glyphicon glyphicon-circle-arrow-right"></span></a></div>';
-echo '<div class="page-col"><a href=""><span class="glyphicon glyphicon-circle-arrow-left"></span></a></div>';
+if(is_numeric($CurrentPageNo)){
+	$PrePageNo=$CurrentPageNo-1;
+	$NextPageNo=$CurrentPageNo+1;
 
+	if($CurrentPageNo==1){
+		$pageurl_pre="works.php?cata=".$script_repo->type;
+	}else{
+		$pageurl_pre="works.php?cata=".$script_repo->type."&page=".$PrePageNo;
+	}
+	
+	if($NextPageNo<=$PageSize){
+		$pageurl_next="works.php?cata=".$script_repo->type."&page=".$NextPageNo;
+	}else{
+		$pageurl_next="works.php?cata=".$script_repo->type."&page=".$PageSize;
+	}
+	
+}else{
+	if(strlen($CurrentPageNo)!=0){
+		header("location:works.php");
+	}
+}
 
+echo '<div class="page-col"><a href="'.$pageurl_next.'"><span class="glyphicon glyphicon-circle-arrow-right"></span></a></div>';
+echo '<div class="page-col"><a href="'.$pageurl_pre.'"><span class="glyphicon glyphicon-circle-arrow-left"></span></a></div>';
 
-$script_repo=new RecommendWorks($protype);
-$script_repo->InitializeRecommendedItem();
 $scriptcnt=0;
+
+//echo $PageSize;
+
+//echo $timekey;
 
 foreach ($script_repo->newitemtime as $timekey => $itime) {
   if($scriptcnt<3){
@@ -230,7 +259,6 @@ foreach ($script_repo->newitemtime as $timekey => $itime) {
   	echo '<div class="the-normal-list">
       <div class="normal-content"><a href="item.php?name='.$script_repo->newitemname[$timekey].'&uid='.$script_repo->newitemuid[$timekey].'" target="_blank">'.$script_repo->newitemname[$timekey].'</a></div>
       <div class="normal-editor"><a href="user.php?uid='.$script_repo->newitemuid[$timekey].'" target="_blank">'.$script_repo->newitemeditor[$timekey].'</a></div>
-
   </div>';
     $scriptcnt+=1;
     if($scriptcnt==13){break;}
@@ -242,7 +270,7 @@ foreach ($script_repo->newitemtime as $timekey => $itime) {
 echo '</div>';
 
 echo '<div class="rank">';
-echo '<p id="e-col-newest"><span class="glyphicon glyphicon-fire" id="col-icon"></span> <a href="works.php?cata=music">排行榜 Top 10</a></p>';
+echo '<div class="rankcls"><p id="e-col-newest"><span class="glyphicon glyphicon-fire" id="col-icon"></span> <a href="">排行榜 Top 10</a></p></div>';
 
 
 
@@ -275,12 +303,12 @@ if($arrmarkcnt!=0){
         $markcnt=$markcnt+1;
         if($markcnt>=8){
         	$nextpos=array_search(next($script_repo->newitemmarks),$script_repo->newitemmarks);
-        	if($arrmarkcnt>=9){
-        		$rankitemname[0]=$script_repo->newitemname[$markkey];
-        		$rankitemname[1]="暂无数据";
-        	}else{
+        	if($arrmarkcnt>10){
         		$rankitemname[0]=$script_repo->newitemname[$markkey];
         		$rankitemname[1]=$script_repo->newitemname[$nextpos];
+        	}else{
+        		$rankitemname[0]=$script_repo->newitemname[$markkey];
+        		$rankitemname[1]='暂无数据';
         	}
            echo '  <div class="normal-list-long">
   <div class="normal-list-long-header">
