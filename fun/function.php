@@ -1177,4 +1177,16 @@ class RecommendWorks{
 
 }
 
+
+/**
+* 关注用户类
+*/
+/*class ForkSomeone{
+  
+  function __construct(argument){
+    # code...
+  }
+
+}*/
+
 ?>
