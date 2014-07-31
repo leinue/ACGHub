@@ -238,29 +238,34 @@ echo '<div class="page-col"><a href="'.$pageurl_pre.'"><span class="glyphicon gl
 
 $scriptcnt=0;
 
-//echo $PageSize;
+$TotalItem=count($script_repo->newitemname);
 
-//echo $timekey;
+if($CurrentPageNo==1){
+	$nextpos=0;
+}else{
+	$nextpos=array_search(next($script_repo->newitemtime),$script_repo->newitemtime)+$TotalItem-3;
+}
 
 foreach ($script_repo->newitemtime as $timekey => $itime) {
   if($scriptcnt<3){
 	echo '<div class="the-top-three">
     <div class="the-top-three-content">
-    <span><a href="item.php?name='.$script_repo->newitemname[$timekey].'&uid='.$script_repo->newitemuid[$timekey].'" target="_blank">'.$script_repo->newitemname[$timekey].'</a></span>
+    <span><a href="item.php?name='.$script_repo->newitemname[$nextpos].'&uid='.$script_repo->newitemuid[$nextpos].'" target="_blank">'.$script_repo->newitemname[$nextpos].'</a></span>
     </div>
     <div class="the-top-three-footer">
-    <a href="user.php?uid='.$script_repo->newitemuid[$timekey].'" target="_blank">'.$script_repo->newitemeditor[$timekey].'</a>
+    <a href="user.php?uid='.$script_repo->newitemuid[$nextpos].'" target="_blank">'.$script_repo->newitemeditor[$nextpos].'</a>
     </div>
   </div>';
     $scriptcnt+=1;
+    $nextpos=$nextpos+1;
   }
   else{
-  	//$nextpos=array_search(next($script_repo->newitemtime),$script_repo->newitemtime);
   	echo '<div class="the-normal-list">
-      <div class="normal-content"><a href="item.php?name='.$script_repo->newitemname[$timekey].'&uid='.$script_repo->newitemuid[$timekey].'" target="_blank">'.$script_repo->newitemname[$timekey].'</a></div>
-      <div class="normal-editor"><a href="user.php?uid='.$script_repo->newitemuid[$timekey].'" target="_blank">'.$script_repo->newitemeditor[$timekey].'</a></div>
+      <div class="normal-content"><a href="item.php?name='.$script_repo->newitemname[$nextpos].'&uid='.$script_repo->newitemuid[$nextpos].'" target="_blank">'.$script_repo->newitemname[$nextpos].'</a></div>
+      <div class="normal-editor"><a href="user.php?uid='.$script_repo->newitemuid[$nextpos].'" target="_blank">'.$script_repo->newitemeditor[$nextpos].'</a></div>
   </div>';
     $scriptcnt+=1;
+    $nextpos=$nextpos+1;
     if($scriptcnt==13){break;}
   }
 }
@@ -271,8 +276,6 @@ echo '</div>';
 
 echo '<div class="rank">';
 echo '<div class="rankcls"><p id="e-col-newest"><span class="glyphicon glyphicon-fire" id="col-icon"></span> <a href="">排行榜 Top 10</a></p></div>';
-
-
 
 $markcnt=0;
 $arrmarkcnt=count($script_repo->newitemmarks);
