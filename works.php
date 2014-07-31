@@ -200,10 +200,12 @@ if($itemmem!=0){
 echo '<div class="overitem">';
 
 echo '<div class="newest-submit">';
-echo '<p id="e-col-newest"><span class="glyphicon glyphicon-repeat" id="col-icon"></span> <a href="works.php?cata=music">最新投稿</a></p>
+echo '<p id="e-col-newest"><span class="glyphicon glyphicon-repeat" id="col-icon"></span> <a href="works.php?cata=music">最新投稿</a></p>';
 
-  <div class="page-col"><a href=""><span class="glyphicon glyphicon-circle-arrow-right"></span></a></div>
-  <div class="page-col"><a href=""><span class="glyphicon glyphicon-circle-arrow-left"></span></a></div>  ';
+
+
+echo '<div class="page-col"><a href=""><span class="glyphicon glyphicon-circle-arrow-right"></span></a></div>';
+echo '<div class="page-col"><a href=""><span class="glyphicon glyphicon-circle-arrow-left"></span></a></div>';
 
 
 
@@ -224,19 +226,14 @@ foreach ($script_repo->newitemtime as $timekey => $itime) {
     $scriptcnt+=1;
   }
   else{
-  	$nextpos=array_search(next($script_repo->newitemtime),$script_repo->newitemtime);
+  	//$nextpos=array_search(next($script_repo->newitemtime),$script_repo->newitemtime);
   	echo '<div class="the-normal-list">
-    <div class="normal-header">
       <div class="normal-content"><a href="item.php?name='.$script_repo->newitemname[$timekey].'&uid='.$script_repo->newitemuid[$timekey].'" target="_blank">'.$script_repo->newitemname[$timekey].'</a></div>
       <div class="normal-editor"><a href="user.php?uid='.$script_repo->newitemuid[$timekey].'" target="_blank">'.$script_repo->newitemeditor[$timekey].'</a></div>
-    </div>
-    <div class="normal-footer">
-      <div class="normal-content"><a href="item.php?name='.$script_repo->newitemname[$nextpos].'&uid='.$script_repo->newitemuid[$timekey].'" target="_blank">'.$script_repo->newitemname[$nextpos].'</a></div>
-      <div class="normal-editor"><a href="user.php?uid='.$script_repo->newitemuid[$nextpos].'" target="_blank">'.$script_repo->newitemeditor[$nextpos].'</a></div>
-    </div>
+
   </div>';
     $scriptcnt+=1;
-    if($scriptcnt==8){break;}
+    if($scriptcnt==13){break;}
   }
 }
 
