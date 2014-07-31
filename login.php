@@ -6,6 +6,8 @@ include('header.php');
 
 session_start();
 
+$fromtxt=test_input($_GET['from']);
+
 if($_SESSION['admin-login-id']!=1){
 ?>
 
@@ -20,8 +22,14 @@ if($_SESSION['admin-login-id']!=1){
   </div>
   
   <div class="auth-form-body">
-  
-    <form class="form-horizontal" role="form" action="check.php" method="POST" name="login-form">
+  <?php
+  if(strlen($fromtxt)!=0){
+    $checkurl="check.php?from=".$fromtxt;
+  }else{
+    $checkurl="check.php";
+  }
+  ?>
+    <form class="form-horizontal" role="form" action="<?php echo $checkurl; ?>" method="POST" name="login-form">
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">邮箱</label>
     <div class="col-sm-10">

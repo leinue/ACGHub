@@ -4,8 +4,9 @@ include('header.php');
 
 connect_mysql();
 
-$user=$_POST['mail'];
-$password=$_POST['password'];
+$user=test_input($_POST['mail']);
+$password=test_input($_POST['password']);
+$fromtxt=test_input($_GET['from']);
 
 setcookie("UserMail",$user);
 
@@ -24,7 +25,11 @@ if($res!=false){
 	    $res_name=mysql_query($sql);
 	    $row_name=mysql_fetch_row($res_name);
 	    $_SESSION['user-name']=$row_name[0];
-	    header("Location:index.php");
+	    if($fromtxt=="works"){
+	    	header("location:works.php");
+	    }else{
+	    	header("Location:index.php");
+	    }
 	    exit;
 	}
 	else{

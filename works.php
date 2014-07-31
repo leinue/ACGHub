@@ -310,6 +310,9 @@ echo '</div>';
 echo '</div>';
 
 }
+if($_SESSION['user-login-id']!=1){
+	header("location:login.php?from=works");
+}else{
 	switch ($cata_) {
 		case "music":
             PrintPagrConcerningSoloType(6);			
@@ -330,6 +333,8 @@ echo '</div>';
             PrintPagrConcerningSoloType(2);		    
 		    break;
 	}
+}
+
 }
 ?>
 
