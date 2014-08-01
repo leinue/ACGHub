@@ -7,7 +7,40 @@ include('header.php');
 connect_mysql();
      if($_SESSION['user-login-id']==1){
       $user_uid=test_input($_GET['uid']);
+      $fo=test_input($_GET['fo']);
+      $unfo=test_input($_GET['unfo']);
 
+      $getid="SELECT `id` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
+      $wuid=getone($getid);
+
+      if(strlen($fo)!=0){
+        if(is_numeric($fo)){
+          $fo=new DBConcerningForking(2);
+          $fo->WriteFollowing($wuid,$user_uid);
+
+          $num=new DBConcerningForking(1);
+          $num->WriteFollowingAmount($wuid);
+        }else{
+          header("location:user.php?uid=$wuid");
+        }
+
+      }
+
+      if(strlen($unfo)!=0){
+        if(is_numeric($unfo)){
+          $unfo=new DBConcerningForking(3);
+          $unfo->WriteFollowed($wuid,$user_uid);
+
+          $num=new DBConcerningForking(1);
+          $num->WriteFollowedAmount($wuid);
+        }else{
+          header("location:user.php?uid=$wuid");
+        }
+
+      }
+
+      connect_mysql();
+      
       if(strlen($user_uid)!=0){
         $sql_detail="SELECT `name`,`email`, `_date`,`website`, `location` FROM `acghub_member` WHERE `id`=".$user_uid;
         $res_detail=mysql_query($sql_detail);
@@ -25,8 +58,6 @@ connect_mysql();
       }
       else{
 
-        $getid="SELECT `id` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
-        $wuid=getone($getid);
         if($wuid!=false){
           header("location:user.php?uid=$wuid");
         }
@@ -82,9 +113,13 @@ connect_mysql();
 
     <div class="social-relations">
     <div class="row">
-
+<?php
+$dbcf=new DBConcerningForking(1);
+$attention=$dbcf->GetFollowingAmount($user_uid);
+$concerned=$dbcf->GetFollowedAmount($user_uid);
+?>
       <div class="col-md-4">
-      <h3>1000</h3>
+      <h3><?php if(!$attention){echo 0;}else{echo $attention;}; ?></h3>
       <span class="help-block">关注</span>
       </div>
       <div class="col-md-4">
@@ -92,11 +127,11 @@ connect_mysql();
       <span class="help-block">收藏</span>
       </div>
       <div class="col-md-4">
-      <h3>845</h3>
+      <h3><?php if(!$concerned){echo 0;}else{echo $concerned;}; ?></h3>
       <span class="help-block">粉丝</span> 
       </div>
     </div>
-  
+<?php connect_mysql(); ?>
     </div>
 
     <div class="split-col"></div>
@@ -142,9 +177,18 @@ connect_mysql();
    <a href="create.php" target="_blank"><button type="button" class="btn btn-default">创建</button></a>
    <?php
    }else{
+
+      $isfo=new DBConcerningForking(2);
+      if($isfo->isFollowing(GetUid($_SESSION['user-account']),$user_uid)){
    ?>
-   <button type="button" class="btn btn-default">关注</button>
+      <a href="<?php echo 'user.php?uid='.$user_uid.'&unfo='.GetUid($_SESSION['user-account']); ?>"><button type="button" class="btn btn-default">取消关注</button></a>
    <?php
+      }else{
+   ?>
+      <a href="<?php echo 'user.php?uid='.$user_uid.'&fo='.GetUid($_SESSION['user-account']); ?>"><button type="button" class="btn btn-default">关注</button></a>
+   <?php
+      }
+      connect_mysql();
    }
    ?>
        

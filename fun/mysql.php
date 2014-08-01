@@ -115,16 +115,21 @@ class DBConcerningForking{
     $res=mysql_query($sql);
     if($res!=false){
       $row=mysql_fetch_row($res);
-      return $row[0];
+      if(strlen($row[0])!=0){
+        return $row[0];
+      }else{
+        return 0;
+      }
+      
     }
   }else{return false;}
   }
 
   function GetFollowedAmount($uid){
-    return SynGetFollowedOrFollowingAmount(1,$uid);}
+    return $this->SynGetFollowedOrFollowingAmount(1,$uid);}
 
   function GetFollowingAmount($uid){
-    return SynGetFollowedOrFollowingAmount(2,$uid);}
+    return $this->SynGetFollowedOrFollowingAmount(2,$uid);}
 
   function SynWriteFollowedOrFollowingAmount($method,$uid){
     //method=1->followed method=2->following
@@ -159,10 +164,10 @@ class DBConcerningForking{
   }
 
   function WriteFollowedAmount($uid){
-    return SynWriteFollowedOrFollowingAmount(1,$uid);}
+    return $this->SynWriteFollowedOrFollowingAmount(1,$uid);}
 
   function WriteFollowingAmount($uid){
-    return SynWriteFollowedOrFollowingAmount(2,$uid);}
+    return $this->SynWriteFollowedOrFollowingAmount(2,$uid);}
 
 /*************************************************************/
 
@@ -202,7 +207,7 @@ class DBConcerningForking{
       }
     }else{return false;}
 
-    $res_time=mysql_query($sql){
+    $res=mysql_query($sql);
       if($res!=false){
       $row=mysql_fetch_row($res);
       while ($row) {
@@ -220,14 +225,14 @@ class DBConcerningForking{
         $count=$count+1;
       }
     }else{return false;}
-    }
+    
   }
 
   function GetFollowing($uid){
-    return SynGetFollowingOrFollowed(2,$uid);}
+    return $this->SynGetFollowingOrFollowed(2,$uid);}
 
   function GetFollowed($uid){
-    return SynGetFollowingOrFollowed(1,$uid);}
+    return $this->SynGetFollowingOrFollowed(1,$uid);}
 
 
   function SynWriteFollowingOrFollowed($method,$uid_foing,$uid_foed){
@@ -260,13 +265,13 @@ class DBConcerningForking{
   }
 
   function WriteFollowing($uid_foing,$uid_foed){
-    return SynWriteFollowingOrFollowed(2,$uid_foing,$uid_foed);}
+    return $this->SynWriteFollowingOrFollowed(2,$uid_foing,$uid_foed);}
 
   function WriteFollowed($uid_foing,$uid_foed){
-    return SynWriteFollowingOrFollowed(1,$uid_foing,$uid_foed);}
+    return $this->SynWriteFollowingOrFollowed(1,$uid_foing,$uid_foed);}
 
   function isFollowing($uid,$uidChecked){
-    GetFollowing($uid);
+    $this->GetFollowing($uid);
     foreach ($this->UidOfFollowing as $key => $value) {
       if($value==$uidChecked){
         return true;
@@ -279,7 +284,7 @@ class DBConcerningForking{
   }
 
   function isFollowed($uid,$uidChecked){
-    GetFollowed($uid);
+    $this->GetFollowed($uid);
     foreach ($this->UidOfFollowed as $key => $value) {
       if($value==$uidChecked){
         return true;
@@ -292,7 +297,7 @@ class DBConcerningForking{
   }
 
   function isFollowedByEachOther($uid1,$uid2){
-    return (isFollowing($uid1,$uid2) and isFollowed($uid1,$uid2));}
+    return ($this->isFollowing($uid1,$uid2) and $this->isFollowed($uid1,$uid2));}
 
   function SynCancelFollowingOrFollowed($method,$uid,$uidCanceled){
     switch ($method) {
@@ -309,14 +314,12 @@ class DBConcerningForking{
   }
 
   function CancelFollowing($uid,$uidCanceled){
-    return SynCancelFollowingOrFollowed(2,$uid,$uidCanceled);}
+    return $this->SynCancelFollowingOrFollowed(2,$uid,$uidCanceled);}
 
   function CancelFollowed($uid,$uidCanceled){
-    return SynCancelFollowingOrFollowed(1,$uid,$uidCanceled);}
+    return $this->SynCancelFollowingOrFollowed(1,$uid,$uidCanceled);}
 
-  function __destruct(){
-    mysql_close($this->con);
-  }
+  function __destruct(){mysql_close($this->con);}
 }
 
 ?>
