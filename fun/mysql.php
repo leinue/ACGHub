@@ -100,7 +100,7 @@ class DBConcerningForking{
 
   function SynGetFollowedOrFollowingAmount($method,$uid){
     //method=1->followed method=2->following
-    if($this->type!=1){
+    if($this->type==1){
     switch ($method) {
       case 1:
         $sql="SELECT `FollowedNum` FROM `acghub_fork_info` WHERE `uid`=$uid";
@@ -133,15 +133,21 @@ class DBConcerningForking{
 
   function SynWriteFollowedOrFollowingAmount($method,$uid){
     //method=1->followed method=2->following
-    if($this->type!=1){
+    if($this->type==1){
     switch ($method) {
       case 1:
         $current_quantity=$this->GetFollowedAmount($uid);
+        if(strlen($current_quantity)==0){
+          $current_quantity=0;
+        }
         $foed_added_quantity=$current_quantity+1;
         $foing_added_quantity=$this->GetFollowingAmount($uid);
         break;
       case 2:
         $current_quantity=$this->GetFollowingAmount($uid);
+        if(strlen($current_quantity)==0){
+          $current_quantity=0;
+        }
         $foing_added_quantity=$current_quantity+1;
         $foed_added_quantit=$this->GetFollowedAmount($uid);
         break;
@@ -173,50 +179,55 @@ class DBConcerningForking{
 
   function SynGetFollowingOrFollowed($method,$uid){
     //method=1->followed method=2->following
-    $count=0;
-    switch ($mthod) {
+    
+    switch ($method) {
       case 1:
-        $sql="SELECT `followed` FROM `acghub_fork_followed` WHERE `uid`=$uid";
-        $sql_time="SELECT `fotime` FROM `acghub_fork_followed` WHERE `uid`=$uid";
+        $sql="SELECT `Followed` FROM `acghub_fork_followed` WHERE `uid`=$uid";
+        $sql_time="SELECT `Fotime` FROM `acghub_fork_followed` WHERE `uid`='$uid'";
         break;
       case 2:
-        $sql="SELECT `following` FROM `acghub_fork_following` WHERE `uid`=$uid";
-        $sql_time="SELECT `fotime` FROM `acghub_fork_following` WHERE `uid`=$uid";
+        $sql="SELECT `Following` FROM `acghub_fork_following` WHERE `uid`=$uid";
+        $sql_time="SELECT `Fotime` FROM `acghub_fork_following` WHERE `uid`='$uid'";
         break;
       default:
         return false;
         break;
     }
     
-    $res=mysql_query($sql);
+    $cnt=0;
+
+    $res=mysql_query($sql,$this->con);
+    $row=mysql_fetch_row($res);
+
     if($res!=false){
-      $row=mysql_fetch_row($res);
-      while ($row) {
-        switch ($method) {
+      while (!$row=mysql_fetch_row($res)) {
+        switch ($method){
           case 1:
-            $this->UidOfFollowed[$count]=$row[0];
+            $this->UidOfFollowed[$cnt]=$row[0];
             break;
           case 2:
-            $this->UidOfFollowing[$count]=$row[0];
+            $this->UidOfFollowing[$cnt]=$row[0];
             break;
           default:
             return false;
             break;
         }
-        $count=$count+1;
+        $cnt=$cnt+1;
       }
     }else{return false;}
+
+    $count=0;
 
     $res=mysql_query($sql);
       if($res!=false){
       $row=mysql_fetch_row($res);
-      while ($row) {
+      while (!$row) {
         switch ($method) {
           case 1:
-            $this->$TimeOfFollowed[$count]=$row[0];
+            $this->TimeOfFollowed[$count]=$row[0];
             break;
           case 2:
-            $this->$TimeOfFollowing[$count]=$row[0];
+            $this->TimeOfFollowing[$count]=$row[0];
             break;
           default:
             return false;
@@ -272,7 +283,8 @@ class DBConcerningForking{
 
   function isFollowing($uid,$uidChecked){
     $this->GetFollowing($uid);
-    foreach ($this->UidOfFollowing as $key => $value) {
+    foreach ($this->UidOfFollowing as $key => $value){
+      echo $value;
       if($value==$uidChecked){
         return true;
         break;
@@ -300,7 +312,7 @@ class DBConcerningForking{
     return ($this->isFollowing($uid1,$uid2) and $this->isFollowed($uid1,$uid2));}
 
   function SynCancelFollowingOrFollowed($method,$uid,$uidCanceled){
-    switch ($method) {
+    switch ($method){
       case 1:
         $sql="DELETE FROM `acghub_fork_followed` WHERE `followed`=$uidCanceled and `uid`=$uid";
         break;
@@ -311,6 +323,28 @@ class DBConcerningForking{
         return false;
         break;
     }
+
+    $res=mysql_query($sql);
+    if($res!=false){
+      if(mysql_affected_rows()!=-1){
+        switch ($method) {
+          case 1:
+            $curq=$this->GetFollowedAmount($uid);
+            $curq=$curq-1;
+            break;
+          case 2:
+            $curq=$this->GetFollowingAmount($uid);
+            $curq=$curq-1;
+            break;
+          default:
+            return false;
+            break;
+
+
+        }
+        return true;
+      }else{return false;}
+    }else{return false;}
   }
 
   function CancelFollowing($uid,$uidCanceled){
@@ -319,7 +353,7 @@ class DBConcerningForking{
   function CancelFollowed($uid,$uidCanceled){
     return $this->SynCancelFollowingOrFollowed(1,$uid,$uidCanceled);}
 
-  function __destruct(){mysql_close($this->con);}
+  //function __destruct(){mysql_close($this->con);}
 }
 
 ?>

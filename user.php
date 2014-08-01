@@ -4,22 +4,30 @@ include('header.php');
 
 <?php 
 
-connect_mysql();
+     connect_mysql();
+
      if($_SESSION['user-login-id']==1){
       $user_uid=test_input($_GET['uid']);
       $fo=test_input($_GET['fo']);
       $unfo=test_input($_GET['unfo']);
 
-      $getid="SELECT `id` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
-      $wuid=getone($getid);
+      $wuid=GetUid($_SESSION['user-account']);
+      //echo $wuid;
 
       if(strlen($fo)!=0){
         if(is_numeric($fo)){
           $fo=new DBConcerningForking(2);
           $fo->WriteFollowing($wuid,$user_uid);
 
-          $num=new DBConcerningForking(1);
-          $num->WriteFollowingAmount($wuid);
+          $foed=new DBConcerningForking(3);
+          $foed->WriteFollowed($user_uid,$wuid);
+
+          $fo_num=new DBConcerningForking(1);
+          $fo_num->WriteFollowingAmount($wuid);
+          $fo_num->WriteFollowingAmount($user_uid);
+          $fo_num->WriteFollowedAmount($user_uid);
+          $fo_num->WriteFollowedAmount($wuid);
+
         }else{
           header("location:user.php?uid=$wuid");
         }
@@ -31,8 +39,13 @@ connect_mysql();
           $unfo=new DBConcerningForking(3);
           $unfo->WriteFollowed($wuid,$user_uid);
 
-          $num=new DBConcerningForking(1);
-          $num->WriteFollowedAmount($wuid);
+          $unfoed=new DBConcerningForking(2);
+          $unfoed->WriteFollowing($user_uid,$wuid);
+
+          $unfo_num=new DBConcerningForking(1);
+          $unfo_num->WriteFollowedAmount($wuid);
+          $unfo_num->WriteFollowingAmount($user_uid);
+
         }else{
           header("location:user.php?uid=$wuid");
         }
@@ -40,7 +53,7 @@ connect_mysql();
       }
 
       connect_mysql();
-      
+
       if(strlen($user_uid)!=0){
         $sql_detail="SELECT `name`,`email`, `_date`,`website`, `location` FROM `acghub_member` WHERE `id`=".$user_uid;
         $res_detail=mysql_query($sql_detail);
