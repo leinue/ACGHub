@@ -4,9 +4,6 @@ include('header.php');
 
 <?php 
 
-$ccf=new DBConcerningForking();
-
-
 connect_mysql();
      if($_SESSION['user-login-id']==1){
       $user_uid=test_input($_GET['uid']);
