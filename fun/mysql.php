@@ -197,10 +197,8 @@ class DBConcerningForking{
     $cnt=0;
 
     $res=mysql_query($sql,$this->con);
-    $row=mysql_fetch_row($res);
-
     if($res!=false){
-      while (!$row=mysql_fetch_row($res)) {
+      while ($row=mysql_fetch_row($res)) {
         switch ($method){
           case 1:
             $this->UidOfFollowed[$cnt]=$row[0];
@@ -220,8 +218,7 @@ class DBConcerningForking{
 
     $res=mysql_query($sql);
       if($res!=false){
-      $row=mysql_fetch_row($res);
-      while (!$row) {
+      while ($row=mysql_fetch_row($res)) {
         switch ($method) {
           case 1:
             $this->TimeOfFollowed[$count]=$row[0];
@@ -284,7 +281,6 @@ class DBConcerningForking{
   function isFollowing($uid,$uidChecked){
     $this->GetFollowing($uid);
     foreach ($this->UidOfFollowing as $key => $value){
-      echo $value;
       if($value==$uidChecked){
         return true;
         break;
