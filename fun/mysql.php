@@ -300,7 +300,7 @@ class DBConcerningForking{
   function SynCancelFollowingOrFollowed($method,$uid,$uidCanceled){
     switch ($method){
       case 1:
-        $sql="DELETE FROM `acghub_fork_followed` WHERE `followed`=$uidCanceled and `uid`=$uid";
+        $sql="DELETE FROM `acghub_fork_followed` WHERE `followed`=$uid and `uid`=$uidCanceled";
         break;
       case 2:
         $sql="DELETE FROM `acghub_fork_following` WHERE `following`=$uidCanceled and `uid`=$uid";
@@ -313,22 +313,28 @@ class DBConcerningForking{
     $res=mysql_query($sql);
     if($res!=false){
       if(mysql_affected_rows()!=-1){
-        switch ($method) {
+        switch($method){
           case 1:
-            $curq=$this->GetFollowedAmount($uid);
+            $curq=$this->GetFollowedAmount($uidCanceled);
             $curq=$curq-1;
+            $sql="UPDATE `acghub_fork_info` SET `FollowedNum`=$curq WHERE `uid`=$uidCanceled";
             break;
           case 2:
             $curq=$this->GetFollowingAmount($uid);
             $curq=$curq-1;
+            $sql="UPDATE `acghub_fork_info` SET `FollowingNum`=$curq WHERE `uid`=$uid";
             break;
           default:
             return false;
             break;
-
-
         }
-        return true;
+
+        $res=mysql_query($sql);
+        if($res!=false){
+          if(mysql_affected_rows()!=-1){
+              return true;
+          }else{return false;}
+        }else{return false;}
       }else{return false;}
     }else{return false;}
   }
@@ -339,6 +345,8 @@ class DBConcerningForking{
   function CancelFollowed($uid,$uidCanceled){
     return $this->SynCancelFollowingOrFollowed(1,$uid,$uidCanceled);}
 
+  function CancelFo($uid,$uidCanceled){
+    return ($this->CancelFollowing($uid,$uidCanceled) and $this->CancelFollowed($uid,$uidCanceled));}
   //function __destruct(){mysql_close($this->con);}
 }
 

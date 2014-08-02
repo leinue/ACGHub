@@ -34,16 +34,8 @@ include('header.php');
 
       if(strlen($unfo)!=0){
         if(is_numeric($unfo)){
-          $unfo=new DBConcerningForking(3);
-          $unfo->WriteFollowed($wuid,$user_uid);
-
-          $unfoed=new DBConcerningForking(2);
-          $unfoed->WriteFollowing($user_uid,$wuid);
-
-          $unfo_num=new DBConcerningForking(1);
-          $unfo_num->WriteFollowedAmount($wuid);
-          $unfo_num->WriteFollowingAmount($user_uid);
-
+          $unfo=new DBConcerningForking(1);
+          $unfo->CancelFo($wuid,$user_uid);
         }else{
           header("location:user.php?uid=$wuid");
         }
