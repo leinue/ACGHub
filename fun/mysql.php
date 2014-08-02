@@ -137,28 +137,18 @@ class DBConcerningForking{
     switch ($method) {
       case 1:
         $current_quantity=$this->GetFollowedAmount($uid);
-        if(strlen($current_quantity)==0){
-          $current_quantity=0;
-        }
         $foed_added_quantity=$current_quantity+1;
-        $foing_added_quantity=$this->GetFollowingAmount($uid);
+        $sql="UPDATE `acghub_fork_info` SET `FollowedNum`=$foed_added_quantity WHERE `uid`=$uid";
         break;
       case 2:
         $current_quantity=$this->GetFollowingAmount($uid);
-        if(strlen($current_quantity)==0){
-          $current_quantity=0;
-        }
         $foing_added_quantity=$current_quantity+1;
-        $foed_added_quantit=$this->GetFollowedAmount($uid);
+        $sql="UPDATE `acghub_fork_info` SET `FollowingNum`=$foing_added_quantity WHERE `uid`=$uid";
         break;
       default:
         return false;
         break;
     }
-
-    $sql="INSERT INTO `acghub_fork_info`(
-          `uid`, `FollowingNum`, `FollowedNum`) VALUES
-         ($uid,$foed_added_quantity,$foing_added_quantity)";
     
     $res=mysql_query($sql);
     if($res!=false){

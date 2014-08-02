@@ -24,9 +24,7 @@ include('header.php');
 
           $fo_num=new DBConcerningForking(1);
           $fo_num->WriteFollowingAmount($wuid);
-          $fo_num->WriteFollowingAmount($user_uid);
           $fo_num->WriteFollowedAmount($user_uid);
-          $fo_num->WriteFollowedAmount($wuid);
 
         }else{
           header("location:user.php?uid=$wuid");
@@ -382,6 +380,7 @@ $concerned=$dbcf->GetFollowedAmount($user_uid);
     $rfw=GetForkedPronameByuid($user_uid);
     $rfwuid=GetForkeduidByuid($user_uid);
 
+    if($rfw!=-1){
     foreach ($rfw as $rfwkey => $rfwvalue) {
       /*$rfwdes=GetDes("userpro/".$user_uid."/".$rfwvalue."/readme");
       if(!$rfwdes){
@@ -397,6 +396,7 @@ $concerned=$dbcf->GetFollowedAmount($user_uid);
      </div>
      </div>';
     }
+  }else{echo '暂无数据';}
 
     /*<div class="panel-body-content">
      <h4>'.$rfwdes.'</h4>
