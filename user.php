@@ -12,20 +12,21 @@ include('header.php');
       $unfo=test_input($_GET['unfo']);
 
       $wuid=GetUid($_SESSION['user-account']);
-      //echo $wuid;
+      //echo $wuid
 
       if(strlen($fo)!=0){
         if(is_numeric($fo)){
-          $fo=new DBConcerningForking(2);
-          $fo->WriteFollowing($wuid,$user_uid);
-
-          $foed=new DBConcerningForking(3);
-          $foed->WriteFollowed($user_uid,$wuid);
-
-          $fo_num=new DBConcerningForking(1);
-          $fo_num->WriteFollowingAmount($wuid);
-          $fo_num->WriteFollowedAmount($user_uid);
-
+          $isfo=new DBConcerningForking(2);
+          if(!($isfo->isFollowing())){
+            $fo=new DBConcerningForking(2);
+            $fo->WriteFollowing($wuid,$user_uid);
+            $foed=new DBConcerningForking(3);
+            $foed->WriteFollowed($user_uid,$wuid);
+            $fo_num=new DBConcerningForking(1);
+            $fo_num->WriteFollowingAmount($wuid);
+            $fo_num->WriteFollowedAmount($user_uid);
+          }
+          header("location:user.php?uid=$wuid");
         }else{
           header("location:user.php?uid=$wuid");
         }
@@ -34,8 +35,12 @@ include('header.php');
 
       if(strlen($unfo)!=0){
         if(is_numeric($unfo)){
-          $unfo=new DBConcerningForking(1);
-          $unfo->CancelFo($wuid,$user_uid);
+          $isfo=new DBConcerningForking(2);
+          if($isfo->isFollowing()){
+            $unfo=new DBConcerningForking(1);
+            $unfo->CancelFo($wuid,$user_uid);
+          }
+          header("location:user.php?uid=$user_uid");
         }else{
           header("location:user.php?uid=$wuid");
         }
@@ -122,7 +127,7 @@ $attention=$dbcf->GetFollowingAmount($user_uid);
 $concerned=$dbcf->GetFollowedAmount($user_uid);
 ?>
       <div class="col-md-4">
-      <h3><?php if(!$attention){echo 0;}else{echo $attention;}; ?></h3>
+      <h3><a href="<?php echo 'user.php?uid='.$user_uid.'&att=follow';?>"><?php if(!$attention){echo 0;}else{echo $attention;}; ?></a></h3>
       <span class="help-block">关注</span>
       </div>
       <div class="col-md-4">
@@ -130,7 +135,7 @@ $concerned=$dbcf->GetFollowedAmount($user_uid);
       <span class="help-block">收藏</span>
       </div>
       <div class="col-md-4">
-      <h3><?php if(!$concerned){echo 0;}else{echo $concerned;}; ?></h3>
+      <h3><a href="<?php echo 'user.php?uid='.$user_uid.'&att=fans';?>"><?php if(!$concerned){echo 0;}else{echo $concerned;}; ?></a></h3>
       <span class="help-block">粉丝</span> 
       </div>
     </div>
