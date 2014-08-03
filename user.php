@@ -10,10 +10,10 @@ include('header.php');
       $user_uid=test_input($_GET['uid']);
       $fo=test_input($_GET['fo']);
       $unfo=test_input($_GET['unfo']);
+      $att=test_input($_GET['att']);
 
       $wuid=GetUid($_SESSION['user-account']);
-      //echo $wuid
-
+    
       if(strlen($fo)!=0){
         if(is_numeric($fo)){
           $isfo=new DBConcerningForking(2);
@@ -127,7 +127,7 @@ $attention=$dbcf->GetFollowingAmount($user_uid);
 $concerned=$dbcf->GetFollowedAmount($user_uid);
 ?>
       <div class="col-md-4">
-      <h3><a href="<?php echo 'user.php?uid='.$user_uid.'&att=follow';?>"><?php if(!$attention){echo 0;}else{echo $attention;}; ?></a></h3>
+      <h3><a href="<?php echo 'user.php?uid='.$user_uid.'&att=follow';?>" target="_blank"><?php if(!$attention){echo 0;}else{echo $attention;}; ?></a></h3>
       <span class="help-block">关注</span>
       </div>
       <div class="col-md-4">
@@ -135,7 +135,7 @@ $concerned=$dbcf->GetFollowedAmount($user_uid);
       <span class="help-block">收藏</span>
       </div>
       <div class="col-md-4">
-      <h3><a href="<?php echo 'user.php?uid='.$user_uid.'&att=fans';?>"><?php if(!$concerned){echo 0;}else{echo $concerned;}; ?></a></h3>
+      <h3><a href="<?php echo 'user.php?uid='.$user_uid.'&att=fans';?>" target="_blank"><?php if(!$concerned){echo 0;}else{echo $concerned;}; ?></a></h3>
       <span class="help-block">粉丝</span> 
       </div>
     </div>
@@ -146,6 +146,9 @@ $concerned=$dbcf->GetFollowedAmount($user_uid);
 
   </div>
 
+<?php 
+if(strlen($att)==0){
+?>
   <div class="res-info">
 
   <div class="panel-body">
@@ -466,6 +469,100 @@ $concerned=$dbcf->GetFollowedAmount($user_uid);
   </div>
 
 </div>
+
+<?php 
+}elseif($att=="follow"){
+?>
+<div class="res-info">
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><a href="<?php echo "user.php?uid=".$user_uid; ?>"><?php echo GetName($user_uid); ?></a> 关注的人</h3>
+  </div>
+  <div class="panel-body">
+
+  <?php
+  $foer=new DBConcerningForking(2);
+  $foer->GetFollowing($user_uid);
+if(count($foer->UidOfFollowing)!=0){
+  foreach ($foer->UidOfFollowing as $key => $value_uid) {
+  ?>
+     <div class="fo-fans-info">
+       <div class="panel panel-default">
+         <div class="panel-body">
+
+           <div class="friends-photo">
+             <img class="img-thumbnail" src="<?php echo GetPhoDir(GetEmail($value_uid)); ?>" height="50" width="50">
+           </div>
+
+           <div class="friends-detail">
+             <p><a href="user.php?uid=<?php echo $value_uid; ?>" target="_blank"><?php echo GetName($value_uid) ?></a></p>
+             <p><a href="">私信</a></p>
+           </div>
+
+           <a title="取消关注" href="user.php?uid=<?php echo $value_uid."&unfo=".$wuid; ?>"><button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Cancel</span></button></a>
+
+         </div>
+       </div>
+     </div>
+<?php
+  }
+}else{
+  echo '暂无数据';
+}
+ ?>
+  </div>
+</div>
+
+</div>
+<?php
+}elseif($att=="fans"){
+?>
+<div class="res-info">
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><a href="<?php echo "user.php?uid=".$user_uid; ?>"><?php echo GetName($user_uid); ?></a> 的粉丝</h3>
+  </div>
+  <div class="panel-body">
+<?php 
+  $foered=new DBConcerningForking(2);
+  $foered->GetFollowed($user_uid);
+
+  if(count($foered->UidOfFollowed)!=0){
+    foreach($foered->UidOfFollowed as $key => $value_foeduid){
+?>
+     <div class="fo-fans-info">
+       <div class="panel panel-default">
+         <div class="panel-body">
+
+           <div class="friends-photo">
+             <img class="img-thumbnail" src="<?php echo GetPhoDir(GetEmail($value_foeduid)); ?>" height="50" width="50">
+           </div>
+
+           <div class="friends-detail">
+             <p><a href="user.php?uid=<?php echo $value_foeduid; ?>" target="_blank"><?php echo GetName($value_foeduid); ?></a></p>
+             <p><a href="">私信</a></p>
+           </div>
+
+           <a title="取消关注" ref=""><button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Cancel</span></button></a>
+
+         </div>
+       </div>
+     </div>    
+<?php
+   }
+}else{
+  echo '暂无数据';
+}
+?>
+  </div>
+</div>
+
+</div>
+<?php
+}
+?>
 
   </div>
 

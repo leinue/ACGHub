@@ -186,7 +186,7 @@ class DBConcerningForking{
     
     $cnt=0;
 
-    $res=mysql_query($sql,$this->con);
+    $res=mysql_query($sql);
     if($res!=false){
       while ($row=mysql_fetch_row($res)) {
         switch ($method){
@@ -206,7 +206,7 @@ class DBConcerningForking{
 
     $count=0;
 
-    $res=mysql_query($sql);
+    $res=mysql_query($sql_time);
       if($res!=false){
       while ($row=mysql_fetch_row($res)) {
         switch ($method) {

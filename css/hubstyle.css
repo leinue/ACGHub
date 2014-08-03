@@ -286,3 +286,9 @@
         float: right;
         margin-top: -3px;
     }
+
+    .fo-fans-info{
+        float: left;
+        width:200px;
+        margin-right: 22px;
+    }
