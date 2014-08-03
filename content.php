@@ -63,28 +63,76 @@ connect_mysql();
 <div class="user-per">
 
 <div class="trends">
+
+<div class="list-group">
+  <a class="list-group-item">Cras justo odio</a>
+  <a class="list-group-item">Dapibus ac facilisis in</a>
+  <a class="list-group-item">Morbi leo risus</a>
+  <a class="list-group-item">Porta ac consectetur ac</a>
+  <a class="list-group-item">Vestibulum at eros</a>
+<ul class="pager">
+  <li class="previous"><a href="#">&larr; Older</a></li>
+  <li class="next"><a href="#">Newer &rarr;</a></li>
+</ul>
+</div>
+
+
+<a href="#dypage"></a>
 <div class="list-group">
 <?php
 
 $tr=ReadDyn($_SESSION['user-account']);
 $tr_re=array_reverse($tr);
+$itemcount=count($tr_re);
 
-foreach ($tr_re as $key => $value) {
-  $stime=substr($value, 0,19);
+$pagesize=ceil($itemcount/10);
+
+$Personal_Current_Page=test_input($_GET['dypage']);
+
+if($Personal_Current_Page>$pagesize or !(is_numeric($Personal_Current_Page))){
+  header("location:index.php?dypage=".$pagesize);}
+
+if(strlen($Personal_Current_Page)==0){
+  $Personal_Current_Page=1;}
+
+if($Personal_Current_Page==$pagesize){
+  $Personal_Next_Page=$pagesize;
+}else{
+  $Personal_Next_Page=$Personal_Current_Page+1;}
+
+$startkey=($Personal_Current_Page*5)+((5*($Personal_Current_Page))-10);
+$endkey=$startkey+10;
+
+if($endkey>$itemcount){
+  $tmp=$endkey-$itemcount;
+  $endkey=$endkey-$tmp;
+}
+
+for($i=$startkey;$i<$endkey;$i++){ 
+  $stime=substr($tr_re[$i], 0,19);
   $ts=GetTimeStamp($stime);
 
-  $vasub=substr($value, 19);
-  echo '
-  <a href="#" class="list-group-item">
+  $vasub=substr($tr_re[$i], 19);
+  echo '  <a class="list-group-item">
     <h4 class="list-group-item-heading">'.$vasub.'</h4>
     <p class="list-group-item-text">'.$ts.'前</p>
-  </a>
-';
-
+  </a>';
 }
 
 ?>
+<ul class="pagination">
+  <li><a href="index.php?dypage=<?php if($Personal_Current_Page==1){echo '1';}else{echo $Personal_Current_Page-1;} ?>">&laquo;</a></li>
+  <?php
+  for($i=1;$i<=$pagesize;$i++){
+  ?>
+  <li><a href="index.php?dypage=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+  <?php
+  }
+  ?>
+  <li><a href="index.php?dypage=<?php echo $Personal_Next_Page; ?>">&raquo;</a></li>
+</ul>
 </div>
+
 
 </div>
 
