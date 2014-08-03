@@ -25,6 +25,8 @@ include('header.php');
             $fo_num=new DBConcerningForking(1);
             $fo_num->WriteFollowingAmount($wuid);
             $fo_num->WriteFollowedAmount($user_uid);
+
+            
           }
           header("location:user.php?uid=$wuid");
         }else{

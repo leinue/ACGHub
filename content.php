@@ -1,8 +1,5 @@
 <?php 
-error_reporting(E_ALL & ~E_DEPRECATED);
-error_reporting(E_ALL & ~E_NOTICE);
-
-connect_mysql();
+    connect_mysql();
 
     $sql="SELECT `id` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
     $res=getone($sql);
@@ -15,10 +12,10 @@ connect_mysql();
 		<div class="col-lg-8 col-lg-push-2">
 		    
 		<h1 class="blog-title">
-			<a href="/">从这里更好的发布你的创意</a>
+			<a href="">从这里更好的发布你的创意</a>
 		</h1>
 		<h2 class="blog-desc">
-			<a href="/">ԅ(¯ㅂ¯ԅ) 剧本 分镜 设定 代码 配音<span class="glyphicon glyphicon-send"></span></a>
+			<a href="">ԅ(¯ㅂ¯ԅ) 剧本 分镜 设定 代码 配音<span class="glyphicon glyphicon-send"></span></a>
 		</h2>
         
 		</div>
@@ -65,14 +62,55 @@ connect_mysql();
 <div class="trends">
 
 <div class="list-group">
-  <a class="list-group-item">Cras justo odio</a>
-  <a class="list-group-item">Dapibus ac facilisis in</a>
-  <a class="list-group-item">Morbi leo risus</a>
-  <a class="list-group-item">Porta ac consectetur ac</a>
-  <a class="list-group-item">Vestibulum at eros</a>
+
+<?php
+$people_me_fo=new DBConcerningForking(2);
+$myuid=GetUid($_SESSION['user-account']);
+$people_me_fo->GetFollowing($myuid);
+
+$odypage=test_input($_GET['odypage']);
+
+if(strlen($odypage)==0){
+  $odypage=1;}
+
+$next_opage=$odypage+1;
+
+if($odypage==1){
+  $pre_opage=1;
+}else{
+  $pre_opage=$odypage-1;}
+
+foreach ($people_me_fo->UidOfFollowing as $key => $people_me_fo_uid) {
+  $people_me_fo_dyn=ReadDyn(GetEmail($people_me_fo_uid));
+  $ody_cnt=count($people_me_fo_dyn);
+
+  $oPageSize=ceil($ody_cnt/10);
+  if($next_opage>$oPageSize){$next_opage=$oPageSize;}
+
+  $startkey=($$odypage*5)+((5*($odypage))-10);
+  $endkey=$startkey+10;
+
+  if($endkey>$ody_cnt){
+    $tmp=$endkey-$ody_cnt;
+    $endkey=$endkey-$tmp;
+  }
+
+  foreach ($people_me_fo_dyn as $key1 => $dyn) {
+    $stime=substr($dyn, 0,19);
+    $ts=GetTimeStamp($stime);
+
+    $vasub=substr($dyn, 19);
+?>
+   <li class="list-group-item"><a href="user.php?uid=<?php echo $people_me_fo_uid; ?>" target="_blank"><?php echo GetName($people_me_fo_uid); ?></a> <?php echo $ts; ?> 前 <?php echo $vasub; ?></li>
+<?php
+   $startkey++;
+   if($startkey==$endkey){break;}
+  }
+}
+?>
 <ul class="pager">
-  <li class="previous"><a href="#">&larr; Older</a></li>
-  <li class="next"><a href="#">Newer &rarr;</a></li>
+  <li class="previous"><a href="index.php?odypage=<?php echo $pre_opage; ?>">&larr; Older</a></li>
+  <li class="next"><a href="index.php?odypage=<?php echo $next_opage; ?>">Newer &rarr;</a></li>
 </ul>
 </div>
 
@@ -90,7 +128,7 @@ $pagesize=ceil($itemcount/10);
 $Personal_Current_Page=test_input($_GET['dypage']);
 
 if($Personal_Current_Page>$pagesize or !(is_numeric($Personal_Current_Page))){
-  header("location:index.php?dypage=".$pagesize);}
+  header("location:index.php?dypage=1");}
 
 if(strlen($Personal_Current_Page)==0){
   $Personal_Current_Page=1;}
