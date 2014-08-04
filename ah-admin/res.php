@@ -35,8 +35,22 @@
 
    	<div class="panel panel-default">
  <?php 
- $allres=new RecommendWorks(0,1);
- $res_count=count($allres->itemname);
+ function GetItemCount_solo($type){
+  switch ($type) {
+    case 0:
+      $allres=new RecommendWorks(0,1);
+      $res_count=count($allres->itemname);
+      return $res_count;
+      break;
+    default:
+      $allres=new RecommendWorks($type,1);
+      $allres->InitializeRecommendedItem(1);
+      $solo_count=count($allres->newitemname);
+      return $solo_count;
+      break;
+  }
+ }
+
  $attr=test_input($_GET['attr']);
 
  if(strlen($attr)==0){
@@ -44,13 +58,13 @@
 
  ?>
   <div class="panel-heading">
-  <span id="user-op"><a href="res.php?attr=all">全部（<?php echo $res_count; ?>）</a></span> | 
-  <span id="user-op"><a href="res.php?attr=script">脚本</a></span> | 
-  <span id="user-op"><a href="res.php?attr=storyboard">分镜</a></span> | 
-  <span id="user-op"><a href="res.php?attr=enactment">设定</a></span> | 
-  <span id="user-op"><a href="res.php?attr=code">代码</a></span> | 
-  <span id="user-op"><a href="res.php?attr=music">音乐</a></span> | 
-  <span id="user-op"><a href="res.php?attr=dubbing">配音</a></span>
+  <span id="user-op"><a href="res.php?attr=all">全部（<?php echo GetItemCount_solo(0); ?>）</a></span> | 
+  <span id="user-op"><a href="res.php?attr=script">脚本（<?php echo GetItemCount_solo(1); ?>）</a></span> | 
+  <span id="user-op"><a href="res.php?attr=storyboard">分镜（<?php echo GetItemCount_solo(2); ?>）</a></span> | 
+  <span id="user-op"><a href="res.php?attr=enactment">设定（<?php echo GetItemCount_solo(3); ?>）</a></span> | 
+  <span id="user-op"><a href="res.php?attr=code">代码（<?php echo GetItemCount_solo(4); ?>）</a></span> | 
+  <span id="user-op"><a href="res.php?attr=music">音乐（<?php echo GetItemCount_solo(6); ?>）</a></span> | 
+  <span id="user-op"><a href="res.php?attr=dubbing">配音（<?php echo GetItemCount_solo(5); ?>）</a></span>
   </div>
 
   <table class="table table-striped">
@@ -71,8 +85,8 @@
       foreach ($allres->itemname as $key => $value) {
         echo '  <tr>';
         echo '  <td><input type="checkbox" value=""></td>';
-        echo '  <td>'.$value.'</td>';
-        echo '  <td>'.$allres->itemeditor[$key].'</td>';
+        echo '  <td><a href="../item.php?name='.$value.'&uid='.$allres->itemuid[$key].'" target="_blank">'.$value.'</a></td>';
+        echo '  <td><a href="../user.php?uid='.$allres->itemuid[$key].'" target="_blank">'.$allres->itemeditor[$key].'</a></td>';
         echo '  <td>'.GetStatus($allres->itemuid[$key]).'</td>';
         echo '  <td>'.date("Y-m-d H:i:s",$allres->itemtime[$key]).'</td>';
         echo '  </tr>';
@@ -84,8 +98,8 @@
       foreach ($otheres->newitemname as $key => $value) {
         echo '  <tr>';
         echo '  <td><input type="checkbox" value=""></td>';
-        echo '  <td>'.$value.'</td>';
-        echo '  <td>'.$otheres->newitemeditor[$key].'</td>';
+        echo '  <td><a href="../item.php?name='.$value.'&uid='.$otheres->newitemuid[$key].'" target="_blank">'.$value.'</a></td>';
+        echo '  <td><a href="../user.php?uid='.$otheres->newitemuid[$key].'" target="_blank">'.$otheres->newitemeditor[$key].'</a></td>';
         echo '  <td>'.GetStatus($otheres->newitemuid[$key]).'</td>';
         echo '  <td>'.date("Y-m-d H:i:s",$otheres->newitemtime[$key]).'</td>';
         echo '  </tr>';        

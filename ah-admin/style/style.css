@@ -5,16 +5,11 @@
     
 	margin-top:60px;
 	margin-left:15%;
-
 }
 
-.user-content-main{
-	
-}
+.user-content-main{}
 
-#panel-search-right{
-	float: right
-}
+#panel-search-right{float: right}
 
 #panel-col-left{
 	float: left;
@@ -23,27 +18,19 @@
 	font-size: 16px;
 }
 
-.operation-inline{
-	display: inline;
-}
+.operation-inline{display: inline;}
 
-#speace{
-	margin-right: 10px;
-}
+#speace{margin-right: 10px;}
 
-#user-op a{
-	text-decoration: none;
-}
+#user-op a{text-decoration: none;}
 
  form{
  	margin-left: 50px;
  	margin-right: 360px;
  }
 
- #input-group-margin{
- 	margin-bottom:10px;
- }
+ #input-group-margin{margin-bottom:10px;}
 
- .setting-title{
- 	margin-left: 60px;
- }
+ .setting-title{margin-left: 60px;}
+
+ table a{color:#000000;}
