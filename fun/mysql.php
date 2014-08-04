@@ -52,6 +52,31 @@ function create_table(){
   else {die();}
 }
 
+function Create_Setting_Table(){
+  $sql="CREATE TABLE acghub_admin_setting(
+    id int(11) NOT NULL AUTO_INCREMENT,
+    title TEXT NOT NULL,
+    subhead TEXT NOT NULL,
+    description TEXT NOT NULL,
+    keywords TEXT NOT NULL,
+    PRIMARY KEY (id)
+    )";
+  $res=mysql_query($sql);
+  if($res!=false){
+    mysql_select_db("acghub_admin_setting");
+    $sql="INSERT INTO `acghub_admin_setting`(`title`, `subhead`, `description`, `keywords`) VALUES 
+    ('ACGHub','更好的分享创意','ACGHub,为所有ACG创造者而生','ACG,动漫,脚本,分镜')";
+    $res_in=mysql_query($sql);
+    if($res_in!=false){
+      if(mysql_affected_rows()!=-1){
+        return true;
+      }else{return false;}
+    }else{return false;}
+  }else{
+    return false;
+  }
+}
+
 /**
 * concerning fork
 */
