@@ -12,28 +12,28 @@
 
      <div class="panel-body">
       <div class="input-group" id="input-group-margin">
-       <span class="input-group-addon">站点标题</span>
+       <span class="input-group-addon">站点主标题</span>
        <input type="text" class="form-control" placeholder="站点名称">
       </div>
 
       <div class="input-group" id="input-group-margin">
-       <span class="input-group-addon">副标题</span>
+       <span class="input-group-addon">站点副标题</span>
        <input type="text" class="form-control" placeholder="副标题">
       </div>
 
       <div class="input-group" id="input-group-margin">
-       <span class="input-group-addon">站点描述</span>
+       <span class="input-group-addon">站点主描述</span>
        <input type="text" class="form-control" placeholder="站点描述">
       </div>
 
       <div class="input-group" id="input-group-margin">
-       <span class="input-group-addon">关键词</span>
+       <span class="input-group-addon">站点关键词</span>
        <input type="text" class="form-control" placeholder="关键词">
       </div>
       <span class="help-block">请用英文逗号","分隔关键字</span>
 
       <div class="input-group" id="input-group-margin">
-       <span class="input-group-addon">管理员ID</span>
+       <span class="input-group-addon">管理员名称</span>
        <input type="text" class="form-control" placeholder="管理员ID">
       </div>
       <span class="help-block">不修改可留空</span>

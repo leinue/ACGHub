@@ -20,6 +20,8 @@ if($res!=false){
 	        $_SESSION['admin-login-id']=1;
 	        $_SESSION['admin-pw']=$admin_password;
 	        $_SESSION['admin-account']=$admin_account;
+	        $_SESSION['user-login-id']=1;
+	        $_SESSION['user-account']=$admin_account;
 	        header("Location:admin.php");
 		}else{
 			header("Location:../index.php");}

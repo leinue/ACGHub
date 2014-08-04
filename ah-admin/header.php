@@ -1,6 +1,7 @@
 <?php
-include("../fun/function.php");
-include("../fun/mysql.php");
+include_once("../fun/function.php");
+include_once("../fun/mysql.php");
+connect_mysql();
 session_start();
 if($_SESSION['admin-login-id']==1){
 ?>

@@ -1,6 +1,6 @@
 <?php
 
-function test_input($data) {
+function test_input($data){
   $data = trim($data);
   $data = stripslashes($data);
   $data = htmlspecialchars($data);
@@ -1113,9 +1113,11 @@ class RecommendWorks{
   var $newitemdes=array();
   var $newitemtime=array();
 
-  function __construct($initype){
+  function __construct($initype,$isadmin=0){
   //$typ=1->脚本 $type=2->分镜 $type=3->设定 $type=4->代码 $type=5->配音 $type=6->音乐
   //array("script","storyboard","enactment","code","dubbing","music");
+  //isadmin标识是否来自ah-admin的网页,因为如果来自ah-admin
+  //项目地址也要变更,默认不是
     switch ($initype) {
       case 1:
         $this->type="script";
@@ -1143,7 +1145,18 @@ class RecommendWorks{
     $count=0;
 
     foreach ($allid as $key => $id) {
-      $itemarr=GetItem("userpro/".$id);
+      switch ($isadmin){
+        case 1:
+          $itemarr=GetItem("../userpro/".$id);
+          break;
+        case 0:
+          $itemarr=GetItem("userpro/".$id);
+          break;
+        default:
+          return false;
+          break;
+      }
+      
       $a=count($itemarr);
       for($i=2;$i<=$a-1;$i++){
         $gln=GetLikerNum($itemarr[$i]); 
@@ -1151,12 +1164,23 @@ class RecommendWorks{
 
         $this->itemuid[$count]=$id;
         $this->itemname[$count]=$itemarr[$i];
-        $this->itemnum[$count]=GetProNum("userpro/".$id."/".$itemarr[$i]);
+        switch ($isadmin){
+          case 1:
+            $zmulu="../userpro/".$id."/".$itemarr[$i];
+            break;
+          case 0:
+            $zmulu="userpro/".$id."/".$itemarr[$i];
+            break;
+          default:
+            return false;
+            break;
+        }
+        $this->itemnum[$count]=GetProNum($zmulu);
         $this->itemeditor[$count]=GetProEditor($id);
         $this->itemmarks[$count]=round($gfn*0.4+$gln*0.6,2);
-        $this->itemdes[$count]=GetDes("userpro/".$id."/".$itemarr[$i]."/readme");
+        $this->itemdes[$count]=GetDes($zmulu."/readme");
         $this->itemwholemarks[$count]=round($gfn*0.4+$gln*0.6,2);
-        $this->itemtime[$count]=filectime("userpro/".$id."/".$itemarr[$i]);
+        $this->itemtime[$count]=filectime($zmulu);
 
         $count+=1;
       }
@@ -1165,10 +1189,21 @@ class RecommendWorks{
     arsort($this->itemtime);
   }
 
-  function InitializeRecommendedItem(){
+  function InitializeRecommendedItem($isadmin=0){
     $count=0;
     foreach ($this->itemuid as $key => $id) {
-      if(GetProType("userpro/".$id."/".$this->itemname[$key]."/prosetting.afg")==$this->type){
+      switch ($isadmin) {
+        case 1:
+          $zmulua="../userpro/".$id."/".$this->itemname[$key];
+          break;
+        case 0:
+          $zmulua="userpro/".$id."/".$this->itemname[$key];
+          break;
+        default:
+          return false;
+          break;
+      }
+      if(GetProType($zmulua."/prosetting.afg")==$this->type){
         $this->newitemuid[$count]=$id;
         $this->newitemname[$count]=$this->itemname[$key];
         $this->newitemnum[$count]=$this->itemnum[$key];
@@ -1185,17 +1220,5 @@ class RecommendWorks{
   }
 
 }
-
-
-/**
-* 关注用户类
-*/
-/*class ForkSomeone{
-  
-  function __construct(argument){
-    # code...
-  }
-
-}*/
 
 ?>
