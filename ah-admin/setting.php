@@ -9,7 +9,6 @@ $_profile[4]=test_input($_POST['admin-account']);
 $_profile[5]=test_input($_POST['admin-password']);
 
 $updateData=new SiteInfo();
-print_r($_profile);
 if($updateData->UpdateProfiles($_profile,$_SESSION['admin-account'])){
   echo '修改成功';
 }else{
@@ -24,7 +23,7 @@ if($updateData->UpdateProfiles($_profile,$_SESSION['admin-account'])){
 
    <div class="panel panel-default">
 
-   <h2 class="setting-title">网站系统设置</h2>
+   <h2 class="setting-title">网站系统设置——欢迎 <a href="../user.php?uid=<?php echo GetUid($_SESSION['admin-account']); ?>" target="_blank"><?php echo GetName(GetUid($_SESSION['admin-account'])); ?></a></h2>
   <?php
 
   $sinfo=new SiteInfo();

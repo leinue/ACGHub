@@ -1364,16 +1364,15 @@ class SiteInfo{
   }
 
   function UpdateProfiles($profile_=array(),$email){
-
     if(strlen($profile_[4])==0 or strlen($profile_[5])==0){
-      if(!($this->isNull($profile_))){
+      if($this->isNull($profile_)){
         $this->UpdateBasicInfo($profile_);
       }
     }else{
-      if(strlen($profile_[4])==0 and strlen($profile_[5])==0){
-        if(!($this->isNull($profile_))){
-        $this->UpdateBasicInfo($profile_);}else{return false;}
-        $this->UpdatePersonalInfo($profile_,$email);
+      if(strlen($profile_[4])!=0 and strlen($profile_[5])!=0){
+        if($this->isNull($profile_)){
+          $this->UpdateBasicInfo($profile_);}else{return false;}
+          $this->UpdatePersonalInfo($profile_,$email);
       }else{
         return false;
       }
@@ -1386,7 +1385,7 @@ class SiteInfo{
     and strlen($file[2]) and strlen($file[3]));}
 
   function UpdateBasicInfo($file=array()){
-    $sql="UPDATE `acghub_admin_setting` SET `title`=$file[0],`subhead`=$file[1],`description`=$file[2],`keywords`=$file[3] WHERE `id`=1";
+    $sql="UPDATE `acghub_admin_setting` SET `title`='$file[0]',`subhead`='$file[1]',`description`='$file[2]',`keywords`='$file[3]' WHERE `id`=1";
     $res=mysql_query($sql);
     if($res!=false){
       if(mysql_affected_rows()!=-1){
@@ -1396,9 +1395,8 @@ class SiteInfo{
   }
 
   function UpdatePersonalInfo($file=array(),$email){
-    mysql_connect("localhost","root","xieyang");
-    mysql_select_db("acghub_member");
-    $sql="UPDATE `acghub_member` SET `name`='$file[4]',`password`=".md5($file[5])."WHERE `email`=$email";
+    connect_mysql();
+    $sql="UPDATE `acghub_member` SET `name`='$file[4]',`password`='".md5($file[5])."'WHERE `email`='$email'";
     $res=mysql_query($sql);
     if($res!=false){
       if(mysql_affected_rows()!=-1){
