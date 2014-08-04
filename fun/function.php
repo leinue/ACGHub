@@ -1221,4 +1221,38 @@ class RecommendWorks{
 
 }
 
+/**
+* 分页相关
+*/
+class Pagination{
+  //每页显示个数:10
+  var $PageSize;
+  var $CurrentPage;
+
+  var $itemcount;
+
+  var $StartKey;
+  var $EndKey;
+
+  function __construct($data,$CPage){
+    $this->itemcount=count($data);
+    $this->PageSize=ceil($this->itemcount/10);
+    $this->CurrentPage=$CPage;
+  }
+
+  function InitializePageingInfo(){
+    //取得开始指针和结束指针
+    //pT_pos=10*CurrentPage-10
+    $this->StartKey=10*$this->CurrentPage-10;
+    $this->Endkey=$this->StartKey+10;
+    
+    if($this->Endkey>$this->itemcount){
+      $tmp=$this->Endkey-$this->itemcount;
+      $this->Endkey=$this->Endkey-$tmp;
+    }
+
+    }
+
+}
+
 ?>
