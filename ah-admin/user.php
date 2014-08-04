@@ -63,12 +63,15 @@
 
   if(strlen($attr)==0){$attr="all";}
 
-  function PrintUserList($type){
+  function PrintUserList($type,$page){
     //1->all 2->admin 3->user
     switch ($type) {
       case 1:
         $allid=GetAllId();
-        for($i=0;$i<count($allid);$i++){
+        $user_paging=new Pagination($allid,$page);
+        $user_paging->InitializePageingInfo();
+        //echo $paging->StartKey."->".$paging->EndKey;
+        for($i=$user_paging->StartKey;$i<$user_paging->EndKey;$i++){
           echo '<tr>';
           echo '<td><input type="checkbox" value=""></td>';
           echo '<td><a href="../user.php?uid='.$allid[$i].'" target="_blank">'.GetName($allid[$i]).'</s></td>';
@@ -78,12 +81,39 @@
           echo '<td>'.GetRegTime($allid[$i]).'</td>';
           echo '</tr>';
         }
+        return $user_paging->PageSize;
         break;
       case 2:
-
+        $adminuid=GetAdminUid();
+        $user_paging=new Pagination($adminuid,$page);
+        $user_paging->InitializePageingInfo(); 
+        for($i=$user_paging->StartKey;$i<$user_paging->EndKey;$i++){
+          echo '<tr>';
+          echo '<td><input type="checkbox" value=""></td>';
+          echo '<td><a href="../user.php?uid='.$adminuid[$i].'" target="_blank">'.GetName($adminuid[$i]).'</s></td>';
+          echo '<td><a href="mailto:'.GetEmail($adminuid[$i]).'" target="_blank">'.GetEmail($adminuid[$i]).'</a></td>';
+          echo '<td>'.GetResCount($adminuid[$i],2).'</td>';
+          echo '<td>'.GetStatus($adminuid[$i]).'</td>';
+          echo '<td>'.GetRegTime($adminuid[$i]).'</td>';
+          echo '</tr>';
+        }
+        return $user_paging->PageSize;
         break;
       case 3:
-
+        $useruid=GetUserUid();
+        $user_paging=new Pagination($useruid,$page);
+        $user_paging->InitializePageingInfo();           
+        for($i=$user_paging->StartKey;$i<$user_paging->EndKey;$i++){
+          echo '<tr>';
+          echo '<td><input type="checkbox" value=""></td>';
+          echo '<td><a href="../user.php?uid='.$useruid[$i].'" target="_blank">'.GetName($useruid[$i]).'</s></td>';
+          echo '<td><a href="mailto:'.GetEmail($useruid[$i]).'" target="_blank">'.GetEmail($useruid[$i]).'</a></td>';
+          echo '<td>'.GetResCount($useruid[$i],2).'</td>';
+          echo '<td>'.GetStatus($useruid[$i]).'</td>';
+          echo '<td>'.GetRegTime($useruid[$i]).'</td>';
+          echo '</tr>';
+        }
+        return $user_paging->PageSize;
         break;
       default:
         return false;
@@ -113,13 +143,13 @@
 
 switch ($attr){
   case "all":
-    PrintUserList(1);
+    $pz=PrintUserList(1,$page);
     break;
   case "admin":
-    //PrintUserList(2);
+    $pz=PrintUserList(2,$page);
     break;
   case "user":
-    //PrintUserList(3);
+    $pz=PrintUserList(3,$page);
     break;
   default:
     header("location:user.php?attr=all");
@@ -131,12 +161,28 @@ switch ($attr){
   </table>
 
 </div>
+<?php
 
+$nextpage=$page+1;
+
+if($page==1){
+  $prepage=1;
+}else{
+  $prepage=$page-1;
+}
+
+?>
 <div class="paging">
 <ul class="pagination">
-  <li><a href="user.php?attr=<?php echo $attr; ?>&page=<?php ?>">&laquo;</a></li>
-  <li><a href="user.php?attr=<?php echo $attr; ?>&page=<?php ?>">1</a></li>
-  <li><a href="user.php?attr=<?php echo $attr; ?>&page=<?php ?>">&raquo;</a></li>
+  <li><a href="user.php?attr=<?php echo $attr; ?>&page=<?php echo $prepage; ?>">&laquo;</a></li>
+<?php 
+for($i=1;$i<=$pz;$i++){ 
+?>
+  <li><a href="user.php?attr=<?php echo $attr; ?>&page=<?php $i ?>"><?php echo $i; ?></a></li>
+<?php
+}
+?>
+  <li><a href="user.php?attr=<?php echo $attr; ?>&page=<?php echo $prepage; ?>">&raquo;</a></li>
 </ul>
 </div>
 

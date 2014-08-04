@@ -97,7 +97,7 @@
         $ptn=new Pagination($allres->itemname,$cetpage);
         $PagingInfo[0]=$ptn->PageSize;
         $ptn->InitializePageingInfo();
-        for ($i=$ptn->StartKey;$i<$ptn->Endkey;$i++){
+        for ($i=$ptn->StartKey;$i<$ptn->EndKey;$i++){
           echo '  <tr>';
           echo '  <td><input type="checkbox" value=""></td>';
           echo '  <td><a href="../item.php?name='.$allres->itemname[$i].'&uid='.$allres->itemuid[$i].'" target="_blank">'.$allres->itemname[$i].'</a></td>';
@@ -116,7 +116,7 @@
         $ptn=new Pagination($otheres->newitemname,$cetpage);
         $PagingInfo[0]=$ptn->PageSize;
         $ptn->InitializePageingInfo();
-        for ($i=$ptn->StartKey;$i<$ptn->Endkey;$i++){
+        for ($i=$ptn->StartKey;$i<$ptn->EndKey;$i++){
           echo '  <tr>';
           echo '  <td><input type="checkbox" value=""></td>';
           echo '  <td><a href="../item.php?name='.$otheres->newitemname[$i].'&uid='.$otheres->newitemuid[$i].'" target="_blank">'.$otheres->newitemname[$i].'</a></td>';

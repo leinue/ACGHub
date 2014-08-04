@@ -1325,15 +1325,14 @@ class Pagination{
     //取得开始指针和结束指针
     //pT_pos=10*CurrentPage-10
     $this->StartKey=10*$this->CurrentPage-10;
-    $this->Endkey=$this->StartKey+10;
-    
-    if($this->Endkey>$this->itemcount){
-      $tmp=$this->Endkey-$this->itemcount;
-      $this->Endkey=$this->Endkey-$tmp;
+    $this->EndKey=$this->StartKey+10;
+
+    if($this->EndKey>$this->itemcount){
+      $tmp=$this->EndKey-$this->itemcount;
+      $this->EndKey=$this->EndKey-$tmp;
     }
 
-    }
-
+  }
 }
 
 ?>
