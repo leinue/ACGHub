@@ -1,4 +1,6 @@
 <?php
+include("../fun/function.php");
+include("../fun/mysql.php");
 session_start();
 if($_SESSION['admin-login-id']==1){
 ?>

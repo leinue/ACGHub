@@ -114,6 +114,15 @@ function GetSex($uid){
   }else{return false;}    
 }
 
+function GetStatus($uid){
+  $sql="SELECT `sta` 
+  FROM `acghub_member` WHERE `id`=$uid";
+  $res=getone($sql);
+  if($res!=false){
+    return $res;
+  }else{return false;}   
+}
+
 function SingleDecToHex($dec){
 $tmp="";
 $dec=$dec%16;

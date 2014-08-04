@@ -9,9 +9,9 @@
 	width:440px;
 	border-radius:4px;
 
-	border:1px solid rgb(221,221,221);
+	border:1px solid rgb(180,180,180);
 	
-	-webkit-box-shadow: 0px 0px 6px #39F,
+	/*-webkit-box-shadow: 0px 0px 6px #39F,
     0 0 0px #39F,
     0 0 0px #39F;
 
@@ -21,7 +21,7 @@
  
     box-shadow: 0px 0px 6px #39F,
     0 0 0px #39F,
-    0 0 0px #39F;}
+    0 0 0px #39F;*/}
 	
 .auth-form-body{
 	padding: 20px;

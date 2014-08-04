@@ -1,7 +1,22 @@
 <?php
-error_reporting(E_ALL ^ E_NOTICE);
+include("../fun/function.php");
+include("../fun/mysql.php");
 session_start();
-if($_SESSION['admin-login-id']!=1){
+connect_mysql();
+
+if($_SESSION['user-login-id']==1){
+
+  $sta=GetStatus(GetUid($_SESSION['user-account']));
+
+  if($sta=="admin"){
+    $_SESSION['admin-login-id']=1;
+    $_SESSION['admin-account']=$_SESSION['user-account'];
+    header("location:admin.php");
+  }else{
+    header("Location:../index.php");
+  }
+
+}elseif($_SESSION['admin-login-id']!=1){
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -69,8 +84,8 @@ if($_SESSION['admin-login-id']!=1){
 }
 
 else{
-header("Location:admin.php");
-exit;
+   header("Location:admin.php");
+   exit;
 }
 ?>
 
