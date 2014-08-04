@@ -31,6 +31,49 @@ function GetAllId(){
   }else{return false;}
 }
 
+function GetAdminUid(){
+  $adminuid=array();
+  $allid=GetAllId();
+  $cnt=0;
+  foreach ($allid as $key => $value) {
+    $sta=GetStatus($value);
+    if($sta=="admin"){
+      $adminuid[$cnt]=$value;
+      $cnt++;
+    }
+  }
+  return $adminuid;
+}
+
+function GetNumOfAdmin(){
+  $allid=GetAllId();
+  $num=0;
+  foreach ($allid as $key => $value) {
+    $sta=GetStatus($value);
+    if($sta=="admin"){
+      $num++;
+    }
+  }
+  return $num;
+}
+
+function GetUserUid(){
+  $useruid=array();
+  $allid=GetAllId();
+  $cnt=0;
+  foreach ($allid as $key => $value) {
+    $sta=GetStatus($value);
+    if($sta=="user"){
+      $adminuid[$cnt]=$value;
+      $cnt++;
+    }
+  }
+  return $adminuid;  
+}
+
+function GetNumOfUser(){
+  return count(GetAllId())-GetNumOfAdmin();}
+
 function getone($sql){
     $res=mysql_query($sql);
     if($res!=false){
@@ -41,8 +84,7 @@ function getone($sql){
 }
 
 function GetPhoDir($email){
-  $sql="SELECT `photo` FROM `acghub_member` 
-  WHERE `email`='$email'";
+  $sql="SELECT `photo` FROM `acghub_member` WHERE `email`='$email'";
   $res=getone($sql);
   if($res!=false){
     return $res;
@@ -50,8 +92,7 @@ function GetPhoDir($email){
 }
 
 function GetEmail($uid){
-  $sql="SELECT `email` 
-  FROM `acghub_member` WHERE `id`=$uid";
+  $sql="SELECT `email` FROM `acghub_member` WHERE `id`=$uid";
   $res=getone($sql);
   if($res!=false){
     return $res;
@@ -59,8 +100,7 @@ function GetEmail($uid){
 }
 
 function GetName($uid){
-  $sql="SELECT `name` 
-  FROM `acghub_member` 
+  $sql="SELECT `name` FROM `acghub_member` 
   WHERE `id`=$uid";
   $res=getone($sql);
   if($res!=false){
@@ -121,6 +161,47 @@ function GetStatus($uid){
   if($res!=false){
     return $res;
   }else{return false;}   
+}
+
+function GetRegTime($uid){
+  $sql="SELECT `_date` 
+  FROM `acghub_member` WHERE `id`=$uid";
+  $res=getone($sql);
+  if($res!=false){
+    return $res;
+  }else{return false;}     
+}
+
+function GetResCount($uid,$from){
+  //from=1->前台 from=2->后台
+  switch ($from) {
+    case 1:
+      $mulu="userpro/$uid";
+      return finddir($mulu);
+      break;
+    case 2:
+      $mulu="../userpro/$uid";
+      return finddir($mulu);
+      break;
+    default:
+      return false;
+      break;
+  }
+}
+
+function finddir($dir){
+  $dirArray[]=NULL;
+  if(false!=($handle=opendir($dir))){
+    $i=0;
+      while (false!==($file=readdir($handle))){
+        if($file != "." && $file != ".."&&!strpos($file,".")) {
+          $dirArray[$i]=$file;
+          $i++;
+        }
+      }
+    closedir ( $handle );
+  }
+  return count($dirArray);
 }
 
 function SingleDecToHex($dec){

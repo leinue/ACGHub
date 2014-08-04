@@ -19,13 +19,13 @@
          <div id="panel-col-left">
 
          <div class="navbar-form">
-
-         <select class="form-control input-sm">
-              <option value="operate">批量操作</option>
-              <option value="delete">删除</option>
+         <form name="admin-res-event" action="" method="post">
+         <select class="form-control input-sm" name="eventtype">
+            <option value="operate">批量操作</option>
+            <option value="delete">删除</option>
          </select>
-         <button type="button" class="btn btn-default btn-sm" id="speace">应用</button>
-
+         <button type="submit" class="btn btn-default btn-sm" id="speace">应用</button>
+         </form>
          </div>
 
          </div>
@@ -51,13 +51,18 @@
   }
  }
 
+ echo $_POST['eventtype'];
+
  $attr=test_input($_GET['attr']);
  $cetpage=test_input($_GET['page']);
 
- if(strlen($cetpage)==0){$cetpage=1;}
+ if(strlen($cetpage)==0){
+  $cetpage=1;
+ }else{
+   if(!(is_numeric($cetpage))){header("location:user.php?attr=all");}
+ }
 
- if(strlen($attr)==0){
-  $attr="all";}
+ if(strlen($attr)==0){$attr="all";}
 
  ?>
   <div class="panel-heading">
@@ -101,18 +106,6 @@
           echo '  <td>'.date("Y-m-d H:i:s",$allres->itemtime[$i]).'</td>';
           echo '  </tr>';
         }
-        /*foreach ($allres->itemname as $key => $value) {
-          echo '  <tr>';
-          echo '  <td><input type="checkbox" value=""></td>';
-          echo '  <td><a href="../item.php?name='.$value.'&uid='.$allres->itemuid[$key].'" target="_blank">'.$value.'</a></td>';
-          echo '  <td><a href="../user.php?uid='.$allres->itemuid[$key].'" target="_blank">'.$allres->itemeditor[$key].'</a></td>';
-          echo '  <td>'.GetStatus($allres->itemuid[$key]).'</td>';
-          echo '  <td>'.date("Y-m-d H:i:s",$allres->itemtime[$key]).'</td>';
-          echo '  </tr>';
-          $res_print_cnt++;
-
-          if($res_print_cnt==$ptn->Endkey){break;}
-        }*/
       }else{
         echo '';
     }
@@ -132,15 +125,6 @@
           echo '  <td>'.date("Y-m-d H:i:s",$otheres->newitemtime[$i]).'</td>';
           echo '  </tr>';
         }
-        /*foreach ($otheres->newitemname as $key => $value) {
-          echo '  <tr>';
-          echo '  <td><input type="checkbox" value=""></td>';
-          echo '  <td><a href="../item.php?name='.$value.'&uid='.$otheres->newitemuid[$key].'" target="_blank">'.$value.'</a></td>';
-          echo '  <td><a href="../user.php?uid='.$otheres->newitemuid[$key].'" target="_blank">'.$otheres->newitemeditor[$key].'</a></td>';
-          echo '  <td>'.GetStatus($otheres->newitemuid[$key]).'</td>';
-          echo '  <td>'.date("Y-m-d H:i:s",$otheres->newitemtime[$key]).'</td>';
-          echo '  </tr>';        
-        }*/
       }else{
         echo '';
       }
@@ -210,12 +194,13 @@ for ($i=1;$i<=$pageinfo[0]; $i++){
          <div id="panel-col-left">
 
          <div class="navbar-form">
-
-         <select class="form-control input-sm">
+         <form name="admin-res-event" action="" method="post">
+         <select class="form-control input-sm" name="eventtype">
               <option value="operate">批量操作</option>
               <option value="delete">删除</option>
          </select>
          <button type="button" class="btn btn-default btn-sm" id="speace">应用</button>
+         </form>
          </div>
 
          </div>
