@@ -1335,4 +1335,77 @@ class Pagination{
   }
 }
 
+/**
+* 网站基本信息
+*/
+class SiteInfo{
+  var $title;
+  var $subhead;
+  var $description;
+  var $keywords;
+
+  function __construct(){
+    mysql_connect("localhost","root","xieyang");
+    mysql_select_db("acghub_admin_setting");
+    $sql="SELECT `title`, `subhead`, `description`, `keywords` FROM `acghub_admin_setting` WHERE `id`=1";
+    $res=mysql_query($sql);
+
+    if($res!=false){
+      $row=mysql_fetch_row($res);
+      /*[0] => ACGHub
+        [1] => Better idea
+        [2] => ACG
+        [3] => ACG,comic,create*/
+      $this->title=$row[0];
+      $this->subhead=$row[1];
+      $this->description=$row[2];
+      $this->keywords=$row[3];
+    }else{return false;}
+  }
+
+  function UpdateProfiles($profile_=array(),$email){
+
+    if(strlen($profile_[4])==0 or strlen($profile_[5])==0){
+      if(!($this->isNull($profile_))){
+        $this->UpdateBasicInfo($profile_);
+      }
+    }else{
+      if(strlen($profile_[4])==0 and strlen($profile_[5])==0){
+        if(!($this->isNull($profile_))){
+        $this->UpdateBasicInfo($profile_);}else{return false;}
+        $this->UpdatePersonalInfo($profile_,$email);
+      }else{
+        return false;
+      }
+    }
+
+  }
+
+  function isNull($file=array()){
+  return (strlen($file[0]) and strlen($file[1])
+    and strlen($file[2]) and strlen($file[3]));}
+
+  function UpdateBasicInfo($file=array()){
+    $sql="UPDATE `acghub_admin_setting` SET `title`=$file[0],`subhead`=$file[1],`description`=$file[2],`keywords`=$file[3] WHERE `id`=1";
+    $res=mysql_query($sql);
+    if($res!=false){
+      if(mysql_affected_rows()!=-1){
+        return false;
+      }else{return false;}
+    }else{return false;}
+  }
+
+  function UpdatePersonalInfo($file=array(),$email){
+    mysql_connect("localhost","root","xieyang");
+    mysql_select_db("acghub_member");
+    $sql="UPDATE `acghub_member` SET `name`='$file[4]',`password`=".md5($file[5])."WHERE `email`=$email";
+    $res=mysql_query($sql);
+    if($res!=false){
+      if(mysql_affected_rows()!=-1){
+        return true;
+      }else{return false;}
+    }else{return false;}
+  }
+}
+
 ?>

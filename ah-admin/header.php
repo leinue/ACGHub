@@ -1,4 +1,5 @@
 <?php
+header("Content-type: text/html; charset=utf-8");
 include_once("../fun/function.php");
 include_once("../fun/mysql.php");
 connect_mysql();
@@ -9,8 +10,7 @@ if($_SESSION['admin-login-id']==1){
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ACGHub - 管理中心</title>
 
