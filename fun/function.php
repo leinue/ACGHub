@@ -1504,6 +1504,8 @@ class FuzzySearch{
   var $NumOfFans;
   var $RegTime;
   var $Name;
+  var $NumOfPro;
+  var $UserPhotoDir;
 
   var $NumOfLike;
   var $NameOfItem;
@@ -1526,6 +1528,8 @@ class FuzzySearch{
         $this->uid=$idofall;
         $this->RegTime=GetRegTime($id);
         $this->Name=GetName($id);
+        $this->NumOfPro=GetProNum("userpro/$id");
+        $this->UserPhotoDir=GetPhoDir(GetEmail($id));
         $fans_num=new DBConcerningForking(1);
         $this->NumOfFans=$fans_num->GetFollowedAmount($id);
         $isExist++;
