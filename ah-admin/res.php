@@ -1,4 +1,9 @@
-<?php include('header.php'); ?>
+<?php include('header.php'); 
+
+ $attr=test_input($_GET['attr']);
+ $cetpage=test_input($_GET['page']);
+
+?>
 
 <div class="user-content" id="user-body">
 
@@ -19,7 +24,7 @@
          <div id="panel-col-left">
 
          <div class="navbar-form">
-         <form name="admin-res-event" action="" method="post">
+         <form name="admin-res-event" action="res.php?attr=<?php if(strlen($attr)==0){$attr="all";}echo $attr; ?>&page=<?php if(strlen($page)==0){$page=1;}echo $page; ?>" method="post">
          <select class="form-control input-sm" name="eventtype">
             <option value="operate">批量操作</option>
             <option value="delete">删除</option>
@@ -50,11 +55,6 @@
       break;
   }
  }
-
- echo $_POST['eventtype'];
-
- $attr=test_input($_GET['attr']);
- $cetpage=test_input($_GET['page']);
 
  if(strlen($cetpage)==0){
   $cetpage=1;
@@ -208,12 +208,12 @@ for ($i=1;$i<=$pageinfo[0]; $i++){
          <div id="panel-col-left">
 
          <div class="navbar-form">
-         <form name="admin-res-event" action="" method="post">
+         <form name="admin-res-event" action="res.php?attr=<?php if(strlen($attr)==0){$attr="all";}echo $attr; ?>&page=<?php if(strlen($page)==0){$page=1;}echo $page; ?>" method="post">
          <select class="form-control input-sm" name="eventtype">
-              <option value="operate">批量操作</option>
-              <option value="delete">删除</option>
+            <option value="operate">批量操作</option>
+            <option value="delete">删除</option>
          </select>
-         <button type="button" class="btn btn-default btn-sm" id="speace">应用</button>
+         <button type="submit" class="btn btn-default btn-sm" id="speace">应用</button>
          </form>
          </div>
 

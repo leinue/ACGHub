@@ -1442,4 +1442,52 @@ class UserManagement{
   }
 }
 
+class ResManagment(){
+  var $uid;
+  var $ResName;
+
+  function __construct($userid,$fileName,$from){
+    //from=1->前台 from=2->后台
+    $this->uid=$uid;
+    switch ($from) {
+      case 1:
+        $this->ResName="userpro/$this->uid/$fileName";
+        break;
+      case 2:
+        $this->ResName="../userpro/$this->uid/$fileName";
+        break;
+      default:
+        return false;
+        break;
+    }
+  }
+
+  function del(){
+    $this->deldir($this->ResName);}
+
+  function deldir($dir){
+  //先删除目录下的文件：
+  $dh=opendir($dir);
+  while ($file=readdir($dh)) {
+    if($file!="." && $file!="..") {
+      $fullpath=$dir."/".$file;
+      if(!is_dir($fullpath)) {
+          unlink($fullpath);
+      } else {
+          deldir($fullpath);
+      }
+    }
+  }
+ 
+  closedir($dh);
+  //删除当前文件夹：
+  if(rmdir($dir)) {
+    return true;
+  } else {
+    return false;
+  }
+  }
+
+}
+
 ?>

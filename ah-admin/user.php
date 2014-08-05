@@ -44,7 +44,7 @@
          <div id="panel-col-left">
 
          <div class="navbar-form">
-         <form method="POST" action="user.php?attr=<?php echo $attr; ?>&page=<?php if(strlen($page)==0){$page=1;}echo $page; ?>">
+         <form method="POST" action="user.php?attr=<?php if(strlen($attr)==0){$attr="all";}echo $attr; ?>&page=<?php if(strlen($page)==0){$page=1;}echo $page; ?>">
          <select  class="form-control input-sm" name="adminevent">
               <option value="operate">批量操作</option>
               <option value="delete">删除</option>
@@ -228,7 +228,7 @@ for($i=1;$i<=$pz;$i++){
          <div id="panel-col-left">
 
          <div class="navbar-form">
-         <form method="POST" action="user.php?attr=<?php echo $attr; ?>&page=<?php if(strlen($page)==0){$page=1;}echo $page; ?>">
+         <form method="POST" action="user.php?attr=<?php if(strlen($attr)==0){$attr="all";}echo $attr; ?>&page=<?php if(strlen($page)==0){$page=1;}echo $page; ?>">
          <select  class="form-control input-sm" name="adminevent">
               <option value="operate">批量操作</option>
               <option value="delete">删除</option>
