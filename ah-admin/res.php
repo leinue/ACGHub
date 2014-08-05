@@ -76,9 +76,23 @@
   </div>
 
   <table class="table table-striped">
-
+<script language=javascript>
+function selectAll(){
+var a = document.getElementsByTagName("input");
+if(a[0].checked){
+for(var i = 0;i<a.length;i++){
+if(a[i].type == "checkbox") a[i].checked = false;
+}
+}
+else{
+for(var i = 0;i<a.length;i++){
+if(a[i].type == "checkbox") a[i].checked = true;
+}
+}
+}
+</script>
     <tr>
-       <th><input type="checkbox" value=""></th>
+       <th><input type="checkbox" name="selectall" onclick="selectAll()" value=""></th>
        <th>资源名称</th>
        <th>作者</th>
        <th>作者身份</th>

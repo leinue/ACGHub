@@ -1,4 +1,28 @@
-<?php include('header.php'); ?>
+<?php include('header.php'); 
+
+  $attr=test_input($_GET['attr']);
+  $page=test_input($_GET['page']);
+
+  connect_mysql();
+
+  if($_POST['delORforb']=="delORforb"){
+    /*switch ($_POST['adminevent']) {
+      case "delete":
+        $um=new UserManagement();
+        $um->del();
+        break;
+      case "forbidden":
+        $um=new UserManagement();
+        $um->Gag();
+        break;
+    }*/
+  }
+
+  if($_POST['stalter']=="stalter"){
+
+  }
+
+?>
 
 
 <div class="user-content" id="user-body">
@@ -20,23 +44,25 @@
          <div id="panel-col-left">
 
          <div class="navbar-form">
-
-         <select class="form-control input-sm">
+         <form method="POST" action="user.php?attr=<?php echo $attr; ?>&page=<?php if(strlen($page)==0){$page=1;}echo $page; ?>">
+         <select  class="form-control input-sm" name="adminevent">
               <option value="operate">批量操作</option>
               <option value="delete">删除</option>
               <option value="forbidden">禁言</option>
          </select>
-         <button type="button" class="btn btn-default btn-sm" id="speace">应用</button>
+         <button type="submit" name="delORforb" value="delORforb" class="btn btn-default btn-sm" id="speace">应用</button>
+         </form>
+         </div>
 
-
-
-         <select class="form-control input-sm">
-              <option value="change">变更用户身份</option>
+         <div class="navbar-form">
+         <form method="POST" action="user.php?attr=<?php echo $attr; ?>&page=<?php if(strlen($page)==0){$page=1;}echo $page; ?>">
+         <select class="form-control input-sm" name="altersta">
+              <option value="change">变更身份</option>
               <option value="admin">管理员</option>
               <option value="user">普通用户</option>
          </select>
-         <button type="button" class="btn btn-default btn-sm">应用</button>
-
+         <button type="submit" name="stalter" value="stalter" class="btn btn-default btn-sm">应用</button>
+         </form>
          </div>
 
          </div>
@@ -51,9 +77,6 @@
   $allusercnt=count($allid);
   $admincnt=GetNumOfAdmin();
   $usercnt=GetNumOfUser();
-
-  $attr=test_input($_GET['attr']);
-  $page=test_input($_GET['page']);
 
   if(strlen($page)==0){
     $page=1;
@@ -129,9 +152,23 @@
   </div>
 
   <table class="table table-striped">
-
+<script language=javascript>
+function selectAll(){
+var a = document.getElementsByTagName("input");
+if(a[0].checked){
+for(var i = 0;i<a.length;i++){
+if(a[i].type == "checkbox") a[i].checked = false;
+}
+}
+else{
+for(var i = 0;i<a.length;i++){
+if(a[i].type == "checkbox") a[i].checked = true;
+}
+}
+}
+</script>
     <tr>
-       <th><input type="checkbox" value=""></th>
+       <th><input type="checkbox" name="selectall" onclick="selectAll()" value=""></th>
        <th>用户名</th>
        <th>注册邮箱</th>
        <th>资源数量</th>
@@ -191,13 +228,14 @@ for($i=1;$i<=$pz;$i++){
          <div id="panel-col-left">
 
          <div class="navbar-form">
-
-         <select class="form-control input-sm">
+         <form method="POST" action="user.php?attr=<?php echo $attr; ?>&page=<?php if(strlen($page)==0){$page=1;}echo $page; ?>">
+         <select  class="form-control input-sm" name="adminevent">
               <option value="operate">批量操作</option>
               <option value="delete">删除</option>
               <option value="forbidden">禁言</option>
          </select>
-         <button type="button" class="btn btn-default btn-sm" id="speace">应用</button>
+         <button type="submit" name="delORforb" value="delORforb" class="btn btn-default btn-sm" id="speace">应用</button>
+         </form>
          </div>
 
          </div>

@@ -9,11 +9,7 @@ $_profile[4]=test_input($_POST['admin-account']);
 $_profile[5]=test_input($_POST['admin-password']);
 
 $updateData=new SiteInfo();
-if($updateData->UpdateProfiles($_profile,$_SESSION['admin-account'])){
-  echo '修改成功';
-}else{
-  echo '修改失败';
-}
+$updateData->UpdateProfiles($_profile,$_SESSION['admin-account']);
 
 ?>
 

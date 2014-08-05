@@ -1406,4 +1406,40 @@ class SiteInfo{
   }
 }
 
+/**
+* 用户管理 禁言 删除 变更为管理员或普通会员
+*/
+class UserManagement{
+  var $user_id;
+  var $sql;
+
+  function __construct($uid){
+    $this->user_id=$uid;}
+
+  function Gag(){
+    $this->sql="UPDATE `acghub_member` SET `sta`='gag' WHERE `id`=$this->user_id";
+    return $this->row_affected();}
+
+  function del(){
+    $this->sql="DELETE FROM `acghub_member` WHERE `id`=$this->user_id";
+    return $this->row_affected();}
+
+  function alter2admin(){
+    $this->sql="UPDATE `acghub_member` SET `sta`='admin' WHERE `id`=$this->user_id";
+    return $this->row_affected();}
+
+  function alter2user(){
+    $this->sql="UPDATE `acghub_member` SET `sta`='user' WHERE `id`=$this->user_id";
+    return $this->row_affected();}
+
+  function row_affected(){
+    $res=mysql_query($this->sql);
+    if($res!=false){
+      if(mysql_affected_rows()!=-1){
+        return true;
+      }else{return false;}
+    }else{return false;}
+  }
+}
+
 ?>
