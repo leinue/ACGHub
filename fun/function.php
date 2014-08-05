@@ -1507,11 +1507,11 @@ class FuzzySearch{
   var $NumOfPro;
   var $UserPhotoDir;
 
-  var $NumOfLike;
+  /*var $NumOfLike;
   var $NameOfItem;
   var $NumOfFollow;
   var $UidOfItemEditor;
-  var $TimeOfItem;
+  var $TimeOfItem;*/
 
   var $FuzzyID=array();
 

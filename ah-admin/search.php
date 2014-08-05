@@ -25,8 +25,7 @@
   </div>
   <div class="panel-body">
 
-    <div class="panel panel-default">
-      <div class="panel-body">
+
 <?php
       $seallid=GetAllId();
       if(!(is_numeric($usersea))){
@@ -43,6 +42,8 @@
           $numam=$numofsea->GetFollowedAmount($id);
           connect_mysql();
 ?>
+    <div class="panel panel-default">
+      <div class="panel-body">
       <div class="r">
         <div class="res-user-title">
          <span class="label label-info" id="lable-res-cls">Info</span>
@@ -54,14 +55,14 @@
         <span id="res-infoa" class="glyphicon glyphicon-time"></span><span> <?php echo GetRegTime($id); ?></span>
         </div>
       </div>
+      </div>
+    </div>      
 <?php
         }else{
           //没找到
         }
       }
 ?>
-      </div>
-    </div>
 
   </div>
 </div>
@@ -96,14 +97,15 @@
   </div>
   <div class="panel-body">
 
-    <div class="panel panel-default">
-      <div class="panel-body">
+
 <?php
       $seares=new RecommendWorks(0,1);
       foreach ($seares->itemname as $key => $resname) {
         if($resname==$researched){
           //$resmulu="../userpro/".$seares->itemuid[$key]."/".$resname;
 ?>
+    <div class="panel panel-default">
+      <div class="panel-body">
       <div class="r">
         <div class="res-user-title">
          <span class="label label-info" id="lable-res-cls">Info</span>
@@ -117,13 +119,12 @@
         <span id="res-infoa" class="glyphicon glyphicon-time"></span><span> <?php echo date("Y-m-d H:i:s",$seares->itemtime[$key]); ?></span>
         </div>
       </div>
+      </div>
+    </div>
 <?php
         }
       }
 ?>
-
-      </div>
-    </div>
 
   </div>
 </div>
