@@ -294,3 +294,24 @@
     }
 
     .pagination{margin:0 auto;}
+
+    .search-body{
+        margin: 0px auto;
+        width: 980px;
+        margin-top:60px;
+        margin-left:15%;
+    }
+
+     /************搜索页面CSS*************/
+
+    .res-info{margin-top:10px;}
+
+    .res-user-title a{font-size: 18px;}
+
+    .res-user-title span{font-size: 16px;}
+
+    .res-info #res-infoa{color:#5BC0DE;}
+
+    .searchform{margin-bottom: 60px;}
+
+    /************搜索页面CSS*************/

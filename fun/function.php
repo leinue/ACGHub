@@ -1496,4 +1496,59 @@ class ResManagment{
 function isEmail($inAddress){
 return (ereg("^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+",$inAddress));} 
 
+/**
+* Fuzzy search
+*/
+class FuzzySearch{
+  var $uid;
+  var $NumOfFans;
+  var $RegTime;
+  var $Name;
+
+  var $NumOfLike;
+  var $NameOfItem;
+  var $NumOfFollow;
+  var $UidOfItemEditor;
+  var $TimeOfItem;
+
+  var $FuzzyID=array();
+
+  
+  function __construct(){
+    
+  }
+
+  function GetDataByUid($id){
+    $allid=GetAllId();
+    $isExist=0;
+    foreach ($allid as $key => $idofall) {
+      if($idofall==$id){
+        $this->uid=$idofall;
+        $this->RegTime=GetRegTime($id);
+        $this->Name=GetName($id);
+        $fans_num=new DBConcerningForking(1);
+        $this->NumOfFans=$fans_num->GetFollowedAmount($id);
+        $isExist++;
+      }
+    }
+    if($isExist==0){return false;}else{return true;}
+  }
+
+  function GetDataByEmail($email){
+    $id=Getuid($email);
+    return $this->GetDataByUid($id);}
+
+  function GetDataByName($char){
+    $fuzzycnt=0;
+    $sql="SELECT * FROM `acghub_member` WHERE `name` LIKE '%$char%'";
+    $res=mysql_query($sql);
+    if($res!=false){
+      while($row=mysql_fetch_row($res)){
+        $this->FuzzyID[$fuzzycnt]=$row[0];
+        $fuzzycnt++;
+      }
+    }else{return false;}
+  }
+
+}
 ?>

@@ -66,11 +66,11 @@ connect_mysql();
         <li class="create"><a href="create.php" title="新建资源"><span class="glyphicon glyphicon-plus"></span></a></li>
         <li class="user"><a href="<?php echo $user_url; ?>" title="个人面板"><span class="glyphicon glyphicon-user"> <?php echo $_SESSION['user-name']; ?></span></a></li>
     </ul>
-     <form class="navbar-form navbar-left" role="search">
+     <form action="stationsearch.php" method="POST" class="navbar-form navbar-left" role="search" target="_blank">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="全站搜索">
+            <input type="text" name="stasea" class="form-control" placeholder="全站搜索">
             <span class="input-group-btn">
-                <button class="btn btn-default" type="button">搜索</button>
+                <button class="btn btn-default" name="stationsearch" value="stationsearch" type="submit">搜索</button>
             </span>
         </div><!-- /input-group -->
     </form>
