@@ -449,7 +449,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 /*****************************项目相关********************************/
 
 function GetProType($dir){
-  
   $ProType=array("script","storyboard","enactment","code","dubbing","music");
 
   $hand=fopen($dir, "r") or die("Unable to open file!");
@@ -1442,6 +1441,10 @@ class UserManagement{
   }
 }
 
+/*
+*资源管理
+*/
+
 class ResManagment{
   var $uid;
   var $ResName;
@@ -1489,5 +1492,8 @@ class ResManagment{
   }
 
 }
+
+function isEmail($inAddress){
+return (ereg("^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+",$inAddress));} 
 
 ?>

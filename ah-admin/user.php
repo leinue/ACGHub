@@ -32,11 +32,11 @@
    <div class="panel panel-default">
          <div class="panel-body">
 
-         <form class="navbar-form" role="search" id="panel-search-right">
+         <form class="navbar-form" action="search.php" method="POST" role="search" id="panel-search-right" target="_blank">
          <div class="input-group">
-         <input type="text" class="form-control" placeholder="搜索用户">
+         <input type="text" name="seauser" class="form-control" placeholder="搜索用户,支持/邮箱/ID">
          <span class="input-group-btn">
-         <button class="btn btn-default" type="button">搜索</button>
+         <button class="btn btn-default" name="usersearch" value="usersearch" type="submit">搜索</button>
          </span>
          </div><!-- /input-group -->
          </form>
