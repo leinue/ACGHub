@@ -229,7 +229,7 @@ connect_mysql();
   <li class="active"><a href="#profile" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-phone"></span> 基本资料</a></li>
   <li><a href="#account" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-wrench"></span> 帐户设置</a></li>
   <li><a href="#mail" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-envelope"></span> 邮箱设置</a></li>
-  <li><a href="#friends" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-heart-empty"></span> 好友</a></li>
+  <li><a href="#friends" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-heart-empty"></span> 资源信息</a></li>
   <li><a href="#info" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-comment"></span> 信息中心</a></li>
   </ul>
 
@@ -430,127 +430,34 @@ connect_mysql();
 
   <div class="panel panel-default">
   <div class="panel-heading">
-  <h3 class="panel-title">关注</h3>
+  <h3 class="panel-title">资源信息</h3>
   </div>
   <div class="panel-body">
 
+  <div class="list-group">
 <?php
 
-function echo_fork_list($name,$msg_url,$uid){
-  $gpd=GetPhoDir(GetEmail($uid));
-  echo '    <div class="f-i-left">
-      <div class="panel panel-default">
-     <div class="panel-body">
+$myuid=GetUid($_SESSION['user-account']);
+$allitem=GetItem("userpro/".$myuid);
 
-      <div class="friends-photo">
-<img class="img-thumbnail" src="'.$gpd.'" height="50" width="50">
-      </div>
+foreach ($allitem as $key => $value){
+  if($value!='..' and $value!='.'){
+    $itemsize=getRealSize(getDirSize("userpro/$myuid/$value"));
+?>
 
-      <div class="friends-detail">
-      <p><a href="user.php?uid='.$uid.'" target="_blank">'.$name.'</a></p>
-      <p><a href="'.$msg_url.'">私信</a></p>
-      </div>
+  <a href="item.php?name=<?php echo $value; ?>&uid=<?php echo $myuid; ?>" class="list-group-item" target="_blank">
+    <h4 class="list-group-item-heading"><?php echo $value; ?></h4>
+    <p class="list-group-item-text"><?php echo $itemsize; ?></p>
+  </a>
 
-    </div>
-     </div>
-    </div>';
-}
-
-$sql="SELECT `friends` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
-
-$res=mysql_query($sql);
-if($res!=false){
-  $row=mysql_fetch_row($res);
-  //$row[0]=%fans%={|%uid%=19|$&$|%uid%=15|}|&&|%fork%={|%uid%=15|$&$||};
-  if($row[0]!=""){
-  $ff=explode("|&&|", $row[0]);
-
-  //**********************************关注******************************************
-
-  $fans=substr($ff[0],strlen("%fans%={|"),strlen($ff[0])-strlen("%fans%={|")-1);
-  $fans_ex=explode("|$&$|", $fans);
-
-  foreach ($fans_ex as $key => $value) {
-    $uid=substr($value, strlen("%uid%="),strlen($value)-strlen("%uid%="));
-    $sql="SELECT `name` FROM `acghub_member` WHERE `id`=".$uid;
-    $res=mysql_query($sql);
-    if($res!=false){
-      $row=mysql_fetch_row($res);
-      $send_msg_url="message.php?uid=".$uid;
-
-      $gpd=GetPhoDir(GetEmail($uid));
-
-      echo '     <div class="f-i-left">
-      <div class="panel panel-default">
-     <div class="panel-body">
-
-      <div class="friends-photo">
-<img class="img-thumbnail" src="'.$gpd.'" height="50" width="50">
-      </div>
-
-      <div class="friends-detail">
-      <p><a href="user.php?uid='.$uid.'" target="_blank">'.$row[0].'</a></p>
-      <p><a href="'.$send_msg_url.'">私信</a></p>
-      </div>
-
-    </div>
-     </div>
-    </div>';
-
-    }
-    else{
-      //echo '数据库错误';
-    }
-
+<?php
   }
-
-  //**********************************粉丝******************************************
-
-  $fork=substr($ff[1],strlen("%fork%={|"),strlen($ff[0])-strlen("%fork%={|")-1);
-  $fork_ex=explode("|$&$|", $fork);
-
-
 }
-else{
-  echo '无';
-}
-}
-else{
-  echo '数据库出错';
-}
-
 
 ?>
+</div>
 
   </div>
-  </div>
-
-  <div class="panel panel-default">
-  <div class="panel-heading">
-  <h3 class="panel-title">粉丝</h3>
-  </div>
-  <div class="panel-body">
-  	
-<?php
-
-  foreach ($fork_ex as $key => $value){
-    $uid=substr($value, strlen("%uid%="),strlen($value)-strlen("%uid%="));
-    $sql="SELECT `name` FROM `acghub_member` WHERE `id`=".$uid;
-    $res=mysql_query($sql);
-    if($res!=false){
-      $row=mysql_fetch_row($res);
-      $send_msg_url="message.php?uid=".$uid;
-      echo_fork_list($row[0],$send_msg_url,$uid);
-    }
-    else{
-      //echo '数据库错误1111';
-    }
-}
-?>
-
-  </div>
-
-
   </div>
 
   </div>
