@@ -1442,7 +1442,7 @@ class UserManagement{
   }
 }
 
-class ResManagment(){
+class ResManagment{
   var $uid;
   var $ResName;
 

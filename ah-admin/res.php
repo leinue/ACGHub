@@ -1,7 +1,11 @@
 <?php include('header.php'); 
 
- $attr=test_input($_GET['attr']);
- $cetpage=test_input($_GET['page']);
+  $attr=test_input($_GET['attr']);
+  $cetpage=test_input($_GET['page']);
+
+  if($_POST['resman']=="resman"){
+
+  }
 
 ?>
 
@@ -12,13 +16,13 @@
    <div class="panel panel-default">
          <div class="panel-body">
 
-         <form class="navbar-form" role="search" id="panel-search-right">
+         <form target="_blank" class="navbar-form" role="search" id="panel-search-right" method="post" action="search.php">
          <div class="input-group">
-         <input type="text" class="form-control" placeholder="搜索资源">
+         <input type="text" name="resname" class="form-control" placeholder="搜索资源">
          <span class="input-group-btn">
-         <button class="btn btn-default" type="button">搜索</button>
+         <button class="btn btn-default" name="searchres" value="searchres" type="submit">搜索</button>
          </span>
-         </div><!-- /input-group -->
+         </div>
          </form>
 
          <div id="panel-col-left">
@@ -29,7 +33,7 @@
             <option value="operate">批量操作</option>
             <option value="delete">删除</option>
          </select>
-         <button type="submit" class="btn btn-default btn-sm" id="speace">应用</button>
+         <button type="submit" name="resman" vlaue="resman" class="btn btn-default btn-sm" id="speace">应用</button>
          </form>
          </div>
 
@@ -213,7 +217,7 @@ for ($i=1;$i<=$pageinfo[0]; $i++){
             <option value="operate">批量操作</option>
             <option value="delete">删除</option>
          </select>
-         <button type="submit" class="btn btn-default btn-sm" id="speace">应用</button>
+         <button type="submit" name="resman" vlaue="resman" class="btn btn-default btn-sm" id="speace">应用</button>
          </form>
          </div>
 
