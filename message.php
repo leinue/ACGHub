@@ -4,6 +4,18 @@ include('header.php');
 connect_mysql();
 
 if($_SESSION['user-login-id']==1){
+  
+  $toid=test_input($_GET['to']);
+  $myuid=GetUid($_SESSION['user-account']);
+
+  if($_POST['send']=="send"){
+    $content=test_input($_POST['content']);
+    if(strlen($content)!=0){
+      $send_msg=new MsgController();
+      if($send_msg->SendTo($myuid,$toid,$content)){
+      }else{echo '发送失败';}
+    }
+  }
 
 ?>
 
@@ -31,7 +43,6 @@ if($_SESSION['user-login-id']==1){
   <div class="panel-heading">
     <h3 class="panel-title">
  <?php
- $toid=test_input($_GET['to']);
  if(is_numeric($toid)){
   if(GetName($toid)!=false){
     echo '与 <a href="user.php?uid='.$toid.'" target="_blank">'.GetName($toid).'</a> 的聊天记录';
@@ -44,13 +55,13 @@ if($_SESSION['user-login-id']==1){
     </h3>
   </div>
   <div class="panel-body">
-  <form>
+  <form action="message.php?to=<?php echo $toid; ?>" method="post">
   <div class="msg-send">
     <div class="col-lg-20">
     <div class="input-group">
-      <textarea class="form-control" rows="3"></textarea>
+      <textarea name="content" class="form-control" rows="3"></textarea>
       <span class="input-group-btn" id="btn-send-msg">
-        <button class="btn btn-default" type="submit">发送</button>
+        <button name="send" value="send" class="btn btn-default" type="submit">发送</button>
       </span>
     </div>
   </div>
@@ -59,8 +70,6 @@ if($_SESSION['user-login-id']==1){
 
   <div class="msg-viusal">
 <?php
-$myuid=GetUid($_SESSION['user-account']);
-
 $msg=new MsgController();
 
 $MsgContentQueueOfSender=$msg->GetContent(0,$myuid,$toid);
