@@ -124,6 +124,7 @@ if($_SESSION['user-login-id']==1 and strlen($itemname)!=0 and strlen($uid)!=0){
          ?>
          <button type="button" class="btn btn-danger btn-sm" id="deleteallitem"  data-toggle="modal" data-target="#myModal">删除项目</button>
          <a href="<?php echo "item.php?name=".$itemname."&uid=".$uid."&method=3"; ?>"><button type="button" class="btn btn-default btn-sm" id="quickly-jump"><span class="glyphicon glyphicon-list-alt"></span> 快速预览</button></a>
+         <a href="<?php echo "item.php?name=".$itemname."&uid=".$uid."&method=4"; ?>" target="_blank"><button type="button" class="btn btn-default btn-sm">编辑</button></a>
          <?php
          }else{
          ?>
@@ -562,9 +563,28 @@ var duoshuoQuery = {short_name:"acghub"};
       $lo="item.php?name=$itemname&uid=$uid";
       header('location:'.$lo);
     }
-  }else{
+  }elseif($method==4){
+?>
+<div class="overitem">
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">编辑 <a href="<?php echo "item.php?name=$itemname&uid=$uid"; ?>"><?php echo $itemname; ?></a></h3>
+  </div>
+  <div class="panel-body">
+        <form method='post' enctype='multipart/form-data' action="upfile.php?name=<?php echo $itemname; ?>&uid=<?php echo $uid; ?>">
+            <input type='hidden' name='MAX_FILE_SIZE' value='8388608'>
+            upload this file:<input type='file' name='userfile'>
+            <input type='submit' value='上传文件'>
+        </form>
+  </div>
+</div>
+
+</div>
+<?php
+    }else{
       $lo="item.php?name=$itemname&uid=$uid";
-      header('location:'.$lo);    
+      header('location:'.$lo);
     }
 }
 else{

@@ -249,11 +249,11 @@ for($i=$startkey;$i<$endkey;$i++){
           $handle = fopen($filename, "r");
           $contents = fread($handle, filesize ($filename));
           fclose($handle);
-
+          
           $protype=explode("\r\n", $contents);
 
           if($protype[0]==$type){
-            $cnt+=1;
+              $cnt+=1;
               echo '<a href="item.php?name='.iconv('gbk','utf-8',$mulu[$i]).'&uid='.$res.'" target="_blank"><li class="list-group-item">'.iconv('gbk','utf-8',$mulu[$i]).'</li></a>';
           }
           else{
