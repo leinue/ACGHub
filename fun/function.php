@@ -1677,12 +1677,32 @@ class MsgController{
     return $this->SubmitToSever(1,$sql);
   }
 
-  function GetFrom(){
-
+  function GetFrom($to){
+    $fromID=array();
+    $sql="SELECT DISTINCT  `_from` FROM `acghub_msg` WHERE `_to`=$to";
+    $fromQueue=$this->SubmitToSever(2,$sql);
+    foreach ($fromQueue as $key => $value) {
+      $fromID[$key]=$value[0];
+    }
+    return $fromID;
   }
 
-  function GetTo(){
+  function GetLastMsg($from,$to){
+    $msgqueue=$this->ReceiveFrom($from,$to);
+    $msgcount=count($msgqueue);
+    $lastmsg=$msgqueue[$msgcount-1];
+    return $lastmsg;
+  }
 
+  function GetTo($from){
+    //通过from查找from和谁私信过
+    $ToID=array();
+    $sql="SELECT DISTINCT  `_to` FROM `acghub_msg` WHERE `_from`=$from";
+    $ToQueue=$this->SubmitToSever(2,$sql);
+    foreach ($ToQueue as $key => $value){
+      $ToID[$key]=$value[0];
+    }
+    return $ToID;
   }
 
   function GetContent($from,$to){

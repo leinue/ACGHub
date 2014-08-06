@@ -471,11 +471,30 @@ foreach ($allitem as $key => $value){
   <div class="panel-body">
 
 <?php 
-//$msg=new MsgController();
-//$sendres=$msg->SendTo(GetUid($_SESSION['user-account']),19,"shit");
-//$looked=$msg->isRead(15,19,"fuck");
-//print_r($msg->GetDateTime(15,19));
-//print_r($msg->ReceiveFrom(15,19));
+$msg=new MsgController();
+
+$idqueue=$msg->GetTo(GetUid($_SESSION['user-account']));
+$idcnt=count($idqueue);
+if($idcnt!=0){
+  foreach ($idqueue as $key => $id) {
+    $lastmsg=$msg->GetLastMsg(GetUid($_SESSION['user-account']),$id);
+?>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="friends-photo">
+     <a href="user.php?uid=<?php echo $id; ?>" target="_blank"><img class="img-thumbnail" src="<?php echo GetPhoDir(GetEmail($id)); ?>" height="50" width="50"></a>
+    </div>
+    <div class="friends-detail">
+    <p>与 <a href="message.php?to=<?php echo $id; ?>" target="_blank"><?php echo GetName($id); ?></a> 的最后一次对话 <span class="glyphicon glyphicon-time" id="sys-info-icon"></span> <?php echo $lastmsg[1]; ?></p>
+    <p id="sys-info-icon"><span class="glyphicon glyphicon-edit"></span> <?php echo $lastmsg[0]; ?></p>
+    </div>
+  </div>
+</div>
+<?php
+  }
+}else{
+  echo '暂无数据';
+}
 ?>
 
   </div>

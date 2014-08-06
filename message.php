@@ -32,26 +32,7 @@ if($_SESSION['user-login-id']==1){
     <h3 class="panel-title">
 
  <?php
-$msg_uid=$_GET['uid'];
-$msg_detail=$msg_uid;
-
-$question_mark_pos=strpos($msg_uid, "?");
-$msg_uid=substr($msg_uid, 0,$question_mark_pos);
-
-$msg_detail=substr($msg_detail, $question_mark_pos+9);
-$msg_de_ex=explode(" == ", $msg_detail);
-
-$count_msg=count($msg_de_ex);
-
-$sql="SELECT `name` FROM `acghub_member` WHERE id=".$msg_uid;
-$res=mysql_query($sql);
-if($res!=false){
-	$row=mysql_fetch_row($res);
-	echo '与 '.$row[0].' 的对话';
-}
-else{
-	echo '数据出错 '.mysql_error();
-}
+$toid=test_input();
  ?>
 
     </h3>
@@ -73,9 +54,7 @@ else{
   <div class="msg-viusal">
 
   <div class="msg-visual-left">
-<?php
-   for($msg_ct_index=0;$msg_ct_index<$count_msg;$msg_ct_index++){
-   	echo '  <div class="u">  
+<div class="u">  
   <div class="row">
   <div class="col-xs-2 col-sm-2">
  <div class="face">
@@ -86,16 +65,15 @@ else{
 
   <div class="col-xs-6">
   <div class="panel panel-default" id="msg-detail">
-  <div class="panel-body">'.
+  <div class="panel-body">
   $msg_de_ex[$msg_ct_index]
-  .'</div>
+  </div>
   </div>
   <span class="help-block">2014-7-10 13:56</span>
   </div>
   </div>
-  </div>';
-   }
-?>
+  </div>
+
 
   </div>
 
