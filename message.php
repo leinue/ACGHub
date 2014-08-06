@@ -30,11 +30,17 @@ if($_SESSION['user-login-id']==1){
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">
-
  <?php
-$toid=test_input();
- ?>
+ $toid=test_input($_GET['to']);
+ if(is_numeric($toid)){
+  if(GetName($toid)!=false){
+    echo '与 <a href="user.php?uid='.$toid.'" target="_blank">'.GetName($toid).'</a> 的聊天记录';
+  }else{
+    header("Location:index.php");
+  }
+ }else{header("Location:index.php");}
 
+ ?>
     </h3>
   </div>
   <div class="panel-body">
@@ -52,74 +58,83 @@ $toid=test_input();
 </form>
 
   <div class="msg-viusal">
+<?php
+$myuid=GetUid($_SESSION['user-account']);
 
+$msg=new MsgController();
+
+$MsgContentQueueOfSender=$msg->GetContent(0,$myuid,$toid);
+$MsgContentQueueOfReceiver=$msg->GetContent(1,$myuid,$toid);
+
+$MsgTimeQueueOfSender=$msg->GetDateTime(0,$myuid,$toid);
+$MsgTimeQueueOfReceiver=$msg->GetDateTime(1,$myuid,$toid);
+
+$SenderCnt=count($MsgContentQueueOfSender);
+$ReceiverCnt=count($MsgContentQueueOfReceiver);
+
+?>
   <div class="msg-visual-left">
-<div class="u">  
+<?php
+if($SenderCnt!=0){
+  foreach ($MsgContentQueueOfSender as $key => $value){
+?>
+  <div class="u">  
   <div class="row">
   <div class="col-xs-2 col-sm-2">
- <div class="face">
-   <img class="img-thumbnail" src="http://i0.hdslb.com/user/1248/124871/myface_m.jpg" height="50" width="50">
+  <div class="face">
+   <img class="img-thumbnail" src="<?php echo GetPhoDir(GetEmail($myuid)); ?>" height="50" width="50">
   </div>
-<span class="glyphicon glyphicon-chevron-left" id="chat-sign"></span>
+   <span class="glyphicon glyphicon-chevron-left" id="chat-sign"></span>
   </div>
 
-  <div class="col-xs-6">
+  <div class="col-xs-12 col-sm-6 col-md-8">
   <div class="panel panel-default" id="msg-detail">
   <div class="panel-body">
-  $msg_de_ex[$msg_ct_index]
+  <?php echo $value; ?>
   </div>
   </div>
-  <span class="help-block">2014-7-10 13:56</span>
+  <span class="help-block"><?php echo $MsgTimeQueueOfSender[$key]; ?></span>
   </div>
   </div>
   </div>
-
-
+<?php
+  }
+}
+?>
   </div>
 
   <div class="msg-visual-right">
-
+<?php
+if($ReceiverCnt!=0){
+  foreach ($MsgContentQueueOfReceiver as $key => $value) {
+?>
   <div class="u">  
   <div class="row">
-  <div class="col-xs-12 col-sm-6 col-md-10">
+  <div class="col-xs-2 col-sm-2">
+  <div class="face">
+   <img class="img-thumbnail" src="<?php echo GetPhoDir(GetEmail($myuid)); ?>" height="50" width="50">
+  </div>
+   <span class="glyphicon glyphicon-chevron-left" id="chat-sign"></span>
+  </div>
+
+  <div class="col-xs-12 col-sm-6 col-md-8">
   <div class="panel panel-default" id="msg-detail">
   <div class="panel-body">
-    Basic panel example<br>Basic panel example<br>Basic panel example
+  <?php echo $value; ?>
   </div>
   </div>
-  <span class="help-block">2014-7-10 13:56</span>
-  </div>
-  <div class="col-xs-2 col-md-2">
-  <div class="face">
-   <img class="img-thumbnail" src="http://i0.hdslb.com/user/1248/124871/myface_m.jpg" height="50" width="50">
-  </div>
-<span class="glyphicon glyphicon-chevron-right" id="chat-sign-right"></span>
+  <span class="help-block"><?php echo $MsgTimeQueueOfReceiver[$key]; ?></span>
   </div>
   </div>
   </div>
-
-  <div class="u">  
-  <div class="row">
-  <div class="col-xs-12 col-sm-6 col-md-10">
-  <div class="panel panel-default" id="msg-detail">
-  <div class="panel-body">
-    Basic panel example<br>Basic panel example<br>Basic panel example
-  </div>
-  </div>
-  <span class="help-block">2014-7-10 13:56</span>
-  </div>
-  <div class="col-xs-2 col-md-2">
-  <div class="face">
-   <img class="img-thumbnail" src="http://i0.hdslb.com/user/1248/124871/myface_m.jpg" height="50" width="50">
-  </div>
-<span class="glyphicon glyphicon-chevron-right" id="chat-sign-right"></span>
-  </div>
-  </div>
+<?php
+  }
+}
+?>
   </div>
 
   </div>
 
-  </div>
   </div>
   </div>
 </div>

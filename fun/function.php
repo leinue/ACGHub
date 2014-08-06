@@ -1663,6 +1663,12 @@ class MsgController{
      return $this->SubmitToSever(2,$sql);
   }
 
+  function ReceiveTo($from,$to){
+    $sql="SELECT  `content`, `datetime`, `isread` FROM `acghub_msg`
+     WHERE `_from`=$to and `_to`=$from";
+     return $this->SubmitToSever(2,$sql);    
+  }
+
   function isRead($from,$to,$content){
     //1->已读 0->未读
     $sql="SELECT `isread` FROM `acghub_msg` 
@@ -1705,8 +1711,19 @@ class MsgController{
     return $ToID;
   }
 
-  function GetContent($from,$to){
-    $MessageQueue=$this->ReceiveFrom($from,$to);
+  function GetContent($method=0,$from,$to){
+    //method=0->Sender //method=1->Receiver
+    switch ($method){
+      case 1:
+        $MessageQueue=$this->ReceiveTo($from,$to);
+        break;
+      case 0:
+        $MessageQueue=$this->ReceiveFrom($from,$to);
+        break;
+      default:
+        return false;
+        break;
+    }
     $MsgContent=array();
     foreach ($MessageQueue as $key => $value) {
       $MsgContent[$key]=$value[0];
@@ -1714,8 +1731,19 @@ class MsgController{
     return $MsgContent;
   }
 
-  function GetDateTime($from,$to){
-    $MessageQueue=$this->ReceiveFrom($from,$to);
+  function GetDateTime($method=0,$from,$to){
+    //method=0->Sender //method=1->Receiver
+    switch ($method){
+      case 1:
+        $MessageQueue=$this->ReceiveTo($from,$to);
+        break;
+      case 0:
+        $MessageQueue=$this->ReceiveFrom($from,$to);
+        break;
+      default:
+        return false;
+        break;
+    }    
     $MsgContent=array();
     foreach ($MessageQueue as $key => $value) {
       $MsgContent[$key]=$value[1];
