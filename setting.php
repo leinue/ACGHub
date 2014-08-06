@@ -470,82 +470,16 @@ foreach ($allitem as $key => $value){
   </div>
   <div class="panel-body">
 
-  	
-
-<?php
-
-function echo_sys_info($content,$time){
-
-echo '<div class="panel panel-default">
-         <div class="panel-body"  id="sys-info-icon">
-          <span class="glyphicon glyphicon-warning-sign"></span> [系统通知]
-
-           <p><span class="sys-sty">'.$content.'</span></p>
-           <p><span class="sys-sty">'.$time.'</span></p>
-         </div>
-        </div>';
-}
-      $sql="SELECT `message` FROM `acghub_member` WHERE `email`='".$_SESSION['user-account']."'";
-      $res=mysql_query($sql);
-      if($res!=false){
-        $row=mysql_fetch_row($res);
-        //$row[0]=%type%=1|&&|%obj%={|hahahaha|}|&&|%content%={|hhhhh+==+23333|}*\-/*%type%=1|&&|%obj%={|sangxinbingkuang|}|&&|%content%={|sdfs+==+123456789|}*\-/*%type%=0|&&|%content%={|dfgfdg+==+789456|}
-        $str_msg=explode("*\-/*", $row[0]);
-        foreach ($str_msg as $key0 => $value0) {
-          //$value[0]=%type%=1|&&|%obj%={|蛤蛤蛤|}|&&|%content%={|hhhhh+==+23333|}|&&|%uid%={|15|}
-          //$value[1]=%type%=1|&&|%obj%={|sangxinbingkuang|}|&&|%content%={|sdfs+==+123456789|}|&&|%uid%={|15|}
-          $str_msg_solo=explode("|&&|", $value0);
-          foreach ($str_msg_solo as $key1 => $value1) {
-            //$value[0]=%type%=1;$value[1]=%obj%={|蛤蛤蛤|};$value[2]=%content%={|hhhhh+==+23333|}
-            $msg_type=substr($str_msg_solo[0], strlen("%type%="));
-            if($msg_type=="9"){
-              $obj_name=substr($str_msg_solo[1], strlen("%obj%={|"),strlen($str_msg_solo[1])-strlen("|}"));
-              $obj_name=str_replace('|}', '', $obj_name);
-
-              $msg_content=substr($str_msg_solo[2], strlen("%content%={|"),strlen($str_msg_solo[1])-strlen("|}"));
-              $msg_content=str_replace('|}', '', $msg_content);
-
-              $msger_uid=substr($str_msg_solo[3], strlen("%uid%={|"),strlen($str_msg_solo[1])-strlen("|}"));
-              $msger_uid=str_replace('|}', '', $msger_uid);
-
-              $msger_url="message.php?uid=".$msger_uid."?content=".$msg_content;
-
-              $gpd=GetPhoDir(GetEmail($msger_uid));
-
-              $msg_content_solo=explode("+==+", $msg_content);
-              $num_arrary=count($msg_content_solo);
-              $last_msg=$msg_content_solo[$num_arrary-1];
-?>
-      <div class="panel panel-default">
-       <div class="panel-body">     
-        <div class="friends-photo">
-            <a href="#"><img class="img-thumbnail" src="<?php echo $gpd; ?>" height="50" width="50"></a>
-        </div>
-        <div class="friends-detail">
-            <p>与 <a href="<?php echo $msger_url; ?>" target="_blank"><?php echo $obj_name; ?></a> 的最后一次对话</p>
-            <p id="#sys-info-icon"><span class="glyphicon glyphicon-chevron-left"></span><?php echo $last_msg; ?><span class="glyphicon glyphicon-chevron-right"></span></p>
-        </div>
-       </div>
-       </div>
-<?php
-           break;
-            }
-            elseif($msg_type=="8"){
-              //$value[2]=%type%=8|&&|%content%={|system info+==+2011-01-01|}
-              $sys_content=substr($str_msg_solo[1], strlen("%content%={|"),strlen($str_msg_solo[1])-strlen("|}"));
-              $sys_content=str_replace('|}', '', $sys_content);
-              $sys_con_solo=explode("+==+", $sys_content);
-              $count_sys_info=substr_count($row[0],'%type%=8');
-              break;
-              //系统消息
-            }
-          }
-        }
-
+<?php 
+//$msg=new MsgController();
+//$sendres=$msg->SendTo(GetUid($_SESSION['user-account']),19,"shit");
+//$looked=$msg->isRead(15,19,"fuck");
+//print_r($msg->GetDateTime(15,19));
+//print_r($msg->ReceiveFrom(15,19));
 ?>
 
-      </div>
-      </div> 
+  </div>
+  </div> 
 
       <div class="panel panel-default">
 
@@ -555,26 +489,10 @@ echo '<div class="panel panel-default">
 
       <div class="panel-body">
 
-<?php
-for($sys_info_index=0;$sys_info_index<$count_sys_info;$sys_info_index++)
-echo_sys_info($sys_con_solo[0],$sys_con_solo[1]);
-?>
       </div>
 
     </div> 
-      
-<?php
-     }
-     else{
-?>
-   
-   <p>数据库出错</p>
- 
-<?php
-     }
-?>
      
-
 </div>
 
 

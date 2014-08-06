@@ -1614,7 +1614,94 @@ class FuzzySearch{
 class MsgController{
   
   function __construct(){
-    # code...
+    date_default_timezone_set('Etc/GMT-8');
+    mysql_select_db("acghub_msg");
   }
+
+  function SubmitToSever($method,$sql){
+    //method=1->insert/update method=2->select
+    $msginfo=array();
+    $msginfo_cnt=0;
+    switch ($method) {
+      case 1:
+        $res=mysql_query($sql);
+        echo mysql_error();
+        if($res!=false){
+          if(mysql_affected_rows()!=-1){
+            return true;
+          }else{return false;}
+        }else{return false;}
+        break;
+      case 2:
+        $res=mysql_query($sql);
+        if($res!=false){
+          while($row=mysql_fetch_row($res)){
+            $msginfo[$msginfo_cnt]=$row;
+            $msginfo_cnt++;
+          }
+          return $msginfo;
+        }else{return false;}
+        break;
+      default:
+        return false;
+        break;
+    }
+
+
+  }
+
+  function SendTo($from,$to,$content){
+    $sql="INSERT INTO `acghub_msg`
+    (`_from`, `_to`, `content`, `datetime`, `isread`) 
+    VALUES ($from,$to,'$content','".date("Y-m-d H:i:s")."',0)";
+    return $this->SubmitToSever(1,$sql);
+  }
+
+  function ReceiveFrom($from,$to){
+    $sql="SELECT  `content`, `datetime`, `isread` FROM `acghub_msg`
+     WHERE `_from`=$from and `_to`=$to";
+     return $this->SubmitToSever(2,$sql);
+  }
+
+  function isRead($from,$to,$content){
+    //1->已读 0->未读
+    $sql="SELECT `isread` FROM `acghub_msg` 
+    WHERE `_from`=$from  and `_to`=$to and  `content`='$content'";
+    $looked=$this->SubmitToSever(2,$sql);
+    if($looked==1){return true;}else{return false;}
+  }
+
+  function ReadMarking($from,$to,$content){
+    $sql="UPDATE `acghub_msg` SET `isread`=1 
+    WHERE `_from`=$from and `_to`=$to and `content`='$content'";
+    return $this->SubmitToSever(1,$sql);
+  }
+
+  function GetFrom(){
+
+  }
+
+  function GetTo(){
+
+  }
+
+  function GetContent($from,$to){
+    $MessageQueue=$this->ReceiveFrom($from,$to);
+    $MsgContent=array();
+    foreach ($MessageQueue as $key => $value) {
+      $MsgContent[$key]=$value[0];
+    }
+    return $MsgContent;
+  }
+
+  function GetDateTime($from,$to){
+    $MessageQueue=$this->ReceiveFrom($from,$to);
+    $MsgContent=array();
+    foreach ($MessageQueue as $key => $value) {
+      $MsgContent[$key]=$value[1];
+    }
+    return $MsgContent;
+  }
+
 }
 ?>

@@ -84,7 +84,7 @@ function CreateMSGTable(){
     `_to` int(11) NOT NULL,
     `content` TEXT NOT NULL,
     `datetime` TEXT NOT NULL,
-    `isread` TEXT NOT NULL,
+    `isread` int(11) NOT NULL,
     PRIMARY KEY (id)
     )DEFAULT CHARSET=utf8;";
   $res=mysql_query($sql);
