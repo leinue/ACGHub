@@ -1607,4 +1607,14 @@ class FuzzySearch{
   }
 
 }
+
+/**
+* msg controller
+*/
+class MsgController{
+  
+  function __construct(){
+    # code...
+  }
+}
 ?>

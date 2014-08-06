@@ -77,6 +77,22 @@ function Create_Setting_Table(){
   }
 }
 
+function CreateMSGTable(){
+  $sql="CREATE TABLE acghub_msg(
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `_from` int(11) NOT NULL,
+    `_to` int(11) NOT NULL,
+    `content` TEXT NOT NULL,
+    `datetime` TEXT NOT NULL,
+    `isread` TEXT NOT NULL,
+    PRIMARY KEY (id)
+    )DEFAULT CHARSET=utf8;";
+  $res=mysql_query($sql);
+  if($res!=false){
+    return true;
+  }else{return false;}
+}
+
 /**
 * concerning fork
 */
