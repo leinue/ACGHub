@@ -4,7 +4,7 @@
 include('fun/mysql.php');
 include('fun/function.php');
 connect_mysql();
-
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="zh-cn">
@@ -41,8 +41,7 @@ connect_mysql();
     <a class="navbar-brand" href="index.php"><span class="glyphicon glyphicon-link"></span>ACGHub</a>
 
     <?php 
-     //error_reporting(E_ALL ^ E_NOTICE);
-     session_start();
+     //error_reporting(E_ALL ^ E_NOTICE)
      if($_SESSION['user-login-id']!=1){
     ?>
     <form class="navbar-form navbar-left">

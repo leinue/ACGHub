@@ -93,6 +93,48 @@ function CreateMSGTable(){
   }else{return false;}
 }
 
+function CreateForkInfo(){
+  $sql="CREATE TABLE acghub_fork_info(
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `uid` int(11) NOT NULL,
+    `FollowingNum` int(11) NOT NULL,
+    `FollowedNum` int(11) NOT NULL,
+    PRIMARY KEY (id)
+    )DEFAULT CHARSET=utf8;";
+  $res=mysql_query($sql);
+  if($res!=false){
+    return true;
+  }else{return false;}
+}
+
+function CreateFollowing(){
+  $sql="CREATE TABLE acghub_fork_following(
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `uid` int(11) NOT NULL,
+    `Following` int(11) NOT NULL,
+    `Fotime` TEXT NOT NULL,
+    PRIMARY KEY (id)
+    )DEFAULT CHARSET=utf8;";
+  $res=mysql_query($sql);
+  if($res!=false){
+    return true;
+  }else{return false;}  
+}
+
+function CreateFollower(){
+  $sql="CREATE TABLE acghub_fork_followed(
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `uid` int(11) NOT NULL,
+    `Followed` int(11) NOT NULL,
+    `Fotime` TEXT NOT NULL,
+    PRIMARY KEY (id)
+    )DEFAULT CHARSET=utf8;";
+  $res=mysql_query($sql);
+  if($res!=false){
+    return true;
+  }else{return false;}  
+}
+
 /**
 * concerning fork
 */

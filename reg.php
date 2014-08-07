@@ -1,6 +1,5 @@
 <?php 
 include('header.php');
-session_start();
 
 $username=$_POST['name'];
 $usermail=$_POST['email'];
@@ -46,7 +45,7 @@ if(trim($username)<>"" and trim($usermail)<>"" and $userpw<>""){
          $res_fo=mysql_query($sql_fo);
          if($res_fo!=false){
           if(mysql_affected_rows()!=-1){
-            $reg_url="http://localhost/emailcheck.php?u=".mysql_insert_id()."?method=reg";
+            $reg_url="http://acghub.ivydom.com/emailcheck.php?u=".mysql_insert_id()."&method=reg";
             $content="<a href=\"".$reg_url."\">欢迎注册ACGHub,请点击这里进行激活帐号</a>";
             mail($usermail,"感谢注册ACGHub",$content);
           }else{

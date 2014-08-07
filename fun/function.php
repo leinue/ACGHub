@@ -498,6 +498,7 @@ function GetDes($filename){
 }
 
 function GetItem($list){
+  if(!(file_exists($list))){return false;}
   $mulu = scandir($list);
     $count = count($mulu);
     if($count>2){
@@ -1299,9 +1300,11 @@ class RecommendWorks{
         switch ($isadmin){
           case 1:
             $zmulu="../userpro/".$id."/".$itemarr[$i];
+            if(!(file_exists($zmulu))){return false;}
             break;
           case 0:
             $zmulu="userpro/".$id."/".$itemarr[$i];
+            if(!(file_exists($zmulu))){return false;}
             break;
           default:
             return false;
@@ -1327,9 +1330,11 @@ class RecommendWorks{
       switch ($isadmin) {
         case 1:
           $zmulua="../userpro/".$id."/".$this->itemname[$key];
+          if(!(file_exists($zmulua))){return false;}
           break;
         case 0:
           $zmulua="userpro/".$id."/".$this->itemname[$key];
+          if(!(file_exists($zmulua))){return false;}
           break;
         default:
           return false;
